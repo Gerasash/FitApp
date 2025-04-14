@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FitApp</name>
+    </assembly>
+    <members>
+        <member name="T:FitApp.ViewModels.MainViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:FitApp.ViewModels.MainViewModel.ToDoItems">
+            <inheritdoc cref="F:FitApp.ViewModels.MainViewModel.toDoItems"/>
+        </member>
+        <member name="P:FitApp.ViewModels.MainViewModel.NewTaskTitle">
+            <inheritdoc cref="F:FitApp.ViewModels.MainViewModel.newTaskTitle"/>
+        </member>
+        <member name="F:FitApp.ViewModels.MainViewModel.loadItemsCommand">
+            <summary>The backing field for <see cref="P:FitApp.ViewModels.MainViewModel.LoadItemsCommand"/>.</summary>
+        </member>
+        <member name="P:FitApp.ViewModels.MainViewModel.LoadItemsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:FitApp.ViewModels.MainViewModel.LoadItems"/>.</summary>
+        </member>
+        <member name="F:FitApp.ViewModels.MainViewModel.addItemCommand">
+            <summary>The backing field for <see cref="P:FitApp.ViewModels.MainViewModel.AddItemCommand"/>.</summary>
+        </member>
+        <member name="P:FitApp.ViewModels.MainViewModel.AddItemCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:FitApp.ViewModels.MainViewModel.AddItem"/>.</summary>
+        </member>
+        <member name="F:FitApp.ViewModels.MainViewModel.deleteItemCommand">
+            <summary>The backing field for <see cref="P:FitApp.ViewModels.MainViewModel.DeleteItemCommand"/>.</summary>
+        </member>
+        <member name="P:FitApp.ViewModels.MainViewModel.DeleteItemCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand`1"/> instance wrapping <see cref="M:FitApp.ViewModels.MainViewModel.DeleteItem(FitApp.Models.ToDoItem)"/>.</summary>
+        </member>
+        <member name="T:FitApp.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ToDoItems">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ToDoItems" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.NewTaskTitle">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "NewTaskTitle" generated properties.</summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ToDoItems">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ToDoItems" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.NewTaskTitle">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "NewTaskTitle" generated properties.</summary>
+        </member>
+    </members>
+</doc>

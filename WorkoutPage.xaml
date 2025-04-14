@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FitApp.WorkoutPage"
+             >
+
+    <StackLayout>
+        <Label x:Name="Label1" Text="" />
+        <Label x:Name="WorkoutNameLabel" Text="Детали тренировки" FontSize="Large"/>
+
+        <Button x:Name ="backButton"  Text = "Назад" HorizontalOptions="Start"/>
+        <Button x:Name ="addExerciseButton"  Text = "Добавить упражнение" HorizontalOptions="Start"/>
+
+        <Picker x:Name="WorkoutPicker" Title = "Выбор тренировки"
+                SelectedIndexChanged="PickerSelectedIndexChanged">
+            <Picker.Items>
+                <x:String>Грудь</x:String>
+                <x:String>рукит</x:String>
+                <x:String>спина</x:String>
+            </Picker.Items>
+        </Picker>
+        <Label x:Name="WorkoutDescriptionLabel" />
+        <Editor FontSize="16" HeightRequest="200" />
+    </StackLayout>
+</ContentPage>
+
+    
