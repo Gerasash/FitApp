@@ -476,3 +476,4 @@ C:\Users\Gera1\dev\FitApp\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\SQLiteP
 C:\Users\Gera1\dev\FitApp\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\e_sqlite3.dll
 C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\testtoolbar.scale-100.jpg
 C:\Users\Gera1\dev\FitApp\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\testtoolbar.scale-100.jpg
+C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\FitApp.sourcelink.json

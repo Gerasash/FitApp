@@ -1,0 +1,58 @@
+# Ignore build results
+/bin/
+//obj/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+
+# Visual Studio
+.vscode/
+.vs/
+*.dbmdl
+*.sln.docstates
+
+# MAUI specific cache
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.jar
+*.pdb
+
+# Android/Java generated files
+*.log
+*.cache
+*.keystore
+*.iml
+.gradle/
+.idea/
+
+# macOS system files
+.DS_Store
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# NuGet packages
+*.nupkg
+*.snupkg
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Dotnet tools
+/.tools/
+
+# SQLite database (if not needed in Git)
+*.db
+*.sqlite
+*.sqlite3
+
+# Local secrets
+secrets.json
+appsettings.Development.json

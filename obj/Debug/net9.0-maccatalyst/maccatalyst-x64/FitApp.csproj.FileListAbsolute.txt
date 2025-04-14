@@ -302,3 +302,4 @@ C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\XamlC.sta
 C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\FitApp.csproj.Up2Date
 C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\FitApp.genruntimeconfig.cache
 C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\ref\FitApp.dll
+C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\FitApp.sourcelink.json

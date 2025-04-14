@@ -951,3 +951,4 @@ C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-android\android\assets\x86_64\Xamarin
 C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-android\android\assets\x86_64\Xamarin.KotlinX.Serialization.Core.Jvm.pdb
 C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-android\android\assets\x86_64\Xamarin.KotlinX.Serialization.Core.pdb
 C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-android\android\src\crc6452ffdc5b34af3a0f\MauiShapeableImageView.java
+C:\Users\Gera1\dev\FitApp\obj\Debug\net9.0-android\FitApp.sourcelink.json
