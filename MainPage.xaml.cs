@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Security.AccessControl;
 using Microsoft.Maui.Controls;
 using System.Reflection;
-using FitApp.ViewModels;
 using System.Diagnostics;
 using FitApp.Models;
+using FitApp.ViewModels;
 //using HealthKit;
 
 namespace FitApp
@@ -143,5 +143,6 @@ namespace FitApp
                 Workouts.Remove(workout);
             }
         }
+
     }
 }

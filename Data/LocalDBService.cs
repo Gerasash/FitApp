@@ -15,7 +15,8 @@ namespace FitApp
 
         public LocalDBService()
         {
-            _conection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, DB_NAME);
+            _conection = new SQLiteAsyncConnection(dbPath);
             _conection.CreateTableAsync<User>();
         }
         public async Task<List<User>> GetUser()

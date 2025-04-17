@@ -9,10 +9,11 @@ namespace FitApp.Data
 {
     public class ToDoDataBase
     {
+        private const string DB_NAME = "Todo";
         private readonly SQLiteAsyncConnection _connection;
         public ToDoDataBase()
         {
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "Todo.db");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, DB_NAME);
             _connection = new SQLiteAsyncConnection(dbPath);
             _connection.CreateTableAsync<ToDoItem>().Wait();
         }
