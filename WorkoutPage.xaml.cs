@@ -4,12 +4,13 @@ using System.Security.AccessControl;
 using SQLite;
 using System.Collections.ObjectModel;
 using FitApp.Models;
+using FitApp.ViewModels;
 public partial class WorkoutPage : ContentPage
 {
     public WorkoutPage(Workout workout)
     {
         InitializeComponent();
-
+        BindingContext = new WorkoutViewModel();
         // Устанавливаем данные тренировки на странице
         WorkoutNameLabel.Text = workout.Name;
         WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";

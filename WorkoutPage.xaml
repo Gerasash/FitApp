@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FitApp.WorkoutPage"
              >
-
+    
+    
     <StackLayout>
         <Label x:Name="Label1" Text="" />
         <Label x:Name="WorkoutNameLabel" Text="Детали тренировки" FontSize="Large"/>

@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Diagnostics;
 using FitApp.Models;
 using FitApp.ViewModels;
+using FitApp.Data;
 //using HealthKit;
 
 namespace FitApp
@@ -21,7 +22,7 @@ namespace FitApp
         public MainPage(LocalDBService dbService)
         {
             InitializeComponent();
-            //BindingContext = new MainViewModel();
+            BindingContext = new MainViewModel();
 
             _dbService = dbService;
             Task.Run(async () => listView.ItemsSource = await _dbService.GetUser());
@@ -146,6 +147,11 @@ namespace FitApp
         private async void GoToTaskList(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TaskListPage());
+        }
+
+        private async void GoToWorkoutList(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new WorkoutListPage());
         }
     }
 }

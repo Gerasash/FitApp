@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
+            xmlns:local="clr-namespace:FitApp.ViewModels"
+            
              x:Class="FitApp.MainPage">
 
     <StackLayout Padding="20">
@@ -25,6 +27,8 @@
 
         <!-- Список тренировок -->
         <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" >
+            <Button Text="Перейти к списку тренировок" Clicked="GoToWorkoutList"></Button>
+            
             
         </VerticalStackLayout>
 
@@ -35,8 +39,8 @@
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem Text="Удалить"
-          Clicked="OnDeleteWorkoutClicked"
-          CommandParameter="{Binding .}" />
+                                Clicked="OnDeleteWorkoutClicked"
+                                CommandParameter="{Binding .}" />
                         </ViewCell.ContextActions>
 
                         <StackLayout>

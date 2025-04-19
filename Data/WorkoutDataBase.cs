@@ -16,23 +16,26 @@ namespace FitApp.Data
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, DB_NAME);
             _connection = new SQLiteAsyncConnection(dbPath);
+
             _connection.CreateTableAsync<Workout>().Wait();
+            _connection.CreateTableAsync<MuscleGroup>().Wait();
+            _connection.CreateTableAsync<WorkoutMuscleGroup>().Wait();
         }
 
-        public Task<List<Workout>> GetItems()
+        public Task<List<Workout>> GetWorkouts()
         {
             return _connection.Table<Workout>().ToListAsync();
         }
-        public Task<int> SaveItem(Workout item)
+        public Task<int> SaveWorkout(Workout Workout)
         {
-            if (item.Id == 0)
-                return _connection.InsertAsync(item);
+            if (Workout.Id == 0)
+                return _connection.InsertAsync(Workout);
             else
-                return _connection.UpdateAsync(item);
+                return _connection.UpdateAsync(Workout);
         }
-        public Task<int> DeleteItem(Workout item)
+        public Task<int> DeleteWorkout(Workout Workout)
         {
-            return _connection.DeleteAsync(item);
+            return _connection.DeleteAsync(Workout);
         }
     }
 }

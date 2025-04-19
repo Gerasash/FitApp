@@ -69,6 +69,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = FitApp.TaskListPage.xaml
 build_metadata.AdditionalFiles.TargetPath = TaskListPage.xaml
 build_metadata.AdditionalFiles.RelativePath = TaskListPage.xaml
 
+[C:/Users/Gera1/dev/FitApp/WorkoutListPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = FitApp.WorkoutListPage.xaml
+build_metadata.AdditionalFiles.TargetPath = WorkoutListPage.xaml
+build_metadata.AdditionalFiles.RelativePath = WorkoutListPage.xaml
+
 [C:/Users/Gera1/dev/FitApp/WorkoutPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = FitApp.WorkoutPage.xaml
