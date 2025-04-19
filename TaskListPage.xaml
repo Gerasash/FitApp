@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FitApp.TaskListPage"
+             
+             xmlns:local="clr-namespace:FitApp.ViewModels"
+
+             Title="TaskListPage">
+    
+    <VerticalStackLayout>
+        <Entry Placeholder = "введи название шишкина леса" Text="{Binding NewTaskTitle, Mode=TwoWay}"></Entry>
+        <Button Text="Добавить" Command="{Binding AddItemCommand}"></Button>
+        <StackLayout Orientation="Vertical">
+            <CollectionView ItemsSource="{Binding ToDoItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"></Label>
+                            <Button Text="X" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}},Path=DeleteItemCommand } " CommandParameter="{Binding .}"></Button>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+        <Button Text="вернуться" Clicked="GoToBack_Clicked"></Button>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:FitApp.ViewModels"
+             
              x:Class="FitApp.MainPage">
 
     <StackLayout Padding="20">
@@ -24,14 +24,19 @@
                 Clicked="OnAddWorkoutClicked" />
 
         <!-- Список тренировок -->
-        <ListView x:Name="WorkoutListView">
+        <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" >
+            
+        </VerticalStackLayout>
+
+
+        <ListView x:Name="WorkoutListView" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem Text="Удалить"
-                              Clicked="OnDeleteWorkoutClicked"
-                              CommandParameter="{Binding .}" />
+          Clicked="OnDeleteWorkoutClicked"
+          CommandParameter="{Binding .}" />
                         </ViewCell.ContextActions>
 
                         <StackLayout>
@@ -43,6 +48,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
         <VerticalStackLayout Padding="10" FlexLayout.Basis="400" Background="Beige">
             <Entry x:Name= "nameEntryField" Placeholder="Name"/>
             <Entry x:Name= "emailEntryField" Placeholder="email"/>
@@ -70,20 +76,8 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Entry Placeholder = "введи название шишкина леса" Text="{Binding NewTaskTitle, Mode=TwoWay}"></Entry>
-        <Button Text="Добавить" Command="{Binding AddItemCommand}"></Button>
-        <StackLayout Orientation="Vertical">
-            <CollectionView ItemsSource="{Binding TodoItems}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal" Padding="5">
-                            <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"></Label>
-                            <Button Text="X" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}},Path=DeleteItemCommand } " CommandParameter="{Binding .}"></Button>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
-
+        <Button Text="Перейти к списку дел" Clicked="GoToTaskList"></Button>
+        
+        
     </StackLayout>
 </ContentPage>

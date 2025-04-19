@@ -21,11 +21,11 @@ namespace FitApp
         public MainPage(LocalDBService dbService)
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
+            //BindingContext = new MainViewModel();
 
             _dbService = dbService;
             Task.Run(async () => listView.ItemsSource = await _dbService.GetUser());
-
+            
             // Привязка данных к ListView
             WorkoutListView.ItemsSource = Workouts;
             // Добавляем обработчик события выбора тренировки
@@ -123,7 +123,6 @@ namespace FitApp
             await Navigation.PushAsync(new WorkoutPage(selectedWorkout));
 
             WorkoutListView.SelectedItem = null;
-
         }
         
         private async void OnDeleteWorkoutClicked(object sender, EventArgs e)
@@ -144,5 +143,9 @@ namespace FitApp
             }
         }
 
+        private async void GoToTaskList(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TaskListPage());
+        }
     }
 }

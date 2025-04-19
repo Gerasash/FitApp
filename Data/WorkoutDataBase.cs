@@ -7,30 +7,30 @@ using FitApp.Models;
 using SQLite;
 namespace FitApp.Data
 {
-    public class ToDoDataBase
+    public class WorkoutDataBase
     {
-        private const string DB_NAME = "Todo";
+        private const string DB_NAME = "Workout.db";
         private readonly SQLiteAsyncConnection _connection;
-        
-        public ToDoDataBase()
+
+        public WorkoutDataBase()
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, DB_NAME);
             _connection = new SQLiteAsyncConnection(dbPath);
-            _connection.CreateTableAsync<ToDoItem>().Wait();
+            _connection.CreateTableAsync<Workout>().Wait();
         }
 
-        public Task<List<ToDoItem>> GetItems()
+        public Task<List<Workout>> GetItems()
         {
-            return _connection.Table<ToDoItem>().ToListAsync();
+            return _connection.Table<Workout>().ToListAsync();
         }
-        public Task<int> SaveItem(ToDoItem item)
+        public Task<int> SaveItem(Workout item)
         {
             if (item.Id == 0)
                 return _connection.InsertAsync(item);
             else
                 return _connection.UpdateAsync(item);
         }
-        public Task<int> DeleteItem(ToDoItem item)
+        public Task<int> DeleteItem(Workout item)
         {
             return _connection.DeleteAsync(item);
         }
