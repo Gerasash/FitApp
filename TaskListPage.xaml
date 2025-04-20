@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:FitApp.ViewModels"
              Title="TaskListPage">
     
-    <VerticalStackLayout>
+    <VerticalStackLayout x:Name="ListWorkouts">
         <Entry Placeholder = "введи название шишкина леса" Text="{Binding NewTaskTitle, Mode=TwoWay}"></Entry>
         <Button Text="Добавить" Command="{Binding AddItemCommand}"></Button>
         <StackLayout Orientation="Vertical">

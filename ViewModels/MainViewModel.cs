@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using FitApp.Data;
 using FitApp.Models;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 namespace FitApp.ViewModels
 {
     public partial class MainViewModel : ObservableObject

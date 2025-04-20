@@ -1,8 +1,6 @@
 namespace FitApp;
 using Microsoft.Maui.Controls;
-using System.Security.AccessControl;
 using SQLite;
-using System.Collections.ObjectModel;
 using FitApp.Models;
 using FitApp.ViewModels;
 public partial class WorkoutPage : ContentPage

@@ -8,24 +8,41 @@
 
     <StackLayout Padding="20">
 
-        <Entry x:Name="WorkoutNameEntry" 
-                Placeholder="Введите название тренировки" />
-
+        <Entry x:Name="WorkoutNameEntry" Placeholder = "Введите название тренировки" 
+               Text="{Binding NewTaskTitle, Mode=TwoWay}"/>
         <!-- Поле для выбора даты и времени тренировки -->
         <Label x:Name="labelTime" Text="Выберите дату"/>
         <DatePicker x:Name="WorkoutDatePicker" Format="d">
             <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
             <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
         </DatePicker>
-        <TimePicker x:Name="WorkoutTimePicker">
+        <TimePicker x:Name="WorkoutTimePicker"/>
 
-        </TimePicker>
-        <Button Text="Добавить тренировку!" 
+        <Button Text="Добавить " 
                 Clicked="OnAddWorkoutClicked" />
 
         <!-- Список тренировок -->
         <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" >
             <Button Text="Перейти к списку тренировок" Clicked="GoToWorkoutList"></Button>
+        </VerticalStackLayout>
+
+        <!--Список тренировок -->
+        <VerticalStackLayout x:Name="ListWorkouts">
+
+            <Button Text="Добавить тренировку!" Command="{Binding AddItemCommand}"></Button>
+            <StackLayout Orientation="Vertical">
+                <CollectionView ItemsSource="{Binding ToDoItems}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"></Label>
+                                <Button Text="X" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}},Path=DeleteItemCommand } " CommandParameter="{Binding .}"></Button>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            
         </VerticalStackLayout>
 
 
@@ -48,6 +65,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
+        
+        
+        
         
         <VerticalStackLayout Padding="10" FlexLayout.Basis="400" Background="Beige">
             <Entry x:Name= "nameEntryField" Placeholder="Name"/>
