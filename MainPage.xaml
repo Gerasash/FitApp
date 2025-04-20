@@ -8,7 +8,6 @@
 
     <StackLayout Padding="20">
 
-        <!-- Поле для ввода названия тренировки -->
         <Entry x:Name="WorkoutNameEntry" 
                 Placeholder="Введите название тренировки" />
 
@@ -16,20 +15,17 @@
         <Label x:Name="labelTime" Text="Выберите дату"/>
         <DatePicker x:Name="WorkoutDatePicker" Format="d">
             <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
-            <DatePicker.MaximumDate>1/1/2040</DatePicker.MaximumDate>
+            <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
         </DatePicker>
         <TimePicker x:Name="WorkoutTimePicker">
 
         </TimePicker>
-        <!-- Кнопка для добавления тренировки -->
-        <Button Text="Добавить тренировку!!" 
+        <Button Text="Добавить тренировку!" 
                 Clicked="OnAddWorkoutClicked" />
 
         <!-- Список тренировок -->
         <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" >
             <Button Text="Перейти к списку тренировок" Clicked="GoToWorkoutList"></Button>
-            
-            
         </VerticalStackLayout>
 
 
