@@ -17,10 +17,9 @@ public partial class WorkoutListPage : ContentPage
         if (selectedWorkout == null)
             return;
 
-        // —бросим выделение, чтобы можно было повторно выбрать тот же элемент
-        ((CollectionView)sender).SelectedItem = null;
-
-        // ѕереход на новую страницу, передава€ выбранную тренировку
+        
         await Navigation.PushAsync(new WorkoutPage(selectedWorkout));
+        ((CollectionView)sender).SelectedItem = null;
     }
+    
 }
