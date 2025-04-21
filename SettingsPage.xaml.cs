@@ -22,4 +22,11 @@ public partial class SettingsPage : ContentPage
         }
         // Perform required operation after examining e.Value
     }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        string savedTheme = Preferences.Get("AppTheme", "Light");
+        ThemeToggleCheckBox.IsChecked = savedTheme == "Dark";
+    }
 }

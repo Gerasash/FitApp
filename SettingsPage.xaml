@@ -4,10 +4,13 @@
              x:Class="FitApp.SettingsPage">
     <VerticalStackLayout>
         <HorizontalStackLayout>
-            <CheckBox
+            
+            <CheckBox 
                 x:Name="ThemeToggleCheckBox"
                 CheckedChanged="OnCheckBoxCheckedChanged"
                 Color="Black" />
+            
+            <Label Text="Включить темную тему?"></Label>
         </HorizontalStackLayout>
         <Label 
             Text="Welcome to .NET MAUI!"

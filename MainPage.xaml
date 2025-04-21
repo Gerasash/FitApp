@@ -7,26 +7,49 @@
              x:Class="FitApp.MainPage">
 
     <StackLayout Padding="20">
+        <VerticalStackLayout Background="DarkTurquoise">
+            <Entry x:Name="WorkoutNameEntry" Placeholder = "Введите название тренировки" 
+                   Text="{Binding NewTaskTitle, Mode=TwoWay}"/>
+            <!-- Поле для выбора даты и времени тренировки -->
+            <Label x:Name="labelTime" Text="Выберите дату"/>
+            <DatePicker x:Name="WorkoutDatePicker" Format="d">
+                <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
+                <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
+            </DatePicker>
+            <TimePicker x:Name="WorkoutTimePicker"/>
 
-        <Entry x:Name="WorkoutNameEntry" Placeholder = "Введите название тренировки" 
-               Text="{Binding NewTaskTitle, Mode=TwoWay}"/>
-        <!-- Поле для выбора даты и времени тренировки -->
-        <Label x:Name="labelTime" Text="Выберите дату"/>
-        <DatePicker x:Name="WorkoutDatePicker" Format="d">
-            <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
-            <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
-        </DatePicker>
-        <TimePicker x:Name="WorkoutTimePicker"/>
-
-        <Button Text="Добавить " 
+            <Button Text="Добавить " 
                 Clicked="OnAddWorkoutClicked" />
+            
+            
 
-        <!-- Список тренировок -->
-        <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" >
-            <Button Text="Перейти к списку тренировок" Clicked="GoToWorkoutList"></Button>
+        </VerticalStackLayout>
+        <ListView x:Name="WorkoutListView" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Удалить"
+                        Clicked="OnDeleteWorkoutClicked"
+                        CommandParameter="{Binding .}" />
+                        </ViewCell.ContextActions>
+
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Label Text="{Binding StartTime}" TextColor="Gray" />
+                        </StackLayout>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+                <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" >
+                <Button Text="Перейти к списку тренировок WorkoutListPage" Clicked="GoToWorkoutList"></Button>
         </VerticalStackLayout>
 
-        <!--Список тренировок -->
+
+
         <VerticalStackLayout x:Name="ListWorkouts">
 
             <Button Text="Добавить тренировку!" Command="{Binding AddItemCommand}"></Button>
@@ -45,60 +68,7 @@
             
         </VerticalStackLayout>
 
-
-        <ListView x:Name="WorkoutListView" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem Text="Удалить"
-                                Clicked="OnDeleteWorkoutClicked"
-                                CommandParameter="{Binding .}" />
-                        </ViewCell.ContextActions>
-
-                        <StackLayout>
-                            <Label Text="{Binding Name}" FontAttributes="Bold" />
-                            <Label Text="{Binding StartTime}" TextColor="Gray" />
-                        </StackLayout>
-                    </ViewCell>
-
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        
-        
-        
-        
-        <VerticalStackLayout Padding="10" FlexLayout.Basis="400" Background="Beige">
-            <Entry x:Name= "nameEntryField" Placeholder="Name"/>
-            <Entry x:Name= "emailEntryField" Placeholder="email"/>
-            <Entry x:Name= "mobileEntryField" Placeholder="mobile"/>
-            <Button x:Name= "saveButton" Text="Save" Clicked = "saveButton_Clicked"/>
-        </VerticalStackLayout>
-        <ListView x:Name="listView" FlexLayout.Grow="1" HasUnevenRows="True" ItemTapped="listView_ItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <VerticalStackLayout Padding="5">
-                            <Label Text="{Binding UserName}" FontSize="17" FontAttributes="Bold"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding Email}"/>
-                                <Label Grid.Column="2" Text="{Binding Mobile}" FontAttributes="Bold"/>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <Button Text="Перейти к списку дел" Clicked="GoToTaskList"></Button>
-        
+        <Button BackgroundColor="SeaGreen" Text="Перейти к списку дел" Clicked="GoToTaskList"></Button>
         
     </StackLayout>
 </ContentPage>
