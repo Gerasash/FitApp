@@ -7,7 +7,7 @@
              x:Class="FitApp.MainPage">
 
     <StackLayout Padding="20">
-        <VerticalStackLayout Background="DarkTurquoise">
+        <VerticalStackLayout >
             <Entry x:Name="WorkoutNameEntry" Placeholder = "Введите название тренировки" 
                    Text="{Binding NewTaskTitle, Mode=TwoWay}"/>
             <!-- Поле для выбора даты и времени тренировки -->
