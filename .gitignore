@@ -2,7 +2,8 @@
 /bin/
 //obj/
 
-# User-specific files
+# 
+-specific files
 *.user
 *.userosscache
 *.suo

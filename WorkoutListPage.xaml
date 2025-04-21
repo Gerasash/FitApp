@@ -10,14 +10,19 @@
         <Button Text="Добавить тренировку" Command="{Binding AddWorkoutCommand}"></Button>
         
         <StackLayout Orientation="Vertical">
-            <CollectionView ItemsSource="{Binding Workouts}" >
+            <CollectionView ItemsSource="{Binding Workouts}" 
+                            SelectionMode="Single" 
+                            SelectionChanged="OnWorkoutSelected"
+                            BackgroundColor="Gray"
+                            >
                 <CollectionView.ItemTemplate >
-                    <DataTemplate>
-
+                    <DataTemplate >
                         <StackLayout Orientation="Horizontal" Padding ="15" >
                             <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
-                            <Label  Text="{Binding StartTime}" TextColor="Gray" VerticalOptions="Center" Padding ="5"/>
-                            <Button Text="X"  Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}},Path=DeleteWorkoutCommand } " CommandParameter="{Binding .}"></Button>
+                            <Label Text="{Binding StartTime}" TextColor="Gray" VerticalOptions="Center" Padding ="5"/>
+                            <Button Text="X" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}},Path=DeleteWorkoutCommand}" 
+                                    CommandParameter="{Binding .}"></Button>
                         </StackLayout>
 
                     </DataTemplate>

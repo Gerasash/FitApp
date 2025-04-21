@@ -1,4 +1,6 @@
 namespace FitApp;
+
+using FitApp.Models;
 using FitApp.ViewModels;
 public partial class WorkoutListPage : ContentPage
 {
@@ -16,4 +18,17 @@ public partial class WorkoutListPage : ContentPage
     {
 
     }
+    private async void OnWorkoutSelected(object sender, SelectionChangedEventArgs e)
+    {
+        var selectedWorkout = e.CurrentSelection.FirstOrDefault() as Workout;
+        if (selectedWorkout == null)
+            return;
+
+        // —бросим выделение, чтобы можно было повторно выбрать тот же элемент
+        ((CollectionView)sender).SelectedItem = null;
+
+        // ѕереход на новую страницу, передава€ выбранную тренировку
+        await Navigation.PushAsync(new WorkoutPage(selectedWorkout));
+    }
+    
 }
