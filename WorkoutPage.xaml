@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FitApp.WorkoutPage"
+             xmlns:local="clr-namespace:FitApp.ViewModels"
              >
     
     
@@ -21,7 +22,12 @@
             </Picker.Items>
         </Picker>
         <Label x:Name="WorkoutDescriptionLabel" />
-        <Editor FontSize="16" HeightRequest="200" />
+        
+        <Editor x:Name="EditorWorkoutDescription"  Placeholder = "введи название тренировки"
+                FontSize="16" HeightRequest="200"
+                Text="{Binding Description, Mode=TwoWay}"
+                TextChanged="EditorWorkoutDescription_TextChanged"
+                />
     </StackLayout>
 </ContentPage>
 

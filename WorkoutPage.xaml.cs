@@ -11,14 +11,16 @@ public partial class WorkoutPage : ContentPage
         BindingContext = new WorkoutViewModel();
         // Устанавливаем данные тренировки на странице
         WorkoutNameLabel.Text = workout.Name;
+        //EditorWorkoutDescription.Text = workout.Description;
+
+        
+
         WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";
 
         // Кнопка "Назад"
         backButton.Clicked += async (o, e) => await Navigation.PopAsync();
         // Кнопка "Добавить упражнение"
-
         addExerciseButton.Clicked += ToModalPage;
-
     }
     private async void ToModalPage(object? sender, EventArgs e)
     {
@@ -30,4 +32,8 @@ public partial class WorkoutPage : ContentPage
 
     }
 
+    private void EditorWorkoutDescription_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        //SaveDescriptionAsync(sender, e.NewTextValue);
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,6 +20,8 @@ namespace FitApp.ViewModels
 
         [ObservableProperty]
         private DateTime newWorkoutDate = DateTime.Now;
+        [ObservableProperty]
+        private string newWorkoutDescription;
 
         [ObservableProperty]
         private List<MuscleGroup> selectedMuscleGroups = new();
@@ -44,6 +47,7 @@ namespace FitApp.ViewModels
                 var workout = new Workout
                 {
                     Name = NewWorkoutName,
+                    Description = NewWorkoutDescription,
                     StartTime = NewWorkoutDate,
                     MuscleGroups = SelectedMuscleGroups
                 };
@@ -66,7 +70,19 @@ namespace FitApp.ViewModels
             public Workout Workout { get; set; }
             public MuscleGroup MuscleGroup { get; set; }
         }
+        public async Task SaveDescriptionAsync(Workout workout, string newDescreption)
+        {
+            // Предполагается, что у вас есть текущая тренировка, которую вы редактируете
+            if (workout != null)
+            {
+                workout.Description = newDescreption;
+                await _database.SaveWorkout(workout);
+            }
+            else
+            {
+                Debug.WriteLine("error workout is null, check WorkoutViewModel and SaveDescriptionAsync");
+            }
+        }
         
-    
     }
 }

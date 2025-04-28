@@ -17,7 +17,6 @@ public partial class WorkoutListPage : ContentPage
         if (selectedWorkout == null)
             return;
 
-        
         await Navigation.PushAsync(new WorkoutPage(selectedWorkout));
         ((CollectionView)sender).SelectedItem = null;
     }

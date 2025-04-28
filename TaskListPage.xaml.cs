@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 
 public partial class TaskListPage : ContentPage
 {
-    
     public TaskListPage()
 	{
 		InitializeComponent();
@@ -18,5 +17,4 @@ public partial class TaskListPage : ContentPage
     {
         await Navigation.PopAsync();
     }
-    
 }

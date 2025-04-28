@@ -18,9 +18,11 @@ namespace FitApp.Models
         [AutoIncrement]
         [Column("id")]
         public int Id { get; set; }
-        [Column("Workout_name")]
+        [Column("name")]
         public string Name { get; set; }
-        
+        [Column("Description")]
+        public string Description { get; set; }
+        [Column("StartTime")]
         public DateTime StartTime { get; set; }
         public Workout()
         {
