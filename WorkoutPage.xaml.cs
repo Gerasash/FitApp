@@ -5,17 +5,20 @@ using FitApp.Models;
 using FitApp.ViewModels;
 public partial class WorkoutPage : ContentPage
 {
-    public WorkoutPage(Workout workout)
+
+    private readonly WorkoutViewModel _viewModel;
+    private readonly Workout _currentWorkout;
+    public WorkoutPage(Workout workout, WorkoutViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = new WorkoutViewModel();
-        // Устанавливаем данные тренировки на странице
-        WorkoutNameLabel.Text = workout.Name;
-        //EditorWorkoutDescription.Text = workout.Description;
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
+        _currentWorkout = workout;
 
-        
-
+        //WorkoutNameLabel.Text = workout.Name;
+        // Описание уже установлено в конструкторе ViewModel
         WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";
+        //EditorWorkoutDescription.Text = workout.Description;
 
         // Кнопка "Назад"
         backButton.Clicked += async (o, e) => await Navigation.PopAsync();
@@ -34,6 +37,6 @@ public partial class WorkoutPage : ContentPage
 
     private void EditorWorkoutDescription_TextChanged(object sender, TextChangedEventArgs e)
     {
-        //SaveDescriptionAsync(sender, e.NewTextValue);
+        _viewModel.SaveDescriptionAsync(_currentWorkout, e.NewTextValue);
     }
 }

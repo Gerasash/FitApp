@@ -5,8 +5,8 @@ using Microsoft.Maui.Controls;
 
 public partial class WorkoutListPage : ContentPage
 {
-	public WorkoutListPage()
-	{
+    public WorkoutListPage()
+    {
         InitializeComponent();
         BindingContext = new WorkoutViewModel();
     }
@@ -17,7 +17,11 @@ public partial class WorkoutListPage : ContentPage
         if (selectedWorkout == null)
             return;
 
-        await Navigation.PushAsync(new WorkoutPage(selectedWorkout));
+        var workoutViewModel = new WorkoutViewModel(); // Создаем новый ViewModel
+        // Передаем выбранную тренировку во ViewModel для инициализации
+        // (предполагается, что в WorkoutViewModel есть конструктор, принимающий Workout)
+        var workoutPage = new WorkoutPage(selectedWorkout, workoutViewModel);
+        await Navigation.PushAsync(workoutPage);
         ((CollectionView)sender).SelectedItem = null;
     }
     

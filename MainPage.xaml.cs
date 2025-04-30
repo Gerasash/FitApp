@@ -25,7 +25,7 @@ namespace FitApp
             // Привязка данных к ListView
             WorkoutListView.ItemsSource = Workouts;
             // Добавляем обработчик события выбора тренировки
-            WorkoutListView.ItemSelected += OnWorkoutSelected;
+            //WorkoutListView.ItemSelected += OnWorkoutSelected;
         }
         
         // Обработчик нажатия на кнопку "Добавить тренировку"
@@ -47,17 +47,17 @@ namespace FitApp
         }
 
         // Обработчик события выбора тренировки
-        private async void OnWorkoutSelected(object sender, SelectedItemChangedEventArgs e)
+/*        private async void OnWorkoutSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;
 
             var selectedWorkout = e.SelectedItem as Workout;
 
-            await Navigation.PushAsync(new WorkoutPage(selectedWorkout));
+            await Navigation.PushAsync(new WorkoutPage(selectedWorkout, WorkoutViewModel));
 
             WorkoutListView.SelectedItem = null;
-        }
+        }*/
         
         private async void OnDeleteWorkoutClicked(object sender, EventArgs e)
         {

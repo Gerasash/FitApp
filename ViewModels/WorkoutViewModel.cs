@@ -31,6 +31,14 @@ namespace FitApp.ViewModels
             _database = new WorkoutDataBase();
             LoadWorkouts();
         }
+        // Новый конструктор, принимающий Workout
+        public WorkoutViewModel(Workout workout)
+        {
+            _database = new WorkoutDataBase();
+            NewWorkoutName = workout.Name;
+            NewWorkoutDescription = workout.Description;
+                                                         // Возможно, вам понадобится инициализировать и другие свойства
+        }
         [RelayCommand]
         private async void LoadWorkouts()
         {
