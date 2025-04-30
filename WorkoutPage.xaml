@@ -7,8 +7,8 @@
     
     
     <StackLayout>
-        <Label x:Name="Label1" Text="" />
-        <Label x:Name="WorkoutNameLabel" Text="Детали тренировки" FontSize="Large"/>
+        <Label x:Name="Label1" Text="{Binding NewWorkoutName}" />
+        <Label x:Name="WorkoutNameLabel" Text="Детали тренировки"  FontSize="Large"/>
 
         <Button x:Name ="backButton"  Text = "Назад" HorizontalOptions="Start"/>
         <Button x:Name ="addExerciseButton"  Text = "Добавить упражнение" HorizontalOptions="Start"/>
@@ -25,7 +25,7 @@
         
         <Editor x:Name="EditorWorkoutDescription"  Placeholder = "введи название тренировки"
                 FontSize="16" HeightRequest="200"
-                Text="{Binding Description, Mode=TwoWay}"
+                Text="{Binding NewWorkoutDescription, Mode=TwoWay}"
                 TextChanged="EditorWorkoutDescription_TextChanged"
                 />
     </StackLayout>

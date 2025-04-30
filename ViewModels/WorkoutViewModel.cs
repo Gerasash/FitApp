@@ -31,18 +31,16 @@ namespace FitApp.ViewModels
             _database = new WorkoutDataBase();
             LoadWorkouts();
         }
-        // Новый конструктор, принимающий Workout
+        
         public WorkoutViewModel(Workout workout)
         {
             _database = new WorkoutDataBase();
             NewWorkoutName = workout.Name;
             NewWorkoutDescription = workout.Description;
-                                                         // Возможно, вам понадобится инициализировать и другие свойства
         }
         [RelayCommand]
         private async void LoadWorkouts()
         {
-
             var items = await _database.GetWorkouts();
             Workouts = new ObservableCollection<Workout>(items);
         }
@@ -55,7 +53,7 @@ namespace FitApp.ViewModels
                 var workout = new Workout
                 {
                     Name = NewWorkoutName,
-                    Description = NewWorkoutDescription,
+                    //Description = NewWorkoutDescription,
                     StartTime = NewWorkoutDate,
                     MuscleGroups = SelectedMuscleGroups
                 };
@@ -80,16 +78,8 @@ namespace FitApp.ViewModels
         }
         public async Task SaveDescriptionAsync(Workout workout, string newDescreption)
         {
-            // Предполагается, что у вас есть текущая тренировка, которую вы редактируете
-            if (workout != null)
-            {
-                workout.Description = newDescreption;
-                await _database.SaveWorkout(workout);
-            }
-            else
-            {
-                Debug.WriteLine("error workout is null, check WorkoutViewModel and SaveDescriptionAsync");
-            }
+            workout.Description = newDescreption;
+            await _database.SaveWorkout(workout);
         }
         
     }

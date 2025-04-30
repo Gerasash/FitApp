@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gera1\\dev\\FitApp\\FitApp.csproj": {}
+    "D:\\Gerasash\\dev\\FitApp\\FitApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gera1\\dev\\FitApp\\FitApp.csproj": {
+    "D:\\Gerasash\\dev\\FitApp\\FitApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gera1\\dev\\FitApp\\FitApp.csproj",
+        "projectUniqueName": "D:\\Gerasash\\dev\\FitApp\\FitApp.csproj",
         "projectName": "FitApp",
-        "projectPath": "C:\\Users\\Gera1\\dev\\FitApp\\FitApp.csproj",
-        "packagesPath": "C:\\Users\\Gera1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gera1\\dev\\FitApp\\obj\\",
+        "projectPath": "D:\\Gerasash\\dev\\FitApp\\FitApp.csproj",
+        "packagesPath": "C:\\Users\\евгений\\.nuget\\packages\\",
+        "outputPath": "D:\\Gerasash\\dev\\FitApp\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gera1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\евгений\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,7 +32,7 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net9.0-maccatalyst18.4": {
+          "net9.0-maccatalyst18.2": {
             "targetAlias": "net9.0-maccatalyst",
             "projectReferences": {}
           },
@@ -54,7 +54,7 @@
         "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
-        "net9.0-maccatalyst18.4": {
+        "net9.0-maccatalyst18.2": {
           "targetAlias": "net9.0-maccatalyst",
           "dependencies": {
             "CommunityToolkit.Mvvm": {
@@ -72,7 +72,7 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.3, )",
+              "version": "[9.0.4, )",
               "autoReferenced": true
             },
             "sqlite-net-pcl": {
@@ -92,12 +92,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[9.0.4, 9.0.4]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.MacCatalyst": {
               "privateAssets": "all"
@@ -106,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         },
         "net9.0-windows10.0.19041": {
           "targetAlias": "net9.0-windows10.0.19041.0",
@@ -153,7 +147,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

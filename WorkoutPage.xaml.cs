@@ -13,12 +13,15 @@ public partial class WorkoutPage : ContentPage
         InitializeComponent();
         _viewModel = viewModel;
         BindingContext = _viewModel;
+        
         _currentWorkout = workout;
+
+        //мертвая привязка если не будет работать
+        //EditorWorkoutDescription.Text = workout.Description;
 
         //WorkoutNameLabel.Text = workout.Name;
         // Описание уже установлено в конструкторе ViewModel
         WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";
-        //EditorWorkoutDescription.Text = workout.Description;
 
         // Кнопка "Назад"
         backButton.Clicked += async (o, e) => await Navigation.PopAsync();
@@ -32,7 +35,6 @@ public partial class WorkoutPage : ContentPage
     void PickerSelectedIndexChanged(object sender, EventArgs e)
     {
         WorkoutDescriptionLabel.Text = $"Вы выбрали: {WorkoutPicker.SelectedItem}";
-
     }
 
     private void EditorWorkoutDescription_TextChanged(object sender, TextChangedEventArgs e)

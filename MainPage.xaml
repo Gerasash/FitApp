@@ -35,8 +35,8 @@
                         </ViewCell.ContextActions>
 
                         <StackLayout>
-                            <Label Text="{Binding Name}" FontAttributes="Bold" />
-                            <Label Text="{Binding StartTime}" TextColor="Gray" />
+                            <Label Text="{Binding Name, Mode=TwoWay}" FontAttributes="Bold" />
+                            <Label Text="{Binding StartTime, Mode=TwoWay}" TextColor="Gray" />
                         </StackLayout>
                     </ViewCell>
 
