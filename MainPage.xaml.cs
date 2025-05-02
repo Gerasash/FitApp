@@ -77,11 +77,6 @@ namespace FitApp
             }
         }
 
-        private async void GoToTaskList(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new TaskListPage());
-        }
-
         private async void GoToWorkoutList(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new WorkoutListPage());

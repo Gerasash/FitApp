@@ -18,8 +18,8 @@ namespace FitApp.Data
             _connection = new SQLiteAsyncConnection(dbPath);
 
             _connection.CreateTableAsync<Workout>().Wait();
-            _connection.CreateTableAsync<MuscleGroup>().Wait();
-            _connection.CreateTableAsync<WorkoutMuscleGroup>().Wait();
+            //_connection.CreateTableAsync<MuscleGroup>().Wait();
+            //_connection.CreateTableAsync<WorkoutMuscleGroup>().Wait();
         }
 
         public Task<List<Workout>> GetWorkouts()

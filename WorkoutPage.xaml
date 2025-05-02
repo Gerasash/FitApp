@@ -5,9 +5,9 @@
              xmlns:local="clr-namespace:FitApp.ViewModels"
              >
     
-    
     <StackLayout>
-        <Label x:Name="Label1" Text="{Binding NewWorkoutName}" />
+        
+        <Label x:Name="LabelTitle" Text="{Binding WorkoutName, Mode=TwoWay}" />
         <Label x:Name="WorkoutNameLabel" Text="Детали тренировки"  FontSize="Large"/>
 
         <Button x:Name ="backButton"  Text = "Назад" HorizontalOptions="Start"/>
@@ -25,7 +25,7 @@
         
         <Editor x:Name="EditorWorkoutDescription"  Placeholder = "введи название тренировки"
                 FontSize="16" HeightRequest="200"
-                Text="{Binding NewWorkoutDescription, Mode=TwoWay}"
+                Text="{Binding WorkoutDescription, Mode=TwoWay}"
                 TextChanged="EditorWorkoutDescription_TextChanged"
                 />
     </StackLayout>

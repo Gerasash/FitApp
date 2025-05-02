@@ -1,37 +1,94 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Gerasash\\dev\\FitApp\\",
+  "WorkspaceRootPath": "C:\\Users\\Gera1\\dev\\FitApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|d:\\gerasash\\dev\\fitapp\\workoutpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:workoutpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|d:\\gerasash\\dev\\fitapp\\viewmodels\\workoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:viewmodels\\workoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|d:\\gerasash\\dev\\fitapp\\workoutlistpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:workoutlistpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|d:\\gerasash\\dev\\fitapp\\workoutlistpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:workoutlistpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|d:\\gerasash\\dev\\fitapp\\workoutpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\workoutpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:workoutpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\u0435\u0432\u0433\u0435\u043D\u0438\u0439\\AppData\\Local\\Temp\\VSGeneratedDocuments\\0a19d73c-6d5d-738e-40c3-486a8dd218ee\\FitApp.ViewModels.WorkoutViewModel.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\workoutpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:workoutpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|d:\\gerasash\\dev\\fitapp\\data\\workoutdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\workoutlistpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:workoutlistpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\viewmodels\\workoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:viewmodels\\workoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\workoutlistpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:workoutlistpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\models\\workout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:models\\workout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\data\\workoutdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:data\\workoutdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|d:\\gerasash\\dev\\fitapp\\data\\tododatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\models\\todoitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:models\\todoitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\data\\tododatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:data\\tododatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\models\\workoutmusclegroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:models\\workoutmusclegroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\models\\musclegroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:models\\musclegroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\resources\\styles\\styles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:resources\\styles\\styles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|c:\\users\\gera1\\dev\\fitapp\\settingspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C286BC-F4FF-4556-854B-EE0F278D27DF}|FitApp.csproj|solutionrelative:settingspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -41,11 +98,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WorkoutListPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\WorkoutListPage.xaml",
+              "RelativeDocumentMoniker": "WorkoutListPage.xaml",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\WorkoutListPage.xaml",
+              "RelativeToolTip": "WorkoutListPage.xaml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-19T22:04:48.142Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -61,106 +128,271 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "WorkoutListPage.xaml.cs",
-              "DocumentMoniker": "D:\\Gerasash\\dev\\FitApp\\WorkoutListPage.xaml.cs",
-              "RelativeDocumentMoniker": "WorkoutListPage.xaml.cs",
-              "ToolTip": "D:\\Gerasash\\dev\\FitApp\\WorkoutListPage.xaml.cs",
-              "RelativeToolTip": "WorkoutListPage.xaml.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAzwAsAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T10:14:19.635Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "WorkoutListPage.xaml",
-              "DocumentMoniker": "D:\\Gerasash\\dev\\FitApp\\WorkoutListPage.xaml",
-              "RelativeDocumentMoniker": "WorkoutListPage.xaml",
-              "ToolTip": "D:\\Gerasash\\dev\\FitApp\\WorkoutListPage.xaml",
-              "RelativeToolTip": "WorkoutListPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-30T10:14:17.445Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "WorkoutViewModel.cs",
-              "DocumentMoniker": "D:\\Gerasash\\dev\\FitApp\\ViewModels\\WorkoutViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModels\\WorkoutViewModel.cs",
-              "ToolTip": "D:\\Gerasash\\dev\\FitApp\\ViewModels\\WorkoutViewModel.cs",
-              "RelativeToolTip": "ViewModels\\WorkoutViewModel.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAA3AAAAAAAAAA==",
+              "Title": "MainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\MainPage.xaml.cs",
+              "RelativeDocumentMoniker": "MainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\MainPage.xaml.cs",
+              "RelativeToolTip": "MainPage.xaml.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAnwBAAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T08:28:23.221Z",
+              "WhenOpened": "2025-04-20T19:11:11.317Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "WorkoutPage.xaml",
-              "DocumentMoniker": "D:\\Gerasash\\dev\\FitApp\\WorkoutPage.xaml",
-              "RelativeDocumentMoniker": "WorkoutPage.xaml",
-              "ToolTip": "D:\\Gerasash\\dev\\FitApp\\WorkoutPage.xaml",
-              "RelativeToolTip": "WorkoutPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-30T10:49:13.191Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "WorkoutPage.xaml.cs",
-              "DocumentMoniker": "D:\\Gerasash\\dev\\FitApp\\WorkoutPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\WorkoutPage.xaml.cs",
               "RelativeDocumentMoniker": "WorkoutPage.xaml.cs",
-              "ToolTip": "D:\\Gerasash\\dev\\FitApp\\WorkoutPage.xaml.cs",
-              "RelativeToolTip": "WorkoutPage.xaml.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwB0AAAAEAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\WorkoutPage.xaml.cs*",
+              "RelativeToolTip": "WorkoutPage.xaml.cs*",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwCMAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T08:24:53.34Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ToDoDataBase.cs",
-              "DocumentMoniker": "D:\\Gerasash\\dev\\FitApp\\Data\\ToDoDataBase.cs",
-              "RelativeDocumentMoniker": "Data\\ToDoDataBase.cs",
-              "ToolTip": "D:\\Gerasash\\dev\\FitApp\\Data\\ToDoDataBase.cs",
-              "RelativeToolTip": "Data\\ToDoDataBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T08:58:27.284Z",
+              "WhenOpened": "2025-05-01T21:54:25.92Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "WorkoutDataBase.cs",
-              "DocumentMoniker": "D:\\Gerasash\\dev\\FitApp\\Data\\WorkoutDataBase.cs",
-              "RelativeDocumentMoniker": "Data\\WorkoutDataBase.cs",
-              "ToolTip": "D:\\Gerasash\\dev\\FitApp\\Data\\WorkoutDataBase.cs",
-              "RelativeToolTip": "Data\\WorkoutDataBase.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwA0AAAAAAAAAAAAAAA==",
+              "Title": "WorkoutListPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\WorkoutListPage.xaml.cs",
+              "RelativeDocumentMoniker": "WorkoutListPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\WorkoutListPage.xaml.cs",
+              "RelativeToolTip": "WorkoutListPage.xaml.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBMAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T08:58:28.966Z",
+              "WhenOpened": "2025-04-20T18:31:44.131Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "FitApp.ViewModels.WorkoutViewModel.g.cs [\u0441\u043E\u0437\u0434\u0430\u043D \u0433\u0435\u043D\u0435\u0440\u0430\u0442\u043E\u0440\u043E\u043C]",
-              "DocumentMoniker": "C:\\Users\\\u0435\u0432\u0433\u0435\u043D\u0438\u0439\\AppData\\Local\\Temp\\VSGeneratedDocuments\\0a19d73c-6d5d-738e-40c3-486a8dd218ee\\FitApp.ViewModels.WorkoutViewModel.g.cs",
-              "ToolTip": "FitApp.ViewModels.WorkoutViewModel.g.cs [\u0441\u043E\u0437\u0434\u0430\u043D \u0433\u0435\u043D\u0435\u0440\u0430\u0442\u043E\u0440\u043E\u043C CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator]",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Title": "WorkoutViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\ViewModels\\WorkoutViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\WorkoutViewModel.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\ViewModels\\WorkoutViewModel.cs",
+              "RelativeToolTip": "ViewModels\\WorkoutViewModel.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwD4AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "OverriddenToolTip": "FitApp.ViewModels.WorkoutViewModel.g.cs [\u0441\u043E\u0437\u0434\u0430\u043D \u0433\u0435\u043D\u0435\u0440\u0430\u0442\u043E\u0440\u043E\u043C CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator]",
-              "WhenOpened": "2025-04-30T10:06:51.328Z",
+              "WhenOpened": "2025-04-19T22:11:52.643Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-21T18:19:53.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\MainPage.xaml",
+              "RelativeDocumentMoniker": "MainPage.xaml",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\MainPage.xaml*",
+              "RelativeToolTip": "MainPage.xaml*",
+              "ViewState": "AgIAADEAAAAAAAAAAAAqwDQAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-20T18:39:20.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WorkoutPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\WorkoutPage.xaml",
+              "RelativeDocumentMoniker": "WorkoutPage.xaml",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\WorkoutPage.xaml",
+              "RelativeToolTip": "WorkoutPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-01T23:58:12.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Workout.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\Models\\Workout.cs",
+              "RelativeDocumentMoniker": "Models\\Workout.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\Models\\Workout.cs",
+              "RelativeToolTip": "Models\\Workout.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAA3wCQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-02T00:01:53.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\ViewModels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\ViewModels\\MainViewModel.cs",
+              "RelativeToolTip": "ViewModels\\MainViewModel.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T19:35:41.78Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AppShell.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\AppShell.xaml.cs",
+              "RelativeDocumentMoniker": "AppShell.xaml.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\AppShell.xaml.cs",
+              "RelativeToolTip": "AppShell.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-24T12:53:49.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AppShell.xaml",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\AppShell.xaml",
+              "RelativeDocumentMoniker": "AppShell.xaml",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\AppShell.xaml",
+              "RelativeToolTip": "AppShell.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-24T12:52:13.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "WorkoutDataBase.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\Data\\WorkoutDataBase.cs",
+              "RelativeDocumentMoniker": "Data\\WorkoutDataBase.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\Data\\WorkoutDataBase.cs",
+              "RelativeToolTip": "Data\\WorkoutDataBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-21T17:02:32.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MauiProgram.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\MauiProgram.cs",
+              "RelativeDocumentMoniker": "MauiProgram.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\MauiProgram.cs",
+              "RelativeToolTip": "MauiProgram.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-02T01:08:04.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ToDoDataBase.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\Data\\ToDoDataBase.cs",
+              "RelativeDocumentMoniker": "Data\\ToDoDataBase.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\Data\\ToDoDataBase.cs",
+              "RelativeToolTip": "Data\\ToDoDataBase.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwA0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T14:13:19.905Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ToDoItem.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\Models\\ToDoItem.cs",
+              "RelativeDocumentMoniker": "Models\\ToDoItem.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\Models\\ToDoItem.cs",
+              "RelativeToolTip": "Models\\ToDoItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-21T17:22:12.503Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "WorkoutMuscleGroup.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\Models\\WorkoutMuscleGroup.cs",
+              "RelativeDocumentMoniker": "Models\\WorkoutMuscleGroup.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\Models\\WorkoutMuscleGroup.cs",
+              "RelativeToolTip": "Models\\WorkoutMuscleGroup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T14:44:37.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "MuscleGroup.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\Models\\MuscleGroup.cs",
+              "RelativeDocumentMoniker": "Models\\MuscleGroup.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\Models\\MuscleGroup.cs",
+              "RelativeToolTip": "Models\\MuscleGroup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-19T14:36:40.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\App.xaml",
+              "RelativeToolTip": "App.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-21T18:19:50.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Colors.xaml",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\Resources\\Styles\\Colors.xaml",
+              "RelativeDocumentMoniker": "Resources\\Styles\\Colors.xaml",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\Resources\\Styles\\Colors.xaml",
+              "RelativeToolTip": "Resources\\Styles\\Colors.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-21T19:20:18.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Styles.xaml",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\Resources\\Styles\\Styles.xaml",
+              "RelativeDocumentMoniker": "Resources\\Styles\\Styles.xaml",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\Resources\\Styles\\Styles.xaml",
+              "RelativeToolTip": "Resources\\Styles\\Styles.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-21T19:20:38.84Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SettingsPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Gera1\\dev\\FitApp\\SettingsPage.xaml.cs",
+              "RelativeDocumentMoniker": "SettingsPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Gera1\\dev\\FitApp\\SettingsPage.xaml.cs",
+              "RelativeToolTip": "SettingsPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-21T18:18:49.401Z"
             }
           ]
         }

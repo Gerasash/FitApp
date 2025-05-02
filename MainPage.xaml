@@ -51,7 +51,6 @@
 
 
         <VerticalStackLayout x:Name="ListWorkouts">
-
             <Button Text="Добавить тренировку!" Command="{Binding AddItemCommand}"></Button>
             <StackLayout Orientation="Vertical">
                 <CollectionView ItemsSource="{Binding ToDoItems}">
@@ -65,10 +64,8 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </StackLayout>
-            
+
         </VerticalStackLayout>
 
-        <Button BackgroundColor="SeaGreen" Text="Перейти к списку дел" Clicked="GoToTaskList"></Button>
-        
     </StackLayout>
 </ContentPage>

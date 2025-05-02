@@ -6,7 +6,7 @@
              Title="WorkoutListPage"
              >
     <VerticalStackLayout>
-        <Entry Placeholder = "введи название тренировки" Text="{Binding NewWorkoutName, Mode=TwoWay}"></Entry>
+        <Entry Placeholder = "введи название тренировки" Text="{Binding WorkoutName, Mode=TwoWay}"></Entry>
         <Button Text="Добавить тренировку" Command="{Binding AddWorkoutCommand}"></Button>
         
         <StackLayout Orientation="Vertical">
@@ -20,7 +20,7 @@
                     <DataTemplate >
                         <StackLayout Orientation="Horizontal" Padding ="15" >
                             <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
-                            <Label Text="{Binding StartTime}" TextColor="Gray" VerticalOptions="Center" Padding ="5"/>
+                            <Label Text="{Binding StartTime}" TextColor="Black" VerticalOptions="Center" Padding ="5"/>
                             <Button Text="X" 
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}},Path=DeleteWorkoutCommand}" 
                                     CommandParameter="{Binding .}"></Button>

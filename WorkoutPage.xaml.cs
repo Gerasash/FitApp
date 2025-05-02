@@ -3,25 +3,26 @@ using Microsoft.Maui.Controls;
 using SQLite;
 using FitApp.Models;
 using FitApp.ViewModels;
+using System;
+
 public partial class WorkoutPage : ContentPage
 {
 
     private readonly WorkoutViewModel _viewModel;
-    private readonly Workout _currentWorkout;
+    private  Workout _currentWorkout;
     public WorkoutPage(Workout workout, WorkoutViewModel viewModel)
     {
         InitializeComponent();
-        _viewModel = viewModel;
-        BindingContext = _viewModel;
-        
         _currentWorkout = workout;
 
-        //мертвая привязка если не будет работать
-        //EditorWorkoutDescription.Text = workout.Description;
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
 
+
+        //мертвая привязка если не будет работать
+        //WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";
+        //EditorWorkoutDescription.Text = workout.Description;
         //WorkoutNameLabel.Text = workout.Name;
-        // Описание уже установлено в конструкторе ViewModel
-        WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";
 
         // Кнопка "Назад"
         backButton.Clicked += async (o, e) => await Navigation.PopAsync();

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FitApp.Data;
@@ -12,17 +10,19 @@ namespace FitApp.ViewModels
     public partial class WorkoutViewModel : ObservableObject
     {
         private readonly WorkoutDataBase _database;
+
         [ObservableProperty]
         private ObservableCollection<Workout> workouts;
 
         [ObservableProperty]
-        private string newWorkoutName;
+        private string workoutName;
 
         [ObservableProperty]
-        private DateTime newWorkoutDate = DateTime.Now;
-        [ObservableProperty]
-        private string newWorkoutDescription;
+        private string workoutDescription;
 
+        [ObservableProperty]
+        private DateTime workoutDate;
+        
         [ObservableProperty]
         private List<MuscleGroup> selectedMuscleGroups = new();
 
@@ -34,9 +34,9 @@ namespace FitApp.ViewModels
         
         public WorkoutViewModel(Workout workout)
         {
-            _database = new WorkoutDataBase();
-            NewWorkoutName = workout.Name;
-            NewWorkoutDescription = workout.Description;
+            //_database = new WorkoutDataBase();
+            workoutName = workout.Name;
+            workoutDescription = workout.Description;
         }
         [RelayCommand]
         private async void LoadWorkouts()
@@ -48,18 +48,17 @@ namespace FitApp.ViewModels
         [RelayCommand]
         private async void AddWorkout()
         {
-            if (!string.IsNullOrEmpty(NewWorkoutName))
+            if (!string.IsNullOrEmpty(workoutName))
             {
                 var workout = new Workout
                 {
-                    Name = NewWorkoutName,
-                    //Description = NewWorkoutDescription,
-                    StartTime = NewWorkoutDate,
+                    Name = WorkoutName,
+                    Description = WorkoutDescription,
+                    StartTime = WorkoutDate,
                     MuscleGroups = SelectedMuscleGroups
                 };
-
                 await _database.SaveWorkout(workout);
-                NewWorkoutName = string.Empty;
+                WorkoutName = string.Empty;
                 SelectedMuscleGroups.Clear();
                 LoadWorkouts();
             }
@@ -71,16 +70,15 @@ namespace FitApp.ViewModels
             LoadWorkouts();
         }
 
-        public class WorkoutTagPair
+        /*public class WorkoutTagPair
         {
             public Workout Workout { get; set; }
             public MuscleGroup MuscleGroup { get; set; }
-        }
+        }*/
         public async Task SaveDescriptionAsync(Workout workout, string newDescreption)
         {
             workout.Description = newDescreption;
             await _database.SaveWorkout(workout);
         }
-        
     }
 }
