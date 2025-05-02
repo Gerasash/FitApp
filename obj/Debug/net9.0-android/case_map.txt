@@ -1,3 +1,0 @@
-images\dotnet_bot;images\dotnet_bot
-images\testtoolbar;images\testtoolbar
-raw\aboutassets;raw\AboutAssets

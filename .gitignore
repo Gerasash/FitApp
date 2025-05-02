@@ -1,7 +1,7 @@
 # Ignore build results
 /bin/
 //obj/
-
+obj/
 # 
 -specific files
 *.user
