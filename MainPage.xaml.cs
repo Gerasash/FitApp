@@ -81,6 +81,5 @@ namespace FitApp
         {
             await Navigation.PushAsync(new WorkoutListPage());
         }
-
     }
 }

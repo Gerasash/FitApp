@@ -13,7 +13,8 @@ namespace FitApp.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<Workout> workouts;
-
+        [ObservableProperty]
+        private Workout currentWorkout;
         [ObservableProperty]
         private string workoutName;
 
@@ -34,9 +35,9 @@ namespace FitApp.ViewModels
         
         public WorkoutViewModel(Workout workout)
         {
-            //_database = new WorkoutDataBase();
-            workoutName = workout.Name;
-            workoutDescription = workout.Description;
+            CurrentWorkout = workout;
+            WorkoutName = workout.Name;
+            WorkoutDescription = workout.Description;
         }
         [RelayCommand]
         private async void LoadWorkouts()

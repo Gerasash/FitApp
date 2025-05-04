@@ -14,10 +14,7 @@ public partial class WorkoutPage : ContentPage
     {
         InitializeComponent();
         _currentWorkout = workout;
-
-        _viewModel = viewModel;
-        BindingContext = _viewModel;
-
+        BindingContext = new WorkoutViewModel(_currentWorkout );
 
         //мертва€ прив€зка если не будет работать
         //WorkoutDescriptionLabel.Text = $"Ќачало: {workout.StartTime}";
@@ -40,6 +37,6 @@ public partial class WorkoutPage : ContentPage
 
     private void EditorWorkoutDescription_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _viewModel.SaveDescriptionAsync(_currentWorkout, e.NewTextValue);
+        //_viewModel.SaveDescriptionAsync(_currentWorkout, e.NewTextValue);
     }
 }
