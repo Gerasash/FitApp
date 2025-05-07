@@ -26,16 +26,21 @@ namespace FitApp.Data
         {
             return _connection.Table<Workout>().ToListAsync();
         }
-        public Task<int> SaveWorkout(Workout Workout)
+        public  Task<Workout> GetItemAsync(int id)
         {
-            if (Workout.Id == 0)
-                return _connection.InsertAsync(Workout);
+            return _connection.Table<Workout>().Where(i => i.Id == id).FirstOrDefaultAsync();
+        }
+        public Task<int> SaveWorkout(Workout workout)
+        {
+            if (workout.Id == 0)
+                return _connection.InsertAsync(workout);
             else
-                return _connection.UpdateAsync(Workout);
+                return _connection.UpdateAsync(workout);
         }
-        public Task<int> DeleteWorkout(Workout Workout)
+        public Task<int> DeleteWorkout(Workout workout)
         {
-            return _connection.DeleteAsync(Workout);
+            return _connection.DeleteAsync(workout);
         }
+        
     }
 }

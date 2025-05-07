@@ -10,7 +10,9 @@
         <Label x:Name="LabelTitle" Text="{Binding WorkoutName, Mode=TwoWay}" />
         <Label x:Name="WorkoutNameLabel" Text="Детали тренировки"  FontSize="Large"/>
 
-        <Button x:Name ="backButton"  Text = "Назад" HorizontalOptions="Start"/>
+        <Button Text="Назад" Clicked="OnBackButtonClicked"></Button>
+        
+        <Button x:Name ="backButton"  Text = "Назад" HorizontalOptions="Start" Clicked="OnBackButtonClicked"/>
         <Button x:Name ="addExerciseButton"  Text = "Добавить упражнение" HorizontalOptions="Start"/>
 
         <Picker x:Name="WorkoutPicker" Title = "Выбор тренировки"
@@ -26,8 +28,10 @@
         <Editor x:Name="EditorWorkoutDescription"  Placeholder = "введи название тренировки"
                 FontSize="16" HeightRequest="200"
                 Text="{Binding WorkoutDescription, Mode=TwoWay}"
-                TextChanged="EditorWorkoutDescription_TextChanged"
                 />
+        <Button Text="Сохнаить" Command="{Binding UpdateWorkoutCommand}"></Button>
+        <Label Text="{Binding WorkoutDescription}">
+        </Label>
     </StackLayout>
 </ContentPage>
 

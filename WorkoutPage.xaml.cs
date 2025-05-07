@@ -4,25 +4,21 @@ using SQLite;
 using FitApp.Models;
 using FitApp.ViewModels;
 using System;
+using static System.Net.Mime.MediaTypeNames;
 
 public partial class WorkoutPage : ContentPage
 {
-
     private readonly WorkoutViewModel _viewModel;
-    private  Workout _currentWorkout;
-    public WorkoutPage(Workout workout, WorkoutViewModel viewModel)
+    public WorkoutPage(Workout workout)
     {
         InitializeComponent();
-        _currentWorkout = workout;
-        BindingContext = new WorkoutViewModel(_currentWorkout );
+        BindingContext = _viewModel = new WorkoutViewModel(workout);
 
         //мертвая привязка если не будет работать
         //WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";
         //EditorWorkoutDescription.Text = workout.Description;
         //WorkoutNameLabel.Text = workout.Name;
 
-        // Кнопка "Назад"
-        backButton.Clicked += async (o, e) => await Navigation.PopAsync();
         // Кнопка "Добавить упражнение"
         addExerciseButton.Clicked += ToModalPage;
     }
@@ -30,13 +26,13 @@ public partial class WorkoutPage : ContentPage
     {
         await Navigation.PushModalAsync(new AddExersciseModalPage());
     }
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
     void PickerSelectedIndexChanged(object sender, EventArgs e)
     {
         WorkoutDescriptionLabel.Text = $"Вы выбрали: {WorkoutPicker.SelectedItem}";
     }
 
-    private void EditorWorkoutDescription_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        //_viewModel.SaveDescriptionAsync(_currentWorkout, e.NewTextValue);
-    }
 }

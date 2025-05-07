@@ -17,11 +17,9 @@ public partial class WorkoutListPage : ContentPage
         if (selectedWorkout == null)
             return;
 
-        var workoutViewModel = new WorkoutViewModel(); // Создаем новый ViewModel
-        // Передаем выбранную тренировку во ViewModel для инициализации
-        // (предполагается, что в WorkoutViewModel есть конструктор, принимающий Workout)
-        var workoutPage = new WorkoutPage(selectedWorkout, workoutViewModel);
+        var workoutPage = new WorkoutPage(selectedWorkout);
         await Navigation.PushAsync(workoutPage);
+
         ((CollectionView)sender).SelectedItem = null;
     }
     

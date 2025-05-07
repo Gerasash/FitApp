@@ -20,6 +20,8 @@ namespace FitApp
             builder.Services.AddSingleton<ToDoDataBase>();
             builder.Services.AddSingleton<WorkoutDataBase>();
 
+            builder.Services.AddSingleton<WorkoutPage>();
+
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<MainViewModel>();
 
