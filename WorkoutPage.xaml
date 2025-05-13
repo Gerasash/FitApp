@@ -3,19 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FitApp.WorkoutPage"
              xmlns:local="clr-namespace:FitApp.ViewModels"
+             Title="{Binding WorkoutName, Mode=TwoWay}"
              >
     
     <StackLayout>
-        
-        <Label x:Name="LabelTitle" Text="{Binding WorkoutName, Mode=TwoWay}" />
+        <Button Text="Вернуться назад" BorderColor="Red"  Clicked="OnBackButtonClicked" Command="{Binding LoadWorkoutsCommand}"></Button>
         <Label x:Name="WorkoutNameLabel" Text="Детали тренировки"  FontSize="Large"/>
 
-        <Button Text="Назад" Clicked="OnBackButtonClicked"></Button>
         
         <Button x:Name ="backButton"  Text = "Назад" HorizontalOptions="Start" Clicked="OnBackButtonClicked"/>
         <Button x:Name ="addExerciseButton"  Text = "Добавить упражнение" HorizontalOptions="Start"/>
 
-        <Picker x:Name="WorkoutPicker" Title = "Выбор тренировки"
+        <Picker x:Name="WorkoutPicker" Title = "Выбор группы мыщц"
                 SelectedIndexChanged="PickerSelectedIndexChanged">
             <Picker.Items>
                 <x:String>Грудь</x:String>
@@ -24,14 +23,21 @@
             </Picker.Items>
         </Picker>
         <Label x:Name="WorkoutDescriptionLabel" />
+
+        <DatePicker x:Name="WorkoutDatePicker" Format="d" Date="{Binding WorkoutDate,Mode=TwoWay}">
+            <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
+            <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
+        </DatePicker>
+
         
+        <TimePicker Time="{Binding WorkoutDate, Mode=TwoWay}"></TimePicker>
+
         <Editor x:Name="EditorWorkoutDescription"  Placeholder = "введи название тренировки"
                 FontSize="16" HeightRequest="200"
                 Text="{Binding WorkoutDescription, Mode=TwoWay}"
                 />
         <Button Text="Сохнаить" Command="{Binding UpdateWorkoutCommand}"></Button>
-        <Label Text="{Binding WorkoutDescription}">
-        </Label>
+        
     </StackLayout>
 </ContentPage>
 

@@ -7,6 +7,14 @@
              >
     <VerticalStackLayout>
         <Entry Placeholder = "введи название тренировки" Text="{Binding WorkoutName, Mode=TwoWay}"></Entry>
+
+        <Label x:Name="labelTime" Text="Выберите дату"/>
+        <DatePicker x:Name="WorkoutDatePicker" Format="d">
+            <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
+            <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
+        </DatePicker>
+        <TimePicker x:Name="WorkoutTimePicker"/>
+        
         <Button Text="Добавить тренировку" Command="{Binding AddWorkoutCommand}"></Button>
         
         <StackLayout Orientation="Vertical">

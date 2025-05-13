@@ -40,6 +40,7 @@ namespace FitApp.ViewModels
             CurrentWorkout = workout;
             WorkoutName = workout.Name;
             WorkoutDescription = workout.Description;
+            WorkoutDate = workout.StartTime;
         }
         [RelayCommand]
         private async void LoadWorkouts()
