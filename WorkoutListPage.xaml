@@ -17,12 +17,13 @@
         
         <Button Text="Добавить тренировку" Command="{Binding AddWorkoutCommand}"></Button>
         
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" >
             <CollectionView ItemsSource="{Binding Workouts}" 
                             SelectionMode="Single" 
                             SelectionChanged="OnWorkoutSelected"
                             BackgroundColor="Gray"
                             x:Name="WorkoutCollectionView"
+                            
                             >
                 <CollectionView.ItemTemplate >
                     <DataTemplate >

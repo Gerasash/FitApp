@@ -74,7 +74,7 @@ namespace FitApp.ViewModels
                 {
                     Name = WorkoutName,
                     Description = WorkoutDescription,
-                    StartTime = WorkoutDate,
+                    StartTime = DateTime.Now,
                     MuscleGroups = SelectedMuscleGroups
                 };
                 await _database.SaveWorkout(workout);

@@ -10,8 +10,6 @@
         <Button Text="Вернуться назад" BorderColor="Red"  Clicked="OnBackButtonClicked" Command="{Binding LoadWorkoutsCommand}"></Button>
         <Label x:Name="WorkoutNameLabel" Text="Детали тренировки"  FontSize="Large"/>
 
-        
-        <Button x:Name ="backButton"  Text = "Назад" HorizontalOptions="Start" Clicked="OnBackButtonClicked"/>
         <Button x:Name ="addExerciseButton"  Text = "Добавить упражнение" HorizontalOptions="Start"/>
 
         <Picker x:Name="WorkoutPicker" Title = "Выбор группы мыщц"
@@ -30,7 +28,6 @@
         </DatePicker>
 
         
-        <TimePicker Time="{Binding WorkoutDate, Mode=TwoWay}"></TimePicker>
 
         <Editor x:Name="EditorWorkoutDescription"  Placeholder = "введи название тренировки"
                 FontSize="16" HeightRequest="200"
