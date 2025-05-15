@@ -9,12 +9,11 @@
                 x:Name="ThemeToggleCheckBox"
                 CheckedChanged="OnCheckBoxCheckedChanged"
                 Color="Black" />
-            
-            <Label Text="Включить темную тему?"></Label>
+
+            <Label Text="Включить темную тему?"
+                   VerticalOptions="Center" 
+                   />
         </HorizontalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        
     </VerticalStackLayout>
 </ContentPage>

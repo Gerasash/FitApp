@@ -14,8 +14,7 @@ namespace FitApp.Models
     [Table("Workouts")]
     public class Workout
     {
-        [PrimaryKey]
-        [AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         [Column("id")]
         public int Id { get; set; }
         [Column("name")]
