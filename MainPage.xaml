@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             
-            xmlns:local="clr-namespace:FitApp.ViewModels"
-            
+             xmlns:local="clr-namespace:FitApp.ViewModels"
              x:Class="FitApp.MainPage">
 
     <StackLayout Padding="20">
+        <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" Margin="10" >
+            <Button Text="Перейти к списку тренировок WorkoutListPage" Clicked="GoToWorkoutList"></Button>
+            <Button Text="Перейти к списку групп Мыщц MuscleGroupsListPage" Clicked="GoToMuscleGroupsListPage"></Button>
+        </VerticalStackLayout>
         <VerticalStackLayout >
             <Entry x:Name="WorkoutNameEntry" Placeholder = "Введите название тренировки" 
                    Text="{Binding NewTaskTitle, Mode=TwoWay}"/>
@@ -21,8 +23,6 @@
             <Button Text="Добавить " 
                 Clicked="OnAddWorkoutClicked" />
             
-            
-
         </VerticalStackLayout>
         <ListView x:Name="WorkoutListView" >
             <ListView.ItemTemplate>
@@ -43,11 +43,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-                <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" >
-                <Button Text="Перейти к списку тренировок WorkoutListPage" Clicked="GoToWorkoutList"></Button>
-        </VerticalStackLayout>
-
+        
 
 
         <VerticalStackLayout x:Name="ListWorkouts">
@@ -64,7 +60,6 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </StackLayout>
-
         </VerticalStackLayout>
 
     </StackLayout>

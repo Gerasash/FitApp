@@ -27,8 +27,6 @@
             <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
         </DatePicker>
 
-        
-
         <Editor x:Name="EditorWorkoutDescription"  Placeholder = "введи название тренировки"
                 FontSize="16" HeightRequest="200"
                 Text="{Binding WorkoutDescription, Mode=TwoWay}"

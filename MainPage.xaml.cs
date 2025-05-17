@@ -81,5 +81,10 @@ namespace FitApp
         {
             await Navigation.PushAsync(new WorkoutListPage());
         }
+        private async void GoToMuscleGroupsListPage(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("//MuscleGroupsListPage");
+        }
+        
     }
 }

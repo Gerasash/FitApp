@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FitApp.MuscleGroupsListPage"
+             xmlns:local="clr-namespace:FitApp.ViewModels"
+             Title="MuscleGroupsListPage">
+
+    <VerticalStackLayout>
+        <Entry Placeholder="Введите название группы мышц" Text="{Binding MuscleGroupName, Mode=TwoWay}"/>
+        <Button Text="Добавить группу мышц" Command="{Binding AddMuscleGroupCommand}"/>
+        
+
+
+        <VerticalStackLayout >
+            <CollectionView ItemsSource="{Binding MuscleGroups}" 
+                    SelectedItem="{Binding SelectedMuscleGroup}"
+                    SelectionMode="Single" 
+                    BackgroundColor="Gray"
+                    x:Name="WorkoutCollectionView"
+                    >
+                <CollectionView.ItemTemplate >
+                    <DataTemplate >
+                        <StackLayout Orientation="Horizontal" Padding ="15" >
+                            <Label Text="{Binding MuscleGroupName}" FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
+                            <Button Text="X" 
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}},Path=DeleteMuscleGroupCommand}" 
+                            CommandParameter="{Binding .}"></Button>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

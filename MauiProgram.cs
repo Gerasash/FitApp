@@ -25,6 +25,8 @@ namespace FitApp
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<MainViewModel>();
 
+            builder.Services.AddTransient<MuscleGroupViewModel>();
+            builder.Services.AddTransient<MuscleGroupsListPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

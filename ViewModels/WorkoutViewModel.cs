@@ -13,7 +13,7 @@ namespace FitApp.ViewModels
         private readonly WorkoutDataBase _database;
 
         [ObservableProperty]
-        private ObservableCollection<Workout> workouts;
+        private ObservableCollection<Workout> _workouts;
         [ObservableProperty]
         private Workout currentWorkout;
         [ObservableProperty]
