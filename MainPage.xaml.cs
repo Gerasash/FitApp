@@ -20,7 +20,7 @@ namespace FitApp
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
+            //BindingContext = new MainViewModel();
 
             // Привязка данных к ListView
             WorkoutListView.ItemsSource = Workouts;
