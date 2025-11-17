@@ -28,6 +28,7 @@
                 <CollectionView.ItemTemplate >
                     <DataTemplate >
                         <StackLayout Orientation="Horizontal" Padding ="15" >
+                            
                             <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
                             <Label Text="{Binding StartTime}" TextColor="Black" VerticalOptions="Center" Padding ="5"/>
                             <Button Text="X" 

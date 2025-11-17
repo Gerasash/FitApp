@@ -1,3 +1,4 @@
+// פאיכ MuscleGroupsListPage.xaml.cs
 namespace FitApp;
 using FitApp.Data;
 using FitApp.ViewModels;
@@ -9,5 +10,4 @@ public partial class MuscleGroupsListPage : ContentPage
 		InitializeComponent();
         BindingContext = new MuscleGroupViewModel(database);
     }
-    
 }

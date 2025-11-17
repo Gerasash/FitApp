@@ -9,12 +9,12 @@ namespace FitApp.Data
 {
     public class WorkoutDataBase
     {
-        private const string DB_NAME = "Workout.db";
+        private const string DbName = "Workout.db";
         private readonly SQLiteAsyncConnection _connection;
 
         public WorkoutDataBase()
         {
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, DB_NAME);
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, DbName);
             _connection = new SQLiteAsyncConnection(dbPath);
 
             _connection.CreateTableAsync<Workout>().Wait();

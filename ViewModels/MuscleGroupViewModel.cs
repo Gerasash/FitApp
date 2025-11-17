@@ -17,8 +17,8 @@ namespace FitApp.ViewModels
         [ObservableProperty]
         public ObservableCollection<MuscleGroup> _muscleGroups = new ();
         [ObservableProperty]
-        private MuscleGroup _selectedMuscleGroup;
-
+        private MuscleGroup _selectedMuscleGroup = new MuscleGroup();
+        
         [ObservableProperty]
         private string _muscleGroupName;
 
@@ -47,6 +47,7 @@ namespace FitApp.ViewModels
                 await _database.SaveMuscleGroupAsync(newGroup);
                 MuscleGroups.Add(newGroup);
                 MuscleGroupName = string.Empty;
+                await LoadMuscleGroupsAsync();
             }
         }
 
@@ -58,7 +59,7 @@ namespace FitApp.ViewModels
                 await _database.DeleteMuscleGroupAsync(muscleGroup);
                 MuscleGroups.Remove(muscleGroup);
             }
-            LoadMuscleGroupsAsync();
+            await LoadMuscleGroupsAsync();
         }
     }
 }

@@ -6,14 +6,14 @@
              Title="MuscleGroupsListPage">
 
     <VerticalStackLayout>
-        <Entry Placeholder="Введите название группы мышц" Text="{Binding MuscleGroupName, Mode=TwoWay}"/>
+        <Entry Placeholder="Введите название группы мышц" 
+               Text="{Binding MuscleGroupName}"/>
         <Button Text="Добавить группу мышц" Command="{Binding AddMuscleGroupCommand}"/>
         
 
-
         <VerticalStackLayout >
             <CollectionView ItemsSource="{Binding MuscleGroups}" 
-                    SelectedItem="{Binding SelectedMuscleGroup}"
+                    
                     SelectionMode="Single" 
                     BackgroundColor="Gray"
                     x:Name="WorkoutCollectionView"
@@ -23,8 +23,9 @@
                         <StackLayout Orientation="Horizontal" Padding ="15" >
                             <Label Text="{Binding MuscleGroupName}" FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
                             <Button Text="X" 
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}},Path=DeleteMuscleGroupCommand}" 
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:MuscleGroupViewModel}},Path=DeleteMuscleGroupCommand}" 
                             CommandParameter="{Binding .}"></Button>
+
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
