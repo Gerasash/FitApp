@@ -24,7 +24,12 @@ namespace FitApp.ViewModels
 
         [ObservableProperty]
         private DateTime workoutDate;
-        
+        [ObservableProperty]
+        private DateTime selectedDate = DateTime.Now;
+
+        [ObservableProperty]
+        private TimeSpan selectedTime = DateTime.Now.TimeOfDay;
+
         [ObservableProperty]
         private List<MuscleGroup> selectedMuscleGroups = new();
 
@@ -43,7 +48,8 @@ namespace FitApp.ViewModels
             WorkoutDate = workout.StartTime;
         }
         [RelayCommand]
-        private async void LoadWorkouts()
+        private async         Task
+LoadWorkouts()
         {
             var items = await _database.GetWorkouts();
             Workouts = new ObservableCollection<Workout>(items);
@@ -66,23 +72,34 @@ namespace FitApp.ViewModels
             LoadWorkouts();
         }
         [RelayCommand]
-        private async void AddWorkout()
+        private async Task AddWorkout()  // Task вместо void для async
         {
             if (!string.IsNullOrEmpty(WorkoutName))
             {
+                // Объединяем дату и время
+                var combinedDateTime = SelectedDate.Date.Add(SelectedTime);
+
                 var workout = new Workout
                 {
                     Name = WorkoutName,
-                    Description = WorkoutDescription,
-                    StartTime = DateTime.Now,
+                    Description = WorkoutDescription ?? "",  // Защита от null
+                    StartTime = combinedDateTime,
                     MuscleGroups = SelectedMuscleGroups
                 };
+
                 await _database.SaveWorkout(workout);
+
+                // Сброс полей
                 WorkoutName = string.Empty;
+                WorkoutDescription = string.Empty;
+                SelectedDate = DateTime.Today;
+                SelectedTime = DateTime.Now.TimeOfDay;
                 SelectedMuscleGroups.Clear();
-                LoadWorkouts();
+
+                await LoadWorkouts();  // Вызов обычного метода, не команды
             }
         }
+
 
         [RelayCommand]
         private async void DeleteWorkout(Workout workout)
