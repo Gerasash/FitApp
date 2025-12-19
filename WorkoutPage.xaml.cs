@@ -1,38 +1,76 @@
-namespace FitApp;
-using Microsoft.Maui.Controls;
-using SQLite;
+using FitApp.Data;
 using FitApp.Models;
 using FitApp.ViewModels;
-using System;
-using static System.Net.Mime.MediaTypeNames;
+
+namespace FitApp;
 
 public partial class WorkoutPage : ContentPage
 {
     private readonly WorkoutViewModel _viewModel;
-    public WorkoutPage(Workout workout)
-    {
-        InitializeComponent();
-        BindingContext = _viewModel = new WorkoutViewModel(workout);
+    private readonly WorkoutDataBase _database;
 
-        //мертвая привязка если не будет работать
-        //WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";
-        //EditorWorkoutDescription.Text = workout.Description;
-        //WorkoutNameLabel.Text = workout.Name;
-
-        // Кнопка "Добавить упражнение"
-        addExerciseButton.Clicked += ToModalPage;
-    }
-    private async void ToModalPage(object? sender, EventArgs e)
+    public WorkoutPage(Workout workout, WorkoutDataBase database)
     {
-        await Navigation.PushModalAsync(new AddExersciseModalPage());
+
+        _database = database;
+
+        // Создаём ViewModel с выбранной тренировкой
+        _viewModel = new WorkoutViewModel(workout, database);
+        BindingContext = _viewModel;
     }
-    private async void OnBackButtonClicked(object sender, EventArgs e)
+
+    // Обработчик сохранения тренировки
+    private async void OnSaveClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            // Вызываем команду обновления из ViewModel
+            if (_viewModel.UpdateWorkoutCommand.CanExecute(null))
+            {
+                _viewModel.UpdateWorkoutCommand.Execute(null);
+            }
+
+            // Возвращаемся на предыдущую страницу
+            await Navigation.PopAsync();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Ошибка", $"Не удалось сохранить: {ex.Message}", "OK");
+        }
+    }
+
+    // Обработчик отмены
+    private async void OnCancelClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
     }
-    void PickerSelectedIndexChanged(object sender, EventArgs e)
-    {
-        WorkoutDescriptionLabel.Text = $"Вы выбрали: {WorkoutPicker.SelectedItem}";
-    }
 
+    // Обработчик удаления тренировки
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        bool confirmed = await DisplayAlert(
+            "Подтверждение",
+            "Вы уверены, что хотите удалить эту тренировку?",
+            "Да",
+            "Нет"
+        );
+
+        if (confirmed && _viewModel.CurrentWorkout != null)
+        {
+            try
+            {
+                if (_viewModel.DeleteWorkoutCommand.CanExecute(_viewModel.CurrentWorkout))
+                {
+                    _viewModel.DeleteWorkoutCommand.Execute(_viewModel.CurrentWorkout);
+                }
+
+                // Возвращаемся на список тренировок
+                await Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", $"Не удалось удалить: {ex.Message}", "OK");
+            }
+        }
+    }
 }

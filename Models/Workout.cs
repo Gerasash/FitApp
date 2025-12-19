@@ -35,7 +35,6 @@ namespace FitApp.Models
 
             StartTime = time;
         }
-        [Ignore]
         public List<MuscleGroup> MuscleGroups { get; set; } = new();
     }
 }

@@ -47,7 +47,6 @@ namespace FitApp.ViewModels
                 await _database.SaveMuscleGroupAsync(newGroup);
                 MuscleGroups.Add(newGroup);
                 MuscleGroupName = string.Empty;
-                await LoadMuscleGroupsAsync();
             }
         }
 

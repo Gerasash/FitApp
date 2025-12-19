@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FitApp.WorkoutListPage"
-             xmlns:local="clr-namespace:FitApp.ViewModels"
-             Title="WorkoutListPage"
-             >
-    <VerticalStackLayout>
-        <Entry Placeholder = "введи название тренировки" Text="{Binding WorkoutName, Mode=TwoWay}"></Entry>
+             x:Class="FitApp.WorkoutPage"
+             Title="Редактировать тренировку">
 
-        <Label x:Name="labelTime" Text="Выберите дату"/>
-        <DatePicker x:Name="WorkoutDatePicker" Format="d">
-            <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
-            <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
-        </DatePicker>
-        <TimePicker x:Name="WorkoutTimePicker"/>
-        
-        <Button Text="Добавить тренировку" Command="{Binding AddWorkoutCommand}"></Button>
-        
-        <StackLayout Orientation="Vertical" >
-            <CollectionView ItemsSource="{Binding Workouts}" 
-                            SelectionMode="Single" 
-                            SelectionChanged="OnWorkoutSelected"
-                            BackgroundColor="Gray"
-                            x:Name="WorkoutCollectionView"
-                            
-                            >
-                <CollectionView.ItemTemplate >
-                    <DataTemplate >
-                        <StackLayout Orientation="Horizontal" Padding ="15" >
-                            
-                            <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
-                            <Label Text="{Binding StartTime}" TextColor="Black" VerticalOptions="Center" Padding ="5"/>
-                            <Button Text="X" 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}},Path=DeleteWorkoutCommand}" 
-                                    CommandParameter="{Binding .}"></Button>
-                        </StackLayout>
+    <ScrollView Padding="20" >
+        <VerticalStackLayout Spacing="15">
 
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
-        
-        
-    </VerticalStackLayout>
+            <!-- Название -->
+            <Label Text="Название" FontAttributes="Bold" FontSize="16"/>
+            <Entry Text="{Binding WorkoutName}" 
+                   Placeholder="Введите название"
+                   ClearButtonVisibility="WhileEditing"/>
+
+            <!-- Описание -->
+            <Label Text="Описание" FontAttributes="Bold" FontSize="16"/>
+            <Editor Text="{Binding WorkoutDescription}"
+                    Placeholder="Введите описание"
+                    HeightRequest="100"/>
+
+            <!-- Дата -->
+            <Label Text="Дата тренировки" FontAttributes="Bold" FontSize="16"/>
+            <DatePicker Date="{Binding WorkoutDate}"/>
+
+            <!-- Кнопки -->
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,20,0,0">
+                <Button Text="Сохранить" 
+                        Clicked="OnSaveClicked"
+                        BackgroundColor="#2196F3"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="20,10"/>
+                <Button Text="Удалить" 
+                        Clicked="OnDeleteClicked"
+                        BackgroundColor="#F44336"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="20,10"/>
+                <Button Text="Отмена" 
+                        Clicked="OnCancelClicked"
+                        BackgroundColor="#9E9E9E"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="20,10"/>
+            </StackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>
