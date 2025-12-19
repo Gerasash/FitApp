@@ -1,7 +1,8 @@
+
 using FitApp.Data;
 using FitApp.Models;
 using FitApp.ViewModels;
-
+using Microsoft.Maui.Controls;
 namespace FitApp;
 
 public partial class WorkoutPage : ContentPage
@@ -11,7 +12,7 @@ public partial class WorkoutPage : ContentPage
 
     public WorkoutPage(Workout workout, WorkoutDataBase database)
     {
-
+        InitializeComponent();
         _database = database;
 
         // Создаём ViewModel с выбранной тренировкой
