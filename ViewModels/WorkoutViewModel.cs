@@ -13,6 +13,10 @@ namespace FitApp.ViewModels
         private readonly WorkoutDataBase _database;
 
         [ObservableProperty]
+        private ObservableCollection<MuscleGroup> allMuscleGroups = new();
+        [ObservableProperty]
+        private ObservableCollection<object> selectedMuscleGroups = new();
+        [ObservableProperty]
         private ObservableCollection<Workout> _workouts;
         [ObservableProperty]
         private Workout currentWorkout;
@@ -30,13 +34,11 @@ namespace FitApp.ViewModels
         [ObservableProperty]
         private TimeSpan selectedTime = DateTime.Now.TimeOfDay;
 
-        [ObservableProperty]
-        private List<MuscleGroup> selectedMuscleGroups = new();
-
         public WorkoutViewModel()
         {
             _database = new WorkoutDataBase();
             LoadWorkouts();
+            LoadAllMuscleGroups(); // Загружаем группы мышц при старте
         }
         
         public WorkoutViewModel(Workout workout)
@@ -46,31 +48,41 @@ namespace FitApp.ViewModels
             WorkoutName = workout.Name;
             WorkoutDescription = workout.Description;
             WorkoutDate = workout.StartTime;
+            //TODO: Здесь нужно будет загрузить связанные группы мышц для редактирования
         }
+
         [RelayCommand]
-        private async         Task
-LoadWorkouts()
+        private async Task LoadWorkouts()
         {
             var items = await _database.GetWorkouts();
             Workouts = new ObservableCollection<Workout>(items);
         }
+
+        //Метод загрузки всех групп мышц
+        [RelayCommand]
+        public async Task LoadAllMuscleGroups()
+        {
+            var groups = await _database.GetMuscleGroupsAsync();
+            AllMuscleGroups = new ObservableCollection<MuscleGroup>(groups);
+        }
+
         [RelayCommand]
         private async Task UpdateWorkout()
         {
             if (CurrentWorkout == null) return;
 
-            // Обновляем данные текущей тренировки
             CurrentWorkout.Name = WorkoutName;
             CurrentWorkout.Description = WorkoutDescription;
             CurrentWorkout.StartTime = WorkoutDate;
-            CurrentWorkout.MuscleGroups = SelectedMuscleGroups;
+
+            // Логику обновления связей добавим позже
 
             await _database.SaveWorkout(CurrentWorkout);
             await Shell.Current.DisplayAlert("Успех", "Тренировка обновлена", "OK");
 
-            // Обновляем список
             LoadWorkouts();
         }
+
         [RelayCommand]
         private async Task AddWorkout()  // Task вместо void для async
         {
@@ -83,12 +95,22 @@ LoadWorkouts()
                 {
                     Name = WorkoutName,
                     Description = WorkoutDescription ?? "",  // Защита от null
-                    StartTime = combinedDateTime,
-                    MuscleGroups = SelectedMuscleGroups
+                    StartTime = combinedDateTime
                 };
-
+                // 1. Сохраняем саму тренировку (получаем ID)
                 await _database.SaveWorkout(workout);
-
+                // Сохраняем связи с группами мышц
+                if (SelectedMuscleGroups != null && SelectedMuscleGroups.Count > 0)
+                {
+                    foreach (var item in SelectedMuscleGroups)
+                    {
+                        if (item is MuscleGroup mg)
+                        {
+                            var link = new WorkoutMuscleGroup(workout.Id, mg.Id);
+                            await _database.SaveWorkoutMuscleGroupAsync(link);
+                        }
+                    }
+                }
                 // Сброс полей
                 WorkoutName = string.Empty;
                 WorkoutDescription = string.Empty;
@@ -96,10 +118,9 @@ LoadWorkouts()
                 SelectedTime = DateTime.Now.TimeOfDay;
                 SelectedMuscleGroups.Clear();
 
-                await LoadWorkouts();  // Вызов обычного метода, не команды
+                await LoadWorkouts();
             }
         }
-
 
         [RelayCommand]
         private async void DeleteWorkout(Workout workout)
@@ -107,6 +128,7 @@ LoadWorkouts()
             await _database.DeleteWorkout(workout);
             LoadWorkouts();
         }
+
         /*public class WorkoutTagPair
         {
             public Workout Workout { get; set; }

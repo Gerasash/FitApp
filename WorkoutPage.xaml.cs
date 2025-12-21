@@ -30,9 +30,6 @@ public partial class WorkoutPage : ContentPage
     {
         await Navigation.PopAsync();
     }
-    void PickerSelectedIndexChanged(object sender, EventArgs e)
-    {
-        WorkoutDescriptionLabel.Text = $"Вы выбрали: {WorkoutPicker.SelectedItem}";
-    }
+    
 
 }

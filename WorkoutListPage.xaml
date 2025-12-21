@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FitApp.WorkoutListPage"
              xmlns:local="clr-namespace:FitApp.ViewModels"
-             Title="WorkoutListPage"
+             Title="Список тренировок"
              >
     <VerticalStackLayout>
         <Entry Placeholder = "введи название тренировки" Text="{Binding WorkoutName, Mode=TwoWay}"></Entry>
@@ -16,6 +16,7 @@
         <Label Text="Выберите время"/>
         <TimePicker Time="{Binding SelectedTime, Mode=TwoWay}"/>
 
+        
         <Button Text="Добавить тренировку" Command="{Binding AddWorkoutCommand}"></Button>
         
         <StackLayout Orientation="Vertical" >

@@ -22,5 +22,5 @@ public partial class WorkoutListPage : ContentPage
 
         ((CollectionView)sender).SelectedItem = null;
     }
-    
+
 }
