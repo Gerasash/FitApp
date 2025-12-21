@@ -9,41 +9,6 @@
             <Button Text="Перейти к списку тренировок WorkoutListPage" Clicked="GoToWorkoutList"></Button>
             <Button Text="Перейти к списку групп Мыщц MuscleGroupsListPage" Clicked="GoToMuscleGroupsListPage"></Button>
         </VerticalStackLayout>
-        <VerticalStackLayout >
-            <Entry x:Name="WorkoutNameEntry" Placeholder = "Введите название тренировки" 
-                   Text="{Binding NewTaskTitle, Mode=TwoWay}"/>
-            <!-- Поле для выбора даты и времени тренировки -->
-            <Label x:Name="labelTime" Text="Выберите дату"/>
-            <DatePicker x:Name="WorkoutDatePicker" Format="d">
-                <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
-                <DatePicker.MaximumDate>1/1/2030</DatePicker.MaximumDate>
-            </DatePicker>
-            <TimePicker x:Name="WorkoutTimePicker"/>
-
-            <Button Text="Добавить " 
-                Clicked="OnAddWorkoutClicked" />
-            
-        </VerticalStackLayout>
-        <ListView x:Name="WorkoutListView" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem Text="Удалить"
-                        Clicked="OnDeleteWorkoutClicked"
-                        CommandParameter="{Binding .}" />
-                        </ViewCell.ContextActions>
-
-                        <StackLayout>
-                            <Label Text="{Binding Name, Mode=TwoWay}" FontAttributes="Bold" />
-                            <Label Text="{Binding StartTime, Mode=TwoWay}" TextColor="Gray" />
-                        </StackLayout>
-                    </ViewCell>
-
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
         
-
     </StackLayout>
 </ContentPage>
