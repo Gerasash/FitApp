@@ -25,6 +25,5 @@ namespace FitApp.Models
             MuscleGroupId = muscleGroupId;
         }
 
-
     }
 }

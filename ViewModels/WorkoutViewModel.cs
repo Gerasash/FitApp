@@ -15,7 +15,7 @@ namespace FitApp.ViewModels
         [ObservableProperty]
         private ObservableCollection<MuscleGroup> allMuscleGroups = new();
         [ObservableProperty]
-        private ObservableCollection<object> selectedMuscleGroups = new();
+        private IList<object> selectedMuscleGroups = new List<object>();
         [ObservableProperty]
         private ObservableCollection<Workout> _workouts;
         [ObservableProperty]
@@ -48,6 +48,10 @@ namespace FitApp.ViewModels
             WorkoutName = workout.Name;
             WorkoutDescription = workout.Description;
             WorkoutDate = workout.StartTime;
+            Task.Run(async () =>
+            {
+                await LoadAllMuscleGroups();
+            });
             //TODO: Здесь нужно будет загрузить связанные группы мышц для редактирования
         }
 
@@ -71,17 +75,36 @@ namespace FitApp.ViewModels
         {
             if (CurrentWorkout == null) return;
 
+            // 1. Обновляем основную тренировку
             CurrentWorkout.Name = WorkoutName;
             CurrentWorkout.Description = WorkoutDescription;
             CurrentWorkout.StartTime = WorkoutDate;
-
-            // Логику обновления связей добавим позже
-
             await _database.SaveWorkout(CurrentWorkout);
-            await Shell.Current.DisplayAlert("Успех", "Тренировка обновлена", "OK");
 
-            LoadWorkouts();
+            // 2. 🔥 УДАЛЯЕМ СТАРЫЕ СВЯЗИ
+            var oldLinks = await _database.GetWorkoutMuscleGroupsForWorkoutAsync(CurrentWorkout.Id);
+            foreach (var link in oldLinks)
+            {
+                await _database.DeleteWorkoutMuscleGroupAsync(link);
+            }
+
+            // 3. 🔥 СОХРАНЯЕМ НОВЫЕ СВЯЗИ
+            if (SelectedMuscleGroups != null)
+            {
+                foreach (var item in SelectedMuscleGroups)
+                {
+                    if (item is MuscleGroup mg)
+                    {
+                        var newLink = new WorkoutMuscleGroup(CurrentWorkout.Id, mg.Id);
+                        await _database.SaveWorkoutMuscleGroupAsync(newLink);
+                    }
+                }
+            }
+
+            await Shell.Current.DisplayAlert("Успех", "Тренировка обновлена", "OK");
+            await LoadWorkouts();
         }
+
 
         [RelayCommand]
         private async Task AddWorkout()  // Task вместо void для async

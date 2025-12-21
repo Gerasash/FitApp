@@ -15,21 +15,45 @@
 
         <Label Text="Выберите группы мышц" Margin="0,10,0,5"/>
 
+        <Label Text="Выберите группы мышц" 
+       Margin="0,10,0,5"
+       TextColor="{AppThemeBinding Light=Black, Dark=White}"
+       FontAttributes="Bold" 
+       FontSize="18"/>
+
         <CollectionView ItemsSource="{Binding AllMuscleGroups}"
-        SelectionMode="Multiple"
-        SelectedItems="{Binding SelectedMuscleGroups, Mode=TwoWay}"
-        HeightRequest="120"
-        BackgroundColor="#f0f0f0">
+                SelectionMode="Multiple"
+                SelectedItems="{Binding SelectedMuscleGroups, Mode=TwoWay}"
+                HeightRequest="120">
+
+            <!-- Фон CollectionView подстраивается под тему -->
+            <CollectionView.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{AppThemeBinding Light=#F8F9FA, Dark=#2D2D30}" Offset="0.0" />
+                    <GradientStop Color="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}" Offset="1.0" />
+                </LinearGradientBrush>
+            </CollectionView.Background>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10">
-                        <Label Text="{Binding Name}" FontSize="16"/>
+                    <Grid Padding="12">
+                        <Label Text="{Binding Name}" 
+                       FontSize="16"
+                       TextColor="{AppThemeBinding Light=#333333, Dark=#E0E0E0}"
+                       VerticalOptions="Center"/>
+
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="CommonStates">
-                                <VisualState Name="Normal" />
+                                <VisualState Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" 
+                                        Value="{AppThemeBinding Light=Transparent, Dark=Transparent}" />
+                                    </VisualState.Setters>
+                                </VisualState>
                                 <VisualState Name="Selected">
                                     <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="LightBlue" />
+                                        <Setter Property="BackgroundColor" 
+                                        Value="{AppThemeBinding Light=#E3F2FD, Dark=#405FC7}" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -39,7 +63,8 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        
+
+
         <Label x:Name="WorkoutDescriptionLabel" />
 
         <DatePicker x:Name="WorkoutDatePicker" Format="d" Date="{Binding WorkoutDate,Mode=TwoWay}">
