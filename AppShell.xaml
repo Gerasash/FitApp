@@ -17,12 +17,13 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-    <ShellContent
-        Title="Настройки"
-        ContentTemplate="{DataTemplate local:SettingsPage}"
-        Route="SettingsPage" />
+    
     <ShellContent
         Title="Список групп мыщц"
         ContentTemplate="{DataTemplate local:MuscleGroupsListPage}"
         Route="MuscleGroupsListPage" />
+    <ShellContent
+        Title="Настройки"
+        ContentTemplate="{DataTemplate local:SettingsPage}"
+        Route="SettingsPage" />
 </Shell>

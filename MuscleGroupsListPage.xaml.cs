@@ -15,4 +15,8 @@ public partial class MuscleGroupsListPage : ContentPage
 		InitializeComponent();
         BindingContext = new MuscleGroupViewModel(database);
     }
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }

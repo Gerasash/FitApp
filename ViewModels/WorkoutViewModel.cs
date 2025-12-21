@@ -166,7 +166,7 @@ namespace FitApp.ViewModels
                 var mg = AllMuscleGroups.FirstOrDefault(x => x.Id == link.MuscleGroupId);
                 if (mg != null)
                 {
-                    SelectedMuscleGroups.Add(mg); // 👈 Добавляем ИМЕННО ЭТУ ССЫЛКУ
+                    SelectedMuscleGroups.Add(mg);
                 }
             }
 
