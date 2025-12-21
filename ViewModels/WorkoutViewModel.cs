@@ -51,6 +51,8 @@ namespace FitApp.ViewModels
             Task.Run(async () =>
             {
                 await LoadAllMuscleGroups();
+                // 🔥 2. Загружаем УЖЕ ВЫБРАННЫЕ мышцы для этой тренировки
+                await LoadSelectedMuscleGroupsForWorkout(workout.Id);
             });
             //TODO: Здесь нужно будет загрузить связанные группы мышц для редактирования
         }
@@ -150,6 +152,25 @@ namespace FitApp.ViewModels
         {
             await _database.DeleteWorkout(workout);
             LoadWorkouts();
+        }
+        public async Task LoadSelectedMuscleGroupsForWorkout(int workoutId)
+        {
+            SelectedMuscleGroups.Clear();
+
+            // 1. Получаем связи (WorkoutId - MuscleGroupId)
+            var links = await _database.GetWorkoutMuscleGroupsForWorkoutAsync(workoutId);
+
+            // 2. Для каждой связи ищем СУЩЕСТВУЮЩИЙ объект MuscleGroup в AllMuscleGroups
+            foreach (var link in links)
+            {
+                var mg = AllMuscleGroups.FirstOrDefault(x => x.Id == link.MuscleGroupId);
+                if (mg != null)
+                {
+                    SelectedMuscleGroups.Add(mg); // 👈 Добавляем ИМЕННО ЭТУ ССЫЛКУ
+                }
+            }
+
+            OnPropertyChanged(nameof(SelectedMuscleGroups));
         }
 
         /*public class WorkoutTagPair
