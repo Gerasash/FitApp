@@ -3,23 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FitApp.WorkoutPage"
              xmlns:local="clr-namespace:FitApp.ViewModels"
-             Title="{Binding WorkoutName, Mode=TwoWay}"
+             
              >
     
     <StackLayout>
+        <Editor Text="{Binding WorkoutName, Mode=TwoWay}" FontSize="26" TextColor="Orange">
+            
+        </Editor>
         <Button Text="Вернуться назад" BorderColor="Red"  Clicked="OnBackButtonClicked" Command="{Binding LoadWorkoutsCommand}"></Button>
         <Label x:Name="WorkoutNameLabel" Text="Детали тренировки"  FontSize="Large"/>
 
         <Button x:Name ="addExerciseButton"  Text = "Добавить упражнение" HorizontalOptions="Start"/>
 
 
-        <Label Text="Выберите группы мышц" Margin="0,10,0,5"/>
-
-        <Label Text="Выберите группы мышц" 
-       Margin="0,10,0,5"
-       TextColor="{AppThemeBinding Light=Black, Dark=White}"
-       FontAttributes="Bold" 
-       FontSize="18"/>
+        <Label  Text="Выберите группы мышц" 
+                Margin="0,10,0,5"
+                TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                FontAttributes="Bold" 
+                FontSize="18"/>
 
         <CollectionView ItemsSource="{Binding AllMuscleGroups}"
                 SelectionMode="Multiple"

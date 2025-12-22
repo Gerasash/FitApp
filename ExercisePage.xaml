@@ -1,85 +1,42 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="FitApp.ExercisePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:FitApp.Models"
-             x:Class="FitApp.ExercisePage"
-             Title="Выбор упражнения"
-             BackgroundColor="#121212">
+             Title="Выберите упражнение">
 
-    <Grid RowDefinitions="Auto, *, Auto" Padding="15" RowSpacing="15">
+    <VerticalStackLayout Padding="20" Spacing="20">
 
-        <!-- 1. ПОИСК -->
-        <Border Grid.Row="0" 
-                StrokeShape="RoundRectangle 10" 
-                StrokeThickness="0"
-                BackgroundColor="#2C2C2C">
-            <SearchBar x:Name="ExerciseSearch"
-                       Placeholder="Поиск упражнения..."
-                       PlaceholderColor="#888"
-                       TextColor="White"
-                       TextChanged="OnSearchTextChanged"
-                       BackgroundColor="Transparent"/>
-        </Border>
+        <!-- Поиск -->
+        <Entry x:Name="SearchEntry" 
+               Placeholder="Поиск упражнения..." 
+               Text="{Binding SearchText, Mode=TwoWay}"/>
 
-        <!-- 2. СПИСОК УПРАЖНЕНИЙ -->
-        <CollectionView Grid.Row="1" 
-                        x:Name="ExercisesList"
-                        SelectionMode="None">
-            <CollectionView.EmptyView>
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                    <Label Text="🔍" FontSize="40" HorizontalOptions="Center"/>
-                    <Label Text="Упражнения не найдены" TextColor="Gray" HorizontalOptions="Center"/>
-                </StackLayout>
-            </CollectionView.EmptyView>
-
+        <!-- Список упражнений -->
+        <CollectionView x:Name="ExercisesList" 
+                        ItemsSource="{Binding Exercises}"
+                        HeightRequest="400">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Exercise">
-                    <Border StrokeShape="RoundRectangle 12"
-                            StrokeThickness="1"
-                            Stroke="#333"
-                            BackgroundColor="#1E1E1E"
-                            Margin="0,0,0,10"
-                            Padding="15">
-                        <Grid ColumnDefinitions="*, Auto">
-                            <!-- Информация -->
-                            <StackLayout Grid.Column="0" Spacing="5">
-                                <Label Text="{Binding Name}" 
-                                       TextColor="White" 
-                                       FontAttributes="Bold" 
-                                       FontSize="16"/>
-                                <Label Text="Базовое • Грудь" 
-                                       TextColor="#888" 
-                                       FontSize="12"/>
-                            </StackLayout>
-
-                            <!-- Кнопка Добавить -->
-                            <Button Grid.Column="1"
-                                    Text="+"
-                                    TextColor="White"
-                                    FontSize="20"
-                                    BackgroundColor="#2196F3"
-                                    CornerRadius="20"
-                                    HeightRequest="40"
-                                    WidthRequest="40"
-                                    Padding="0"
-                                    Clicked="OnAddExerciseClicked"
-                                    CommandParameter="{Binding .}"/>
-                        </Grid>
-                    </Border>
+                <DataTemplate>
+                    <Grid Padding="10" ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" 
+                               Text="{Binding Name}" 
+                               FontSize="16" 
+                               VerticalOptions="Center"/>
+                        <Button Grid.Column="1" 
+                                Text="Добавить" 
+                                Command="{Binding AddExerciseCommand}"
+                                CommandParameter="{Binding}"
+                                BackgroundColor="Green" 
+                                TextColor="White"/>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- 3. КНОПКА СОЗДАНИЯ НОВОГО (если не нашел) -->
-        <Button Grid.Row="2"
-                Text="Создать новое упражнение"
-                BackgroundColor="Transparent"
-                TextColor="#2196F3"
-                BorderColor="#2196F3"
-                BorderWidth="1"
-                CornerRadius="10"
-                HeightRequest="50"
-                Clicked="OnCreateNewExerciseClicked"/>
-    </Grid>
+        <!-- Кнопка "Новое упражнение" -->
+        <Button Text="Создать новое упражнение" 
+                Command="{Binding CreateNewExerciseCommand}"
+                BackgroundColor="Blue" 
+                TextColor="White"/>
 
+    </VerticalStackLayout>
 </ContentPage>

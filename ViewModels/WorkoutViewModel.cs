@@ -25,7 +25,9 @@ namespace FitApp.ViewModels
 
         [ObservableProperty]
         private string workoutDescription;
-
+        // 🔥 ДОБАВЬ ЭТО ПОЛЕ:
+        [ObservableProperty]
+        private ObservableCollection<WorkoutExercise> workoutExercises = new();
         [ObservableProperty]
         private DateTime workoutDate;
         [ObservableProperty]
@@ -51,8 +53,9 @@ namespace FitApp.ViewModels
             Task.Run(async () =>
             {
                 await LoadAllMuscleGroups();
-                // 🔥 2. Загружаем УЖЕ ВЫБРАННЫЕ мышцы для этой тренировки
+                // 2. Загружаем УЖЕ ВЫБРАННЫЕ мышцы для этой тренировки
                 await LoadSelectedMuscleGroupsForWorkout(workout.Id);
+                await LoadExercisesForWorkout(workout.Id); // ← Добавь эту строку
             });
             //TODO: Здесь нужно будет загрузить связанные группы мышц для редактирования
         }
@@ -63,7 +66,11 @@ namespace FitApp.ViewModels
             var items = await _database.GetWorkouts();
             Workouts = new ObservableCollection<Workout>(items);
         }
-
+        public async Task LoadExercisesForWorkout(int workoutId)
+        {
+            var list = await _database.GetExercisesForWorkoutAsync(workoutId);
+            WorkoutExercises = new ObservableCollection<WorkoutExercise>(list);
+        }
         //Метод загрузки всех групп мышц
         [RelayCommand]
         public async Task LoadAllMuscleGroups()
@@ -71,7 +78,24 @@ namespace FitApp.ViewModels
             var groups = await _database.GetMuscleGroupsAsync();
             AllMuscleGroups = new ObservableCollection<MuscleGroup>(groups);
         }
+        public async Task AddExerciseToWorkout(Exercise exercise)
+        {
+            if (CurrentWorkout == null) return;
 
+            var newLink = new WorkoutExercise
+            {
+                WorkoutId = CurrentWorkout.Id,
+                ExerciseId = exercise.Id,
+                ExerciseName = exercise.Name, // Для отображения
+                OrderIndex = WorkoutExercises.Count + 1
+            };
+
+            // 1. Сохраняем в БД
+            await _database.AddExerciseToWorkoutAsync(newLink);
+
+            // 2. Добавляем в UI список
+            WorkoutExercises.Add(newLink);
+        }
         [RelayCommand]
         private async Task UpdateWorkout()
         {
@@ -83,14 +107,14 @@ namespace FitApp.ViewModels
             CurrentWorkout.StartTime = WorkoutDate;
             await _database.SaveWorkout(CurrentWorkout);
 
-            // 2. 🔥 УДАЛЯЕМ СТАРЫЕ СВЯЗИ
+            // 2. УДАЛЯЕМ СТАРЫЕ СВЯЗИ
             var oldLinks = await _database.GetWorkoutMuscleGroupsForWorkoutAsync(CurrentWorkout.Id);
             foreach (var link in oldLinks)
             {
                 await _database.DeleteWorkoutMuscleGroupAsync(link);
             }
 
-            // 3. 🔥 СОХРАНЯЕМ НОВЫЕ СВЯЗИ
+            // 3. СОХРАНЯЕМ НОВЫЕ СВЯЗИ
             if (SelectedMuscleGroups != null)
             {
                 foreach (var item in SelectedMuscleGroups)

@@ -13,19 +13,19 @@ public partial class WorkoutPage : ContentPage
     {
         InitializeComponent();
         BindingContext = _viewModel = new WorkoutViewModel(workout);
-
-        //мертвая привязка если не будет работать
-        //WorkoutDescriptionLabel.Text = $"Начало: {workout.StartTime}";
-        //EditorWorkoutDescription.Text = workout.Description;
-        //WorkoutNameLabel.Text = workout.Name;
-
-        // Кнопка "Добавить упражнение"
         addExerciseButton.Clicked += ToModalPage;
     }
     private async void ToModalPage(object? sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(new AddExersciseModalPage());
+        // Передаем callback в модалку
+        var modalPage = new ExercisePage(exerciseSelected: async exercise =>
+        {
+            await _viewModel.AddExerciseToWorkout(exercise);
+        });
+
+        await Navigation.PushModalAsync(modalPage);
     }
+
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
