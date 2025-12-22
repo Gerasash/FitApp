@@ -26,4 +26,8 @@
         Title="Настройки"
         ContentTemplate="{DataTemplate local:SettingsPage}"
         Route="SettingsPage" />
+    <ShellContent
+        Title="Список упражнений"
+        ContentTemplate="{DataTemplate local:ExercisePage}"
+        Route="ExercisePage" />
 </Shell>

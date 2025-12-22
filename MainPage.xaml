@@ -10,6 +10,7 @@
         <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" Margin="10" >
             <Button Text="Перейти к списку тренировок WorkoutListPage" Clicked="GoToWorkoutList"></Button>
             <Button Text="Перейти к списку групп Мыщц MuscleGroupsListPage" Clicked="GoToMuscleGroupsListPage"></Button>
+            <Button Text="Перейти к списку упражнений ExercisePagePage" Clicked="GoExercisePage"></Button>
         </VerticalStackLayout>
         
     </StackLayout>
