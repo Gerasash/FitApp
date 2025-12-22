@@ -14,6 +14,8 @@ public partial class WorkoutPage : ContentPage
         InitializeComponent();
         BindingContext = _viewModel = new WorkoutViewModel(workout);
         addExerciseButton.Clicked += ToModalPage;
+
+        Appearing += async (s, e) => await _viewModel.LoadExercisesForWorkout(workout.Id);
     }
     private async void ToModalPage(object? sender, EventArgs e)
     {

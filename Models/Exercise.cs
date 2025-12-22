@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FitApp.Models;
 
-
+[Table("Exercises")]
 public class Exercise
 {
     [PrimaryKey, AutoIncrement]

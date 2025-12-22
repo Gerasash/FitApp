@@ -5,16 +5,53 @@
              xmlns:local="clr-namespace:FitApp.ViewModels"
              
              >
+    <ScrollView>
+        
     
-    <StackLayout>
+    <VerticalStackLayout Padding="20" Spacing="20">
         <Editor Text="{Binding WorkoutName, Mode=TwoWay}" FontSize="26" TextColor="Orange">
             
         </Editor>
         <Button Text="Вернуться назад" BorderColor="Red"  Clicked="OnBackButtonClicked" Command="{Binding LoadWorkoutsCommand}"></Button>
         <Label x:Name="WorkoutNameLabel" Text="Детали тренировки"  FontSize="Large"/>
 
-        <Button x:Name ="addExerciseButton"  Text = "Добавить упражнение" HorizontalOptions="Start"/>
+        <Button x:Name ="addExerciseButton"  Text = " ➕ Добавить упражнение" HorizontalOptions="Start"/>
+        <!-- 🔥 СПИСОК УПРАЖНЕНИЙ ТРЕНИРОВКИ -->
+        <Label Text="Упражнения тренировки:" 
+               FontSize="18" 
+               FontAttributes="Bold"
+               Margin="0,20,0,10"/>
 
+        <CollectionView ItemsSource="{Binding WorkoutExercises}"
+                        HeightRequest="300">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border BackgroundColor="LightBlue" 
+                           Padding="15" 
+                           Margin="5" 
+                           >
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding ExerciseName}" 
+                                   FontSize="18" 
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding OrderIndex, StringFormat='Порядок: {0}'}" 
+                                   FontSize="14" 
+                                   TextColor="Gray"/>
+
+                            <!-- Подходы (Sets) -->
+                            <CollectionView ItemsSource="{Binding Sets}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding SetNumber, StringFormat='Подход {0}: {1}кг x {2} повт. (RPE {3})', Converter={StaticResource SetToStringConverter}}"
+                                               FontSize="14"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <Label  Text="Выберите группы мышц" 
                 Margin="0,10,0,5"
@@ -79,7 +116,8 @@
                 />
         <Button Text="Сохнаить" Command="{Binding UpdateWorkoutCommand}"></Button>
         
-    </StackLayout>
+    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
 
     

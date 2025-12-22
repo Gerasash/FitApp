@@ -69,6 +69,7 @@ namespace FitApp.ViewModels
         public async Task LoadExercisesForWorkout(int workoutId)
         {
             var list = await _database.GetExercisesForWorkoutAsync(workoutId);
+            System.Diagnostics.Debug.WriteLine($" Загружено упражнений: {list.Count} для workoutId={workoutId}");
             WorkoutExercises = new ObservableCollection<WorkoutExercise>(list);
         }
         //Метод загрузки всех групп мышц
