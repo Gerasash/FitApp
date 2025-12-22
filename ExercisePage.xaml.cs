@@ -12,4 +12,8 @@ public partial class ExercisePage : ContentPage
         var database = new WorkoutDataBase();
         BindingContext = new ExerciseSelectionViewModel(database, exerciseSelected);
     }
+    private async void OnCancelClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
+    }
 }

@@ -1,42 +1,55 @@
 <ContentPage x:Class="FitApp.ExercisePage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="PageRoot"
              Title="Выберите упражнение">
 
-    <VerticalStackLayout Padding="20" Spacing="20">
+    <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- Поиск -->
-        <Entry x:Name="SearchEntry" 
-               Placeholder="Поиск упражнения..." 
-               Text="{Binding SearchText, Mode=TwoWay}"/>
+        <!-- 🔥 КНОПКИ ВЕРХ -->
+        <HorizontalStackLayout Grid.Row="0" Margin="20">
+            <Button Text="Назад" 
+                    Clicked="OnCancelClicked"
+                    FontSize="18" 
+                    BackgroundColor="Blue"/>
+        </HorizontalStackLayout>
 
-        <!-- Список упражнений -->
-        <CollectionView x:Name="ExercisesList" 
-                        ItemsSource="{Binding Exercises}"
-                        HeightRequest="400">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10" ColumnDefinitions="*,Auto">
-                        <Label Grid.Column="0" 
-                               Text="{Binding Name}" 
-                               FontSize="16" 
-                               VerticalOptions="Center"/>
-                        <Button Grid.Column="1" 
-                                Text="Добавить" 
-                                Command="{Binding AddExerciseCommand}"
-                                CommandParameter="{Binding}"
-                                BackgroundColor="Green" 
-                                TextColor="White"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="20">
 
-        <!-- Кнопка "Новое упражнение" -->
-        <Button Text="Создать новое упражнение" 
-                Command="{Binding CreateNewExerciseCommand}"
-                BackgroundColor="Blue" 
-                TextColor="White"/>
+                <!-- Поиск -->
+                <Entry Placeholder="Поиск упражнения..." 
+                       Text="{Binding SearchText, Mode=TwoWay}"/>
 
-    </VerticalStackLayout>
+                <!-- Список упражнений -->
+                <CollectionView ItemsSource="{Binding Exercises}"
+                                HeightRequest="400">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0" 
+                                       Text="{Binding Name}" 
+                                       FontSize="16" 
+                                       VerticalOptions="Center"/>
+                                <Button Grid.Column="1" 
+                                        Text="Добавить" 
+                                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.AddExerciseCommand}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="Green" 
+                                        TextColor="White"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Кнопка "Новое упражнение" -->
+                <Button Text="Создать новое упражнение" 
+                        Command="{Binding CreateNewExerciseCommand}"
+                        BackgroundColor="Blue" 
+                        TextColor="Orange"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
 </ContentPage>
