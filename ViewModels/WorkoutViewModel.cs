@@ -24,8 +24,14 @@ namespace FitApp.ViewModels
         private string workoutName;
 
         [ObservableProperty]
+        private DateTime filterDate = DateTime.Today;
+
+        [ObservableProperty]
+        private ObservableCollection<Workout> filteredWorkouts;
+
+        [ObservableProperty]
         private string workoutDescription;
-        // 🔥 ДОБАВЬ ЭТО ПОЛЕ:
+
         [ObservableProperty]
         private ObservableCollection<WorkoutExercise> workoutExercises = new();
         [ObservableProperty]
@@ -65,6 +71,35 @@ namespace FitApp.ViewModels
         {
             var items = await _database.GetWorkouts();
             Workouts = new ObservableCollection<Workout>(items);
+            FilterByDate(); // Автоматически фильтрует по сегодняшней дате
+        }
+        [RelayCommand]
+        private void FilterByDate()
+        {
+            if (Workouts == null)
+            {
+                FilteredWorkouts = new ObservableCollection<Workout>();
+                return;
+            }
+
+            var selectedDate = FilterDate.Date;
+            var filteredList = Workouts
+                .Where(w => w.StartTime.Date == selectedDate)
+                .OrderByDescending(w => w.StartTime)
+                .ToList();
+
+            FilteredWorkouts = new ObservableCollection<Workout>(filteredList);
+
+            //DEBUG - смотри в Output
+            System.Diagnostics.Debug.WriteLine($"🔍 Отфильтровано {FilteredWorkouts.Count} тренировок за {selectedDate:dd.MM.yyyy}");
+        }
+        [RelayCommand]
+        private void ShowAllWorkouts()
+        {
+            FilterDate = DateTime.Today; // Сбрасываем дату на сегодня
+            FilteredWorkouts = Workouts; // Показываем ВСЕ тренировки
+
+            System.Diagnostics.Debug.WriteLine("🔍 Показаны ВСЕ тренировки");
         }
         public async Task LoadExercisesForWorkout(int workoutId)
         {
@@ -132,7 +167,10 @@ namespace FitApp.ViewModels
             await LoadWorkouts();
         }
 
-
+        partial void OnFilterDateChanged(DateTime value)
+        {
+            FilterByDate(); // Автоматически фильтрует при смене даты!
+        }
         [RelayCommand]
         private async Task AddWorkout()  // Task вместо void для async
         {

@@ -10,6 +10,15 @@ public partial class WorkoutListPage : ContentPage
         InitializeComponent();
         BindingContext = new WorkoutViewModel();
     }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        // Перезагружаем данные каждый раз при открытии страницы
+        if (BindingContext is WorkoutViewModel vm)
+        {
+            await vm.LoadWorkoutsCommand.ExecuteAsync(null);
+        }
+    }
 
     private async void OnWorkoutSelected(object sender, SelectionChangedEventArgs e)
     {

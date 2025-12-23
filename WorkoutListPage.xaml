@@ -8,6 +8,42 @@
     <VerticalStackLayout>
         <Entry Placeholder = "введи название тренировки" Text="{Binding WorkoutName, Mode=TwoWay}"></Entry>
 
+        <Border Padding="15" 
+        BackgroundColor="{AppThemeBinding Light=#E3F2FD, Dark=#1E3A5F}"
+        StrokeThickness="0"
+        Margin="0,20,0,15">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10"/>
+            </Border.StrokeShape>
+
+            <Grid ColumnDefinitions="*,*,Auto" ColumnSpacing="10">
+                <!-- Фильтр по дате -->
+                <DatePicker Grid.Column="0"
+                    Date="{Binding FilterDate, Mode=TwoWay}" 
+                    Format="d"
+                    MinimumDate="1/1/2020"
+                    MaximumDate="1/1/2030"/>
+
+                <!-- Кнопка фильтра -->
+                <Button Grid.Column="1" 
+                Text="🔍" 
+                Command="{Binding FilterByDateCommand}"
+                BackgroundColor="#2196F3"
+                TextColor="White"
+                WidthRequest="60"
+                HeightRequest="45"/>
+
+                <!-- 🔥 НОВАЯ КНОПКА "Показать все" -->
+                <Button Grid.Column="2" 
+                Text="📋 Все" 
+                Command="{Binding ShowAllWorkoutsCommand}"
+                BackgroundColor="#4CAF50"
+                TextColor="White"
+                WidthRequest="70"
+                HeightRequest="45"/>
+            </Grid>
+        </Border>
+
         <Label x:Name="labelTime" Text="Выберите дату"/>
         <DatePicker x:Name="WorkoutDatePicker" Date="{Binding SelectedDate, Mode=TwoWay}" Format="d">
             <DatePicker.MinimumDate>1/1/2010</DatePicker.MinimumDate>
@@ -20,7 +56,7 @@
         <Button Text="Добавить тренировку" Command="{Binding AddWorkoutCommand}"></Button>
         
         <StackLayout Orientation="Vertical" >
-            <CollectionView ItemsSource="{Binding Workouts}" 
+            <CollectionView ItemsSource="{Binding FilteredWorkouts}" 
                             SelectionMode="Single" 
                             SelectionChanged="OnWorkoutSelected"
                             BackgroundColor="Gray"
