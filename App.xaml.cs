@@ -9,7 +9,14 @@
             AppTheme theme = savedTheme == "Dark" ? AppTheme.Dark : AppTheme.Light;
             App.Current.UserAppTheme = theme;
 
-            
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            System.Diagnostics.Debug.WriteLine($"Unhandled: {e.ExceptionObject}");
+
+            TaskScheduler.UnobservedTaskException += (s, e) =>
+            {
+                System.Diagnostics.Debug.WriteLine($"Unobserved: {e.Exception}");
+                e.SetObserved();
+            };
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

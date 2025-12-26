@@ -78,6 +78,43 @@ namespace FitApp.ViewModels
             //FilterByDate(); // Автоматически фильтрует по сегодняшней дате
         }
         [RelayCommand]
+        private async Task AddSet(WorkoutExercise workoutExercise)
+        {
+            if (workoutExercise == null) return;
+
+            // Простой ввод через диалоги (быстро внедрить)
+            var wText = await Shell.Current.DisplayPromptAsync("Вес", "Введите вес (кг):", keyboard: Keyboard.Numeric);
+            if (!double.TryParse(wText, out var weight)) return;
+
+            var rText = await Shell.Current.DisplayPromptAsync("Повторы", "Введите количество повторений:", keyboard: Keyboard.Numeric);
+            if (!int.TryParse(rText, out var reps)) return;
+
+            var rpeText = await Shell.Current.DisplayPromptAsync("RPE", "Введите RPE (например 7.5):", keyboard: Keyboard.Numeric);
+            if (!double.TryParse(rpeText, out var rpe)) rpe = 0;
+
+            // Следующий номер подхода
+            var next = (workoutExercise.Sets?.Count ?? 0) + 1;
+
+            var set = new ExerciseSet
+            {
+                WorkoutExerciseId = workoutExercise.Id,
+                SetNumber = next,
+                Weight = weight,
+                Reps = reps,
+                RPE = rpe
+            };
+
+            await _database.SaveSetAsync(set);
+
+            // Обновляем UI (важно, чтобы Sets не был null)
+            workoutExercise.Sets ??= new List<ExerciseSet>();
+            workoutExercise.Sets.Add(set);
+
+            // Если не обновляется вложенный CollectionView:
+            OnPropertyChanged(nameof(WorkoutExercises));
+        }
+
+        [RelayCommand]
         private void FilterByDate()
         {
             if (Workouts == null)

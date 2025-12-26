@@ -50,6 +50,13 @@ namespace FitApp.Data
                 ORDER BY w.StartTime DESC
     ", muscleGroupId);
         }
+        public Task<List<ExerciseSet>> GetSetsForWorkoutExerciseAsync(int workoutExerciseId)
+        {
+            return _connection.Table<ExerciseSet>()
+                .Where(s => s.WorkoutExerciseId == workoutExerciseId)
+                .OrderBy(s => s.SetNumber)
+                .ToListAsync();
+        }
 
         public Task<int> SaveExerciseAsync(Exercise exercise)
         {
@@ -89,6 +96,22 @@ namespace FitApp.Data
         public Task<int> AddExerciseToWorkoutAsync(WorkoutExercise item)
         {
             return _connection.InsertAsync(item);
+        }
+        public async Task AddSetToWorkoutExerciseAsync(int workoutExerciseId, double weight, int reps, double rpe)
+        {
+            var existing = await GetSetsForWorkoutExerciseAsync(workoutExerciseId);
+            var nextNumber = existing.Count + 1;
+
+            var set = new ExerciseSet
+            {
+                WorkoutExerciseId = workoutExerciseId,
+                SetNumber = nextNumber,
+                Weight = weight,
+                Reps = reps,
+                RPE = rpe
+            };
+
+            await _connection.InsertAsync(set);
         }
 
         // --- Методы для Sets (Подходы) ---

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FitApp.WorkoutPage"
              xmlns:local="clr-namespace:FitApp.ViewModels"
-             
              >
     <ScrollView>
         
@@ -37,13 +36,22 @@
                             <Label Text="{Binding OrderIndex, StringFormat='Порядок: {0}'}" 
                                    FontSize="14" 
                                    TextColor="Gray"/>
+                            <Button Text="➕ Подход"
+                                   Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}}, Path=AddSetCommand}"
+                                   CommandParameter="{Binding .}"
+                                   HorizontalOptions="Start"/>
 
-                            <!-- Подходы (Sets) -->
+
+                                <!-- Подходы (Sets) -->
                             <CollectionView ItemsSource="{Binding Sets}">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Label Text="{Binding SetNumber, StringFormat='Подход {0}: {1}кг x {2} повт. (RPE {3})', Converter={StaticResource SetToStringConverter}}"
-                                               FontSize="14"/>
+                                        <HorizontalStackLayout Spacing="10">
+                                            <Label Text="{Binding SetNumber, StringFormat='#{0}'}"/>
+                                            <Label Text="{Binding Weight, StringFormat='{0} кг'}"/>
+                                            <Label Text="{Binding Reps, StringFormat='{0} повт'}"/>
+                                            <Label Text="{Binding RPE, StringFormat='RPE {0}'}"/>
+                                        </HorizontalStackLayout>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
