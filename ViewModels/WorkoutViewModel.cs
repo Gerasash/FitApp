@@ -71,7 +71,8 @@ namespace FitApp.ViewModels
         {
             var items = await _database.GetWorkouts();
             Workouts = new ObservableCollection<Workout>(items);
-            FilterByDate(); // Автоматически фильтрует по сегодняшней дате
+            FilteredWorkouts = Workouts;
+            //FilterByDate(); // Автоматически фильтрует по сегодняшней дате
         }
         [RelayCommand]
         private void FilterByDate()
