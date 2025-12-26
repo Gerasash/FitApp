@@ -10,7 +10,7 @@
             <Entry Placeholder = "введи название тренировки" Text="{Binding WorkoutName, Mode=TwoWay}"></Entry>
 
             <Border Padding="15" 
-                BackgroundColor="{AppThemeBinding Light=#E3F2FD, Dark=#1E3A5F}"
+            BackgroundColor="{AppThemeBinding Light=#E3F2FD, Dark=#1E3A5F}"
                 StrokeThickness="0"
                 Margin="0,20,0,15">
                 <Border.StrokeShape>

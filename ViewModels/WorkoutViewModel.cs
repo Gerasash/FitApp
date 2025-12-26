@@ -110,6 +110,8 @@ namespace FitApp.ViewModels
             workoutExercise.Sets ??= new List<ExerciseSet>();
             workoutExercise.Sets.Add(set);
 
+            await LoadExercisesForWorkout(CurrentWorkout.Id);
+
             // Если не обновляется вложенный CollectionView:
             OnPropertyChanged(nameof(WorkoutExercises));
         }
