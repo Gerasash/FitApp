@@ -14,6 +14,9 @@ public partial class ExercisePage : ContentPage
     }
     private async void OnCancelClicked(object sender, EventArgs e)
     {
-        await Navigation.PopModalAsync();
+        if (Navigation.ModalStack.Count > 0)
+            await Navigation.PopModalAsync();
+        else
+            await Navigation.PopAsync();
     }
 }

@@ -18,12 +18,13 @@ namespace FitApp
         {
             InitializeComponent();
         }
-        
 
+        // ✅ ЕДИНЫЙ стиль навигации (Shell)
         private async void GoToWorkoutList(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new WorkoutListPage());
+            await Shell.Current.GoToAsync("//WorkoutListPage");
         }
+
         private async void GoToMuscleGroupsListPage(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//MuscleGroupsListPage");
@@ -31,7 +32,7 @@ namespace FitApp
 
         private async void GoExercisePage(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ExercisePage());
+            await Shell.Current.GoToAsync("//ExercisePage");
         }
     }
 }

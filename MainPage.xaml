@@ -1,17 +1,127 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:FitApp.ViewModels"
              x:Class="FitApp.MainPage"
              Title="FitApp - Главное меню">
 
-    
-    <StackLayout Padding="20">
-        <VerticalStackLayout Padding="20" FlexLayout.Basis="400" Background="Bisque" Margin="10" >
-            <Button Text="Перейти к списку тренировок WorkoutListPage" Clicked="GoToWorkoutList"></Button>
-            <Button Text="Перейти к списку групп Мыщц MuscleGroupsListPage" Clicked="GoToMuscleGroupsListPage"></Button>
-            <Button Text="Перейти к списку упражнений ExercisePagePage" Clicked="GoExercisePage"></Button>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="25">
+
+            <!-- Заголовок -->
+            <Label Text="🏋️ FitApp" 
+                   FontSize="32" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10"/>
+            <Label Text="Ваш тренировочный дневник" 
+                   FontSize="16"
+                   TextColor="Gray"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,30"/>
+
+            <!-- Карточки меню -->
+            <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="15">
+
+                <!-- Карточка: Тренировки -->
+                <Border Grid.Row="0" 
+                        StrokeShape="RoundRectangle 15"
+                        BackgroundColor="{StaticResource Primary}"
+                        Padding="20">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="GoToWorkoutList"/>
+                    </Border.GestureRecognizers>
+
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Grid.Column="0" 
+                               Text="📋" 
+                               FontSize="48"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" 
+                                             Margin="15,0,0,0">
+                            <Label Text="Мои тренировки" 
+                                   FontSize="20" 
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Text="Создавай и планируй тренировки" 
+                                   FontSize="14"
+                                   TextColor="White"
+                                   Opacity="0.8"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Карточка: Группы мышц -->
+                <Border Grid.Row="1"
+                        StrokeShape="RoundRectangle 15"
+                        BackgroundColor="#FF9800"
+                        Padding="20">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="GoToMuscleGroupsListPage"/>
+                    </Border.GestureRecognizers>
+
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Grid.Column="0" 
+                               Text="💪" 
+                               FontSize="48"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" 
+                                             Margin="15,0,0,0">
+                            <Label Text="Группы мышц" 
+                                   FontSize="20" 
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Text="Управляй справочником" 
+                                   FontSize="14"
+                                   TextColor="White"
+                                   Opacity="0.8"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Карточка: Упражнения -->
+                <Border Grid.Row="2"
+                        StrokeShape="RoundRectangle 15"
+                        BackgroundColor="#9C27B0"
+                        Padding="20">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="GoExercisePage"/>
+                    </Border.GestureRecognizers>
+
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Grid.Column="0" 
+                               Text="🏃" 
+                               FontSize="48"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" 
+                                             Margin="15,0,0,0">
+                            <Label Text="Упражнения" 
+                                   FontSize="20" 
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Text="Справочник упражнений" 
+                                   FontSize="14"
+                                   TextColor="White"
+                                   Opacity="0.8"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Статистика -->
+            <Border Padding="15"
+                    BackgroundColor="{AppThemeBinding Light=#F5F5F5, Dark=#2D2D30}"
+                    StrokeThickness="0"
+                    Margin="0,30,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+
+                <Label Text="📊 Статистика" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"/>
+                <!-- Сюда можно добавить Label с количеством тренировок -->
+            </Border>
         </VerticalStackLayout>
-        
-    </StackLayout>
+    </ScrollView>
 </ContentPage>

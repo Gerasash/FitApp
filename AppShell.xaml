@@ -17,7 +17,10 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-    
+    <ShellContent
+        Title="Тренировки"
+        ContentTemplate="{DataTemplate local:WorkoutListPage}"
+        Route="WorkoutListPage" />
     <ShellContent
         Title="Список групп мыщц"
         ContentTemplate="{DataTemplate local:MuscleGroupsListPage}"
