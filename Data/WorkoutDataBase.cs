@@ -11,21 +11,25 @@ namespace FitApp.Data
     {
         private const string DbName = "Workout.db";
         private readonly SQLiteAsyncConnection _connection;
+        private bool _initialized;
 
+        private async Task InitAsync()
+        {
+            if (_initialized) return;
+
+            await _connection.CreateTableAsync<Workout>();
+            await _connection.CreateTableAsync<Exercise>();
+            await _connection.CreateTableAsync<MuscleGroup>();
+            await _connection.CreateTableAsync<WorkoutMuscleGroup>();
+            await _connection.CreateTableAsync<WorkoutExercise>();
+            await _connection.CreateTableAsync<ExerciseSet>();
+
+            _initialized = true;
+        }
         public WorkoutDataBase()
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, DbName);
             _connection = new SQLiteAsyncConnection(dbPath);
-
-            _connection.CreateTableAsync<Workout>().Wait();
-            _connection.CreateTableAsync<MuscleGroup>().Wait();
-            _connection.CreateTableAsync<WorkoutMuscleGroup>().Wait();
-
-
-            _connection.CreateTableAsync<Exercise>().Wait();
-            _connection.CreateTableAsync<WorkoutExercise>().Wait();
-            _connection.CreateTableAsync<ExerciseSet>().Wait();
-
 
         }
         public Task<List<Exercise>> GetExercisesAsync()
@@ -130,9 +134,10 @@ namespace FitApp.Data
         }
 
         // Методы для работы с таблицей Workout
-        public Task<List<Workout>> GetWorkouts()
+        public async Task<List<Workout>> GetWorkouts()
         {
-            return _connection.Table<Workout>().ToListAsync();
+            await InitAsync();
+            return await  _connection.Table<Workout>().ToListAsync();
         }
         public  Task<Workout> GetItemAsync(int id)
         {
