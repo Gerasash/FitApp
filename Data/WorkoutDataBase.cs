@@ -40,6 +40,16 @@ namespace FitApp.Data
                             .Where(x => x.Name.ToLower().Contains(searchText.ToLower()))
                             .ToListAsync();
         }
+        public Task<List<Workout>> GetWorkoutsByMuscleGroupAsync(int muscleGroupId)
+        {
+            return _connection.QueryAsync<Workout>(@"
+                SELECT w.*
+                FROM Workouts w
+                INNER JOIN WorkoutMuscleGroups wmg ON w.Id = wmg.workout_id
+                WHERE wmg.muscle_group_id = ?
+                ORDER BY w.StartTime DESC
+    ", muscleGroupId);
+        }
 
         public Task<int> SaveExerciseAsync(Exercise exercise)
         {

@@ -30,6 +30,9 @@ namespace FitApp.ViewModels
         private ObservableCollection<Workout> filteredWorkouts;
 
         [ObservableProperty]
+        private MuscleGroup selectedFilterMuscleGroup; // выбранная мышца для фильтра
+
+        [ObservableProperty]
         private string workoutDescription;
 
         [ObservableProperty]
@@ -108,6 +111,24 @@ namespace FitApp.ViewModels
             System.Diagnostics.Debug.WriteLine($" Загружено упражнений: {list.Count} для workoutId={workoutId}");
             WorkoutExercises = new ObservableCollection<WorkoutExercise>(list);
         }
+
+        
+
+        [RelayCommand]
+        private async Task FilterByMuscleGroup()
+        {
+            if (SelectedFilterMuscleGroup == null)
+            {
+                // если не выбрано — показываем всё
+                FilteredWorkouts = Workouts;
+                return;
+            }
+
+            var list = await _database.GetWorkoutsByMuscleGroupAsync(SelectedFilterMuscleGroup.Id);
+            FilteredWorkouts = new ObservableCollection<Workout>(list);
+        }
+
+
         //Метод загрузки всех групп мышц
         [RelayCommand]
         public async Task LoadAllMuscleGroups()

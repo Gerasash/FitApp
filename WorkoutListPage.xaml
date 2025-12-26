@@ -52,7 +52,22 @@
         <Label Text="Выберите время"/>
         <TimePicker Time="{Binding SelectedTime, Mode=TwoWay}"/>
 
-        
+        <!-- Кнопка фильтра по группе мыщц -->
+        <Label Text="Фильтр по группе мышц" FontAttributes="Bold"/>
+
+        <Picker Title="Выберите группу мышц"
+        ItemsSource="{Binding AllMuscleGroups}"
+        ItemDisplayBinding="{Binding Name}"
+        SelectedItem="{Binding SelectedFilterMuscleGroup, Mode=TwoWay}" />
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Фильтр"
+            Command="{Binding FilterByMuscleGroupCommand}" />
+            <Button Text="Сброс"
+            Command="{Binding ShowAllWorkoutsCommand}" />
+        </HorizontalStackLayout>
+
+        <!-- Кнопка добавления тренировки-->
         <Button Text="Добавить тренировку" Command="{Binding AddWorkoutCommand}"></Button>
         
         <StackLayout Orientation="Vertical" >
