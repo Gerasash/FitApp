@@ -1,4 +1,4 @@
-namespace FitApp;
+ï»¿namespace FitApp;
 using Microsoft.Maui.Controls;
 using SQLite;
 using FitApp.Models;
@@ -13,13 +13,13 @@ public partial class WorkoutPage : ContentPage
     {
         InitializeComponent();
         BindingContext = _viewModel = new WorkoutViewModel(workout);
-        addExerciseButton.Clicked += ToModalPage;
+        //addExerciseButton.Clicked += ToModalPage;
 
         Appearing += async (s, e) => await _viewModel.LoadExercisesForWorkout(workout.Id);
     }
     private async void ToModalPage(object? sender, EventArgs e)
     {
-        // Ïåðåäàåì callback â ìîäàëêó
+        // ÐŸÐµÑ€ÐµÐ´Ð°ÐµÐ¼ callback Ð² Ð¼Ð¾Ð´Ð°Ð»ÐºÑƒ
         var modalPage = new ExercisePage(exerciseSelected: async exercise =>
         {
             await _viewModel.AddExerciseToWorkout(exercise);

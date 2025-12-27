@@ -165,6 +165,30 @@ namespace FitApp.ViewModels
             FilteredWorkouts = new ObservableCollection<Workout>(list);
         }
 
+        [RelayCommand]
+        private async Task DeleteWorkoutExercise(WorkoutExercise we)
+        {
+            if (we == null) return;
+
+            // 1) удалить подходы этого упражнения
+            if (we.Sets != null)
+                foreach (var s in we.Sets)
+                    await _database.DeleteSetAsync(s);
+
+            // 2) удалить сам WorkoutExercise из БД
+            await _database.DeleteWorkoutExerciseAsync(we); // ниже добавим метод в БД
+
+            // 3) обновить UI (самый надежный способ)
+            await LoadExercisesForWorkout(CurrentWorkout.Id);
+        }
+        [RelayCommand]
+        private async Task DeleteSet(ExerciseSet set)
+        {
+            if (set == null) return;
+
+            await _database.DeleteSetAsync(set);
+            await LoadExercisesForWorkout(CurrentWorkout.Id); // чтобы сразу обновилось
+        }
 
         //Метод загрузки всех групп мышц
         [RelayCommand]

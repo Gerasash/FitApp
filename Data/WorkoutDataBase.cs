@@ -212,6 +212,10 @@ namespace FitApp.Data
         {
             return _connection.Table<Exercise>().ToListAsync();
         }
+        public Task DeleteWorkoutExerciseAsync(WorkoutExercise we)
+        {
+            return _connection.DeleteAsync(we);
+        }
 
         public Task<int> AddSetAsync(ExerciseSet set)
         {
