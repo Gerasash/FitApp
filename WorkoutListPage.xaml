@@ -179,22 +179,38 @@
                                     <RoundRectangle CornerRadius="14"/>
                                 </Border.StrokeShape>
 
-                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+                                <Grid ColumnDefinitions="*,Auto,Auto"
+      RowDefinitions="Auto,Auto"
+      ColumnSpacing="10">
+
                                     <Label Grid.Row="0" Grid.Column="0"
-                                           Text="{Binding Name}"
-                                           FontSize="16"
-                                           FontAttributes="Bold"/>
+           Text="{Binding Name}"
+           FontSize="16"
+           FontAttributes="Bold"/>
 
                                     <Label Grid.Row="1" Grid.Column="0"
-                                           Text="{Binding StartTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
-                                           FontSize="13"
-                                           TextColor="Gray"/>
+           Text="{Binding StartTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+           FontSize="13"
+           TextColor="Gray"/>
 
-                                    <Label Grid.RowSpan="2" Grid.Column="1"
-                                           Text="›"
-                                           FontSize="26"
-                                           TextColor="Gray"
-                                           VerticalOptions="Center"/>
+                                    <!-- 🗑 кнопка удаления -->
+                                    <Button Grid.RowSpan="2" Grid.Column="1"
+            Text="🗑"
+            FontSize="16"
+            WidthRequest="44"
+            HeightRequest="44"
+            CornerRadius="12"
+            BackgroundColor="{AppThemeBinding Light=#FFEBEE, Dark=#3A1E1E}"
+            TextColor="#E53935"
+            Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}}, Path=DeleteWorkoutCommand}"
+            CommandParameter="{Binding .}"/>
+
+                                    <!-- стрелка перехода -->
+                                    <Label Grid.RowSpan="2" Grid.Column="2"
+           Text="›"
+           FontSize="26"
+           TextColor="Gray"
+           VerticalOptions="Center"/>
                                 </Grid>
                             </Border>
                         </SwipeView>
