@@ -151,8 +151,6 @@ namespace FitApp.ViewModels
             WorkoutExercises = new ObservableCollection<WorkoutExercise>(list);
         }
 
-        
-
         [RelayCommand]
         private async Task FilterByMuscleGroup()
         {
