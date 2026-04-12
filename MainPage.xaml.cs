@@ -10,29 +10,28 @@ using FitApp.ViewModels;
 using FitApp.Data;
 //using HealthKit;
 
-namespace FitApp
+namespace FitApp;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    public MainPage()
     {
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        // ✅ ЕДИНЫЙ стиль навигации (Shell)
-        private async void GoToWorkoutList(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("//WorkoutListPage");
-        }
+    // ✅ ЕДИНЫЙ стиль навигации (Shell)
+    private async void GoToWorkoutList(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//WorkoutListPage");
+    }
 
-        private async void GoToMuscleGroupsListPage(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("//MuscleGroupsListPage");
-        }
+    private async void GoToMuscleGroupsListPage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//MuscleGroupsListPage");
+    }
 
-        private async void GoExercisePage(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("//ExercisePage");
-        }
+    private async void GoExercisePage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//ExercisePage");
     }
 }

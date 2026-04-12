@@ -5,7 +5,7 @@ using FitApp.ViewModels;
 using Microsoft.Maui.Controls;
 public partial class MuscleGroupsListPage : ContentPage
 {
-    public MuscleGroupsListPage()  //  Этот нужен для Shell навигации
+    public MuscleGroupsListPage()
     {
         InitializeComponent();
         BindingContext = new MuscleGroupViewModel(new WorkoutDataBase());
