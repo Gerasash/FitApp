@@ -5,14 +5,11 @@ using FitApp.ViewModels;
 using Microsoft.Maui.Controls;
 public partial class MuscleGroupsListPage : ContentPage
 {
-    public MuscleGroupsListPage()
+    private readonly WorkoutDataBase _database;
+
+    public MuscleGroupsListPage(WorkoutDataBase database)
     {
         InitializeComponent();
-        BindingContext = new MuscleGroupViewModel(new WorkoutDataBase());
-    }
-    public MuscleGroupsListPage(WorkoutDataBase database)
-	{
-		InitializeComponent();
         BindingContext = new MuscleGroupViewModel(database);
     }
     private async void OnBackButtonClicked(object sender, EventArgs e)

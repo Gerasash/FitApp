@@ -22,10 +22,11 @@ namespace FitApp
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<WorkoutPage>();
             builder.Services.AddTransient<MuscleGroupsListPage>();
-
+            builder.Services.AddTransient<WorkoutListPage>();
             builder.Services.AddTransient<WorkoutViewModel>();
             builder.Services.AddTransient<MuscleGroupViewModel>();
-            
+            builder.Services.AddTransient<ExercisePage>();
+
 
 #if DEBUG
             builder.Logging.AddDebug();

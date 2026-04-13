@@ -14,7 +14,7 @@ namespace FitApp.ViewModels;
 public partial class ExerciseSelectionViewModel : ObservableObject
 {
     private readonly WorkoutDataBase _database;
-    private readonly Action<Exercise> _onExerciseSelected; // 🔥 Callback для передачи упражнения
+    private Action<Exercise> _onExerciseSelected;
 
     [ObservableProperty]
     private ObservableCollection<Exercise> exercises = new();
@@ -75,10 +75,14 @@ public partial class ExerciseSelectionViewModel : ObservableObject
         }
     }
 
-    public ExerciseSelectionViewModel(WorkoutDataBase database, Action<Exercise> onExerciseSelected)
+    public ExerciseSelectionViewModel(WorkoutDataBase database, Action<Exercise> onExerciseSelected = null)
     {
         _database = database;
         _onExerciseSelected = onExerciseSelected;
         Task.Run(async () => await LoadExercises());
+    }
+    public void SetCallback(Action<Exercise> callback)
+    {
+        _onExerciseSelected = callback;
     }
 }

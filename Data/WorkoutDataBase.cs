@@ -12,6 +12,14 @@ namespace FitApp.Data
         private const string DbName = "Workout.db";
         private readonly SQLiteAsyncConnection _connection;
         private bool _initialized;
+        public WorkoutDataBase()
+        {
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, DbName);
+            System.Diagnostics.Debug.WriteLine($"БД находится по пути: {dbPath}");
+            _connection = new SQLiteAsyncConnection(dbPath);
+
+            Task.Run(async () => await InitAsync()).Wait();
+        }
 
         private async Task InitAsync()
         {
@@ -26,12 +34,7 @@ namespace FitApp.Data
 
             _initialized = true;
         }
-        public WorkoutDataBase()
-        {
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, DbName);
-            _connection = new SQLiteAsyncConnection(dbPath);
-
-        }
+        
         public Task<List<Exercise>> GetExercisesAsync()
         {
             return _connection.Table<Exercise>().ToListAsync();
@@ -136,7 +139,6 @@ namespace FitApp.Data
         // Методы для работы с таблицей Workout
         public async Task<List<Workout>> GetWorkouts()
         {
-            await InitAsync();
             return await  _connection.Table<Workout>().ToListAsync();
         }
         public  Task<Workout> GetItemAsync(int id)
