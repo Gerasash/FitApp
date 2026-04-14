@@ -18,6 +18,10 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
     <ShellContent
+        Title="Прогресс"
+        ContentTemplate="{DataTemplate local:ProgressPage}"
+        Route="ProgressPage" />
+    <ShellContent
         Title="Тренировки"
         ContentTemplate="{DataTemplate local:WorkoutListPage}"
         Route="WorkoutListPage" />
