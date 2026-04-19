@@ -34,4 +34,8 @@ public partial class MainPage : ContentPage
     {
         await Shell.Current.GoToAsync("//ExercisePage");
     }
+    private async void GoToProgressPage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//ProgressPage");
+    }
 }

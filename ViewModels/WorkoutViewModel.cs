@@ -45,16 +45,16 @@ public partial class WorkoutViewModel : ObservableObject
     [ObservableProperty]
     private TimeSpan selectedTime = DateTime.Now.TimeOfDay;
 
-    public WorkoutViewModel()
+    public WorkoutViewModel(WorkoutDataBase database)
     {
-        _database = new WorkoutDataBase();
+        _database = database;
         LoadWorkouts();
-        LoadAllMuscleGroups(); // Загружаем группы мышц при старте
+        LoadAllMuscleGroups();
     }
-    
-    public WorkoutViewModel(Workout workout)
+
+    public WorkoutViewModel(Workout workout, WorkoutDataBase database)
     {
-        _database = new WorkoutDataBase();
+        _database = database;
         CurrentWorkout = workout;
         WorkoutName = workout.Name;
         WorkoutDescription = workout.Description;
@@ -62,7 +62,6 @@ public partial class WorkoutViewModel : ObservableObject
         Task.Run(async () =>
         {
             await LoadAllMuscleGroups();
-            // 2. Загружаем УЖЕ ВЫБРАННЫЕ мышцы для этой тренировки
             await LoadSelectedMuscleGroupsForWorkout(workout.Id);
             await LoadExercisesForWorkout(workout.Id);
         });
@@ -295,8 +294,10 @@ public partial class WorkoutViewModel : ObservableObject
     [RelayCommand]
     private async void DeleteWorkout(Workout workout)
     {
+        if (workout == null) return;
+
         await _database.DeleteWorkout(workout);
-        LoadWorkouts();
+        await LoadWorkouts();
     }
     public async Task LoadSelectedMuscleGroupsForWorkout(int workoutId)
     {

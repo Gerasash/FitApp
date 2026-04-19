@@ -1,14 +1,30 @@
 namespace FitApp;
+
+using FitApp.Data;
 using FitApp.Models;
 using FitApp.ViewModels;
 using Microsoft.Maui.Controls;
 
 public partial class WorkoutListPage : ContentPage
 {
-    public WorkoutListPage()
+    private readonly WorkoutDataBase _database;
+
+    public WorkoutListPage(WorkoutDataBase database)
     {
         InitializeComponent();
-        BindingContext = new WorkoutViewModel();
+        _database = database;
+        BindingContext = new WorkoutViewModel(database);
+    }
+
+    private async void OnWorkoutSelected(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.FirstOrDefault() is not Workout workout) return;
+
+        var page = new WorkoutPage(_database);
+        page.Init(workout);
+        await Navigation.PushAsync(page);
+
+        ((CollectionView)sender).SelectedItem = null;
     }
     protected override async void OnAppearing()
     {
@@ -20,16 +36,5 @@ public partial class WorkoutListPage : ContentPage
         }
     }
 
-    private async void OnWorkoutSelected(object sender, SelectionChangedEventArgs e)
-    {
-        var selectedWorkout = e.CurrentSelection.FirstOrDefault() as Workout;
-        if (selectedWorkout == null)
-            return;
-
-        var workoutPage = new WorkoutPage(selectedWorkout);
-        await Navigation.PushAsync(workoutPage);
-
-        ((CollectionView)sender).SelectedItem = null;
-    }
 
 }

@@ -5,26 +5,33 @@ using FitApp.Models;
 using FitApp.ViewModels;
 using System;
 using static System.Net.Mime.MediaTypeNames;
+using FitApp.Data;
 
 public partial class WorkoutPage : ContentPage
 {
-    private readonly WorkoutViewModel _viewModel;
-    public WorkoutPage(Workout workout)
+    private WorkoutViewModel _viewModel;
+    private readonly WorkoutDataBase _database;
+
+    public WorkoutPage(WorkoutDataBase database)
     {
         InitializeComponent();
-        BindingContext = _viewModel = new WorkoutViewModel(workout);
-        //addExerciseButton.Clicked += ToModalPage;
+        _database = database;
+    }
 
+    public void Init(Workout workout)
+    {
+        _viewModel = new WorkoutViewModel(workout, _database);
+        BindingContext = _viewModel;
         Appearing += async (s, e) => await _viewModel.LoadExercisesForWorkout(workout.Id);
     }
+
     private async void ToModalPage(object? sender, EventArgs e)
     {
-        // Передаем callback в модалку
-        var modalPage = new ExercisePage(exerciseSelected: async exercise =>
+        var modalPage = new ExercisePage(_database);
+        modalPage.SetCallback(async exercise =>
         {
             await _viewModel.AddExerciseToWorkout(exercise);
         });
-
         await Navigation.PushModalAsync(modalPage);
     }
 
@@ -32,6 +39,6 @@ public partial class WorkoutPage : ContentPage
     {
         await Navigation.PopAsync();
     }
-    
+
 
 }

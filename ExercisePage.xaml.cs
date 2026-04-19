@@ -6,12 +6,20 @@ namespace FitApp;
 
 public partial class ExercisePage : ContentPage
 {
-    public ExercisePage(Action<Exercise> exerciseSelected = null)
+    private readonly ExerciseSelectionViewModel _viewModel;
+
+    public ExercisePage(WorkoutDataBase database)
     {
         InitializeComponent();
-        var database = new WorkoutDataBase();
-        BindingContext = new ExerciseSelectionViewModel(database, exerciseSelected);
+        _viewModel = new ExerciseSelectionViewModel(database);
+        BindingContext = _viewModel;
     }
+
+    public void SetCallback(Action<Exercise> callback)
+    {
+        _viewModel.SetCallback(callback);
+    }
+
     private async void OnCancelClicked(object sender, EventArgs e)
     {
         if (Navigation.ModalStack.Count > 0)

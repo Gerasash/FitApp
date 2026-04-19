@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FitApp.ProgressPage"
+             xmlns:vm="clr-namespace:FitApp.ViewModels"
+             Title="Прогресс">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <!-- Выбор упражнения -->
+            <Border Padding="14" StrokeThickness="0"
+                    BackgroundColor="{AppThemeBinding Light=#F5F5F5, Dark=#2D2D30}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Упражнение" FontSize="13" TextColor="Gray"/>
+                    <Picker ItemsSource="{Binding Exercises}"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding SelectedExercise, Mode=TwoWay}"
+                            FontSize="16"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Карточки статистики -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+
+                <Border Grid.Column="0" Padding="12" StrokeThickness="0" BackgroundColor="#E8F5E9">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label Text="🏆 Рекорд" FontSize="11" TextColor="#2E7D32"/>
+                        <Label Text="{Binding MaxWeight, StringFormat='{0} кг'}"
+                               FontSize="20" FontAttributes="Bold" TextColor="#1B5E20"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1" Padding="12" StrokeThickness="0" BackgroundColor="#E3F2FD">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label Text="💪 Тренировок" FontSize="11" TextColor="#1565C0"/>
+                        <Label Text="{Binding TotalWorkouts}"
+                               FontSize="20" FontAttributes="Bold" TextColor="#0D47A1"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="2" Padding="12" StrokeThickness="0" BackgroundColor="#FFF3E0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label Text="🔥 Ср. RPE" FontSize="11" TextColor="#E65100"/>
+                        <Label Text="{Binding AvgRpe}"
+                               FontSize="20" FontAttributes="Bold" TextColor="#BF360C"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Прогноз -->
+            <Border Padding="16" StrokeThickness="0" BackgroundColor="#EDE7F6">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="Auto,*">
+                    <Label Grid.Column="0" Text="" FontSize="36" VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Column="1" Margin="12,0,0,0">
+                        <Label Text="Прогноз ИИ" FontSize="13" TextColor="#6A1B9A"/>
+                        <Label Text="{Binding ForecastLabel}"
+                               FontSize="18" FontAttributes="Bold" TextColor="#4A148C"/>
+                        <Label Text="{Binding TrendLabel}"
+                               FontSize="14" TextColor="#7B1FA2"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- График (простой, через BoxView) -->
+            <Border Padding="14" StrokeThickness="0"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="График веса" FontSize="16" FontAttributes="Bold"/>
+                    <CollectionView ItemsSource="{Binding ChartPoints}"
+                                    HeightRequest="160"
+                                    ItemsLayout="HorizontalList">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout WidthRequest="50" Padding="4,0"
+                                                     VerticalOptions="End">
+                                    <Label Text="{Binding Weight, StringFormat='{0}'}"
+                                           FontSize="10" HorizontalOptions="Center" TextColor="Gray"/>
+                                    <BoxView BackgroundColor="#673AB7"
+                                             CornerRadius="4"
+                                             WidthRequest="28"
+                                             HorizontalOptions="Center">
+                                        <BoxView.HeightRequest>
+                                            <Binding Path="Weight" Converter="{StaticResource WeightToHeightConverter}"/>
+                                        </BoxView.HeightRequest>
+                                    </BoxView>
+                                    <Label Text="{Binding Label}"
+                                           FontSize="10" HorizontalOptions="Center" TextColor="Gray"/>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
