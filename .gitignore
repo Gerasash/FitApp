@@ -57,3 +57,5 @@ artifacts/
 # Local secrets
 secrets.json
 appsettings.Development.json
+
+.claude/
