@@ -10,7 +10,7 @@ using FitApp.ViewModels;
 using FitApp.Data;
 //using HealthKit;
 
-namespace FitApp;
+namespace FitApp.Views;
 
 public partial class MainPage : ContentPage
 {

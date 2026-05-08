@@ -1,13 +1,13 @@
-namespace FitApp;
+namespace FitApp.Views;
 
-public class AddExersciseModalPage : ContentPage
+public class AddExerciseModalPage : ContentPage
 {
-    public AddExersciseModalPage()
+    public AddExerciseModalPage()
     {
         Title = "Modal";
         Button backButton = new Button { Text = "Back", HorizontalOptions = LayoutOptions.Start };
         Label label = new Label { Text = "Modal Message..." };
-        //  переход с модальной страницы назад
+        //  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         backButton.Clicked += async (o, e) => await Navigation.PopModalAsync();
 
         Content = new StackLayout { Children = { label, backButton } };

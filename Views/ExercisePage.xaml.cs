@@ -2,7 +2,7 @@
 using FitApp.Models;
 using FitApp.ViewModels;
 
-namespace FitApp;
+namespace FitApp.Views;
 
 public partial class ExercisePage : ContentPage
 {

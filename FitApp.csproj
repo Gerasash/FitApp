@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-maccatalyst;net9.0-android35.0</TargetFrameworks>
+		<TargetFrameworks>net9.0-android35.0</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('osx'))">$(TargetFrameworks);net9.0-maccatalyst</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
 
@@ -76,31 +77,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="ExercisePage.xaml.cs">
+	  <Compile Update="Views\ExercisePage.xaml.cs">
 	    <DependentUpon>ExercisePage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="SettingsPage.xaml.cs">
+	  <Compile Update="Views\SettingsPage.xaml.cs">
 	    <DependentUpon>SettingsPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MuscleGroupsListPage.xaml">
+	  <MauiXaml Update="Views\MuscleGroupsListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ExercisePage.xaml">
+	  <MauiXaml Update="Views\ExercisePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ProgressPage.xaml">
+	  <MauiXaml Update="Views\ProgressPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="SettingsPage.xaml">
+	  <MauiXaml Update="Views\SettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="WorkoutListPage.xaml">
+	  <MauiXaml Update="Views\WorkoutListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="WorkoutPage.xaml">
+	  <MauiXaml Update="Views\WorkoutPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

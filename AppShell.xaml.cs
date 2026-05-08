@@ -1,4 +1,6 @@
-﻿namespace FitApp
+﻿using FitApp.Views;
+
+namespace FitApp
 {
     public partial class AppShell : Shell
     {

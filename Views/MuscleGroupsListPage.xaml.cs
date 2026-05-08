@@ -1,5 +1,5 @@
 ﻿// файл MuscleGroupsListPage.xaml.cs
-namespace FitApp;
+namespace FitApp.Views;
 using FitApp.Data;
 using FitApp.ViewModels;
 using Microsoft.Maui.Controls;

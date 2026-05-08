@@ -1,4 +1,4 @@
-﻿namespace FitApp;
+﻿namespace FitApp.Views;
 using Microsoft.Maui.Controls;
 using SQLite;
 using FitApp.Models;

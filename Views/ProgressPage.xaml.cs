@@ -1,7 +1,7 @@
 using FitApp.Data;
 using FitApp.ViewModels;
 
-namespace FitApp;
+namespace FitApp.Views;
 
 public partial class ProgressPage : ContentPage
 {

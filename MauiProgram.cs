@@ -1,6 +1,7 @@
 ﻿using FitApp.Data;
-using Microsoft.Extensions.Logging;
 using FitApp.ViewModels;
+using FitApp.Views;
+using Microsoft.Extensions.Logging;
 namespace FitApp
 {
     public static class MauiProgram

@@ -1,4 +1,4 @@
-namespace FitApp;
+namespace FitApp.Views;
 
 public partial class SettingsPage : ContentPage
 {
@@ -10,13 +10,13 @@ public partial class SettingsPage : ContentPage
     {
         if (e.Value)
         {
-            // Включить тёмную тему
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             App.Current.UserAppTheme = AppTheme.Dark;
             Preferences.Set("AppTheme", "Dark");
         }
         else
         {
-            // Включить светлую тему
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             App.Current.UserAppTheme = AppTheme.Light;
             Preferences.Set("AppTheme", "Light");
         }

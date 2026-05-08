@@ -1,4 +1,4 @@
-namespace FitApp;
+namespace FitApp.Views;
 
 using FitApp.Data;
 using FitApp.Models;
@@ -29,7 +29,7 @@ public partial class WorkoutListPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        // Перезагружаем данные каждый раз при открытии страницы
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (BindingContext is WorkoutViewModel vm)
         {
             await vm.LoadWorkoutsCommand.ExecuteAsync(null);
