@@ -1,127 +1,125 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FitApp.Views.MainPage"
-             Title="FitApp - Главное меню">
+             Title="FitApp">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="25">
+        <VerticalStackLayout Padding="20" Spacing="20">
 
             <!-- Заголовок -->
-            <Label Text="🏋️ FitApp" 
-                   FontSize="32" 
+            <Label Text="🏋️ FitApp"
+                   FontSize="32"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   Margin="0,20,0,10"/>
-            <Label Text="Ваш тренировочный дневник" 
-                   FontSize="16"
+                   Margin="0,20,0,0"/>
+            <Label Text="Ваш тренировочный дневник"
+                   FontSize="15"
                    TextColor="Gray"
                    HorizontalOptions="Center"
-                   Margin="0,0,0,30"/>
+                   Margin="0,0,0,10"/>
 
-            <!-- Карточки меню -->
-            <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="15">
+            <!-- Главная кнопка -->
+            <Button Text="➕  Начать тренировку"
+                    FontSize="17"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    CornerRadius="14"
+                    HeightRequest="56"
+                    Clicked="GoToWorkoutList"/>
 
-                <!-- Карточка: Тренировки -->
-                <Border Grid.Row="0" 
-                        StrokeShape="RoundRectangle 15"
+            <!-- Сетка 2x2 -->
+            <Grid ColumnDefinitions="*,*"
+                  RowDefinitions="Auto,Auto"
+                  ColumnSpacing="12"
+                  RowSpacing="12">
+
+                <!-- Тренировки -->
+                <Border Grid.Row="0" Grid.Column="0"
+                        StrokeShape="RoundRectangle 14"
                         BackgroundColor="{StaticResource Primary}"
-                        Padding="20">
+                        Padding="16">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="GoToWorkoutList"/>
                     </Border.GestureRecognizers>
-
-                    <Grid ColumnDefinitions="Auto,*">
-                        <Label Grid.Column="0" 
-                               Text="📋" 
-                               FontSize="48"
-                               VerticalOptions="Center"/>
-                        <VerticalStackLayout Grid.Column="1" 
-                                             Margin="15,0,0,0">
-                            <Label Text="Мои тренировки" 
-                                   FontSize="20" 
-                                   FontAttributes="Bold"
-                                   TextColor="White"/>
-                            <Label Text="Создавай и планируй тренировки" 
-                                   FontSize="14"
-                                   TextColor="White"
-                                   Opacity="0.8"/>
-                        </VerticalStackLayout>
-                    </Grid>
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="📋" FontSize="36"/>
+                        <Label Text="Тренировки"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="Создавай и планируй"
+                               FontSize="12"
+                               TextColor="White"
+                               Opacity="0.8"/>
+                    </VerticalStackLayout>
                 </Border>
 
-                <!-- Карточка: Группы мышц -->
-                <Border Grid.Row="1"
-                        StrokeShape="RoundRectangle 15"
+                <!-- Прогресс -->
+                <Border Grid.Row="0" Grid.Column="1"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#4CAF50"
+                        Padding="16">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="GoToProgressPage"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="📊" FontSize="36"/>
+                        <Label Text="Прогресс"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="Графики и статистика"
+                               FontSize="12"
+                               TextColor="White"
+                               Opacity="0.8"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Группы мышц -->
+                <Border Grid.Row="1" Grid.Column="0"
+                        StrokeShape="RoundRectangle 14"
                         BackgroundColor="#FF9800"
-                        Padding="20">
+                        Padding="16">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="GoToMuscleGroupsListPage"/>
                     </Border.GestureRecognizers>
-
-                    <Grid ColumnDefinitions="Auto,*">
-                        <Label Grid.Column="0" 
-                               Text="💪" 
-                               FontSize="48"
-                               VerticalOptions="Center"/>
-                        <VerticalStackLayout Grid.Column="1" 
-                                             Margin="15,0,0,0">
-                            <Label Text="Группы мышц" 
-                                   FontSize="20" 
-                                   FontAttributes="Bold"
-                                   TextColor="White"/>
-                            <Label Text="Управляй справочником" 
-                                   FontSize="14"
-                                   TextColor="White"
-                                   Opacity="0.8"/>
-                        </VerticalStackLayout>
-                    </Grid>
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="💪" FontSize="36"/>
+                        <Label Text="Группы мышц"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="Управляй справочником"
+                               FontSize="12"
+                               TextColor="White"
+                               Opacity="0.8"/>
+                    </VerticalStackLayout>
                 </Border>
 
-                <!-- Карточка: Упражнения -->
-                <Border Grid.Row="2"
-                        StrokeShape="RoundRectangle 15"
+                <!-- Упражнения -->
+                <Border Grid.Row="1" Grid.Column="1"
+                        StrokeShape="RoundRectangle 14"
                         BackgroundColor="#9C27B0"
-                        Padding="20">
+                        Padding="16">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="GoExercisePage"/>
                     </Border.GestureRecognizers>
-
-                    <Grid ColumnDefinitions="Auto,*">
-                        <Label Grid.Column="0" 
-                               Text="🏃" 
-                               FontSize="48"
-                               VerticalOptions="Center"/>
-                        <VerticalStackLayout Grid.Column="1" 
-                                             Margin="15,0,0,0">
-                            <Label Text="Упражнения" 
-                                   FontSize="20" 
-                                   FontAttributes="Bold"
-                                   TextColor="White"/>
-                            <Label Text="Справочник упражнений" 
-                                   FontSize="14"
-                                   TextColor="White"
-                                   Opacity="0.8"/>
-                        </VerticalStackLayout>
-                    </Grid>
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="🏃" FontSize="36"/>
+                        <Label Text="Упражнения"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="Справочник упражнений"
+                               FontSize="12"
+                               TextColor="White"
+                               Opacity="0.8"/>
+                    </VerticalStackLayout>
                 </Border>
+
             </Grid>
-
-            <!-- Статистика -->
-            <Border Padding="15"
-                    BackgroundColor="{AppThemeBinding Light=#F5F5F5, Dark=#2D2D30}"
-                    StrokeThickness="0"
-                    Margin="0,30,0,0">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10"/>
-                </Border.StrokeShape>
-
-                <Label Text="📊 Статистика" 
-                       FontSize="18" 
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center"/>
-                <!-- Сюда можно добавить Label с количеством тренировок -->
-            </Border>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
