@@ -27,7 +27,7 @@ public partial class MainPage : ContentPage
 
     private async void GoToMuscleGroupsListPage(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("//MuscleGroupsListPage");
+        await Shell.Current.GoToAsync(nameof(MuscleGroupsListPage));
     }
 
     private async void GoExercisePage(object sender, EventArgs e)

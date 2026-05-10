@@ -11,10 +11,6 @@ namespace FitApp
             Routing.RegisterRoute(nameof(ExercisePage), typeof(ExercisePage));
             Routing.RegisterRoute(nameof(WorkoutPage), typeof(WorkoutPage));
         }
-        private async void OnSettingsClicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("//SettingsPage");
-        }
 
     }
 }
