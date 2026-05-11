@@ -30,4 +30,10 @@ public class WorkoutExercise
 
     [Ignore] // Не сохраняем в БД, подтягиваем join-ом или отдельно
     public string ExerciseName { get; set; }
+
+    [Ignore]
+    public string AiInsight { get; set; } = string.Empty;
+
+    [Ignore]
+    public bool HasAiInsight => !string.IsNullOrEmpty(AiInsight);
 }

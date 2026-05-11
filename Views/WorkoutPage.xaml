@@ -178,6 +178,19 @@
                                         CommandParameter="{Binding .}"/>
                                 </Grid>
 
+                                <!-- ИИ советует -->
+                                <Border IsVisible="{Binding HasAiInsight}"
+                                        Padding="10,8"
+                                        StrokeThickness="0"
+                                        BackgroundColor="#E8F5E9">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding AiInsight}"
+                                           FontSize="13"
+                                           TextColor="#2E7D32"/>
+                                </Border>
+
                                 <!-- Подходы -->
                                 <CollectionView ItemsSource="{Binding Sets}" SelectionMode="None">
                                     <CollectionView.ItemTemplate>

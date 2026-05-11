@@ -1,4 +1,5 @@
 ﻿using FitApp.Data;
+using FitApp.Services;
 using FitApp.ViewModels;
 using FitApp.Views;
 using Microsoft.Extensions.Logging;
@@ -19,6 +20,7 @@ namespace FitApp
 
             
             builder.Services.AddSingleton<WorkoutDataBase>();
+            builder.Services.AddSingleton<AiService>();
 
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<WorkoutPage>();

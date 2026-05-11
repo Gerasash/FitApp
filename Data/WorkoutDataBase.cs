@@ -32,6 +32,7 @@ namespace FitApp.Data
             await _connection.CreateTableAsync<WorkoutMuscleGroup>();
             await _connection.CreateTableAsync<WorkoutExercise>();
             await _connection.CreateTableAsync<ExerciseSet>();
+            await _connection.CreateTableAsync<AIPrediction>();
 
             _initialized = true;
         }
@@ -266,6 +267,49 @@ namespace FitApp.Data
             };
 
             await _connection.InsertAsync(set);
+        }
+
+        // --- История подходов по упражнению (для AI) ---
+
+        public async Task<List<ExerciseSet>> GetSetHistoryForExerciseAsync(int exerciseId, int limit = 30)
+        {
+            await EnsureInitializedAsync();
+            var query = @"
+                SELECT es.* FROM ExerciseSets es
+                JOIN WorkoutExercises we ON es.WorkoutExerciseId = we.Id
+                JOIN Workouts w ON we.WorkoutId = w.id
+                WHERE we.ExerciseId = ?
+                ORDER BY w.StartTime DESC
+                LIMIT ?";
+            return await _connection.QueryAsync<ExerciseSet>(query, exerciseId, limit);
+        }
+
+        // --- AI предсказания ---
+
+        public async Task SavePredictionAsync(AIPrediction prediction)
+        {
+            await EnsureInitializedAsync();
+            prediction.CreatedAt = DateTime.UtcNow;
+            var existing = await _connection.Table<AIPrediction>()
+                .Where(p => p.ExerciseId == prediction.ExerciseId)
+                .FirstOrDefaultAsync();
+            if (existing != null)
+            {
+                prediction.Id = existing.Id;
+                await _connection.UpdateAsync(prediction);
+            }
+            else
+            {
+                await _connection.InsertAsync(prediction);
+            }
+        }
+
+        public async Task<AIPrediction?> GetPredictionAsync(int exerciseId)
+        {
+            await EnsureInitializedAsync();
+            return await _connection.Table<AIPrediction>()
+                .Where(p => p.ExerciseId == exerciseId)
+                .FirstOrDefaultAsync();
         }
     }
 }

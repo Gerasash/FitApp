@@ -5,12 +5,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FitApp.Data;
 using FitApp.Models;
+using FitApp.Services;
 using SQLite;
 namespace FitApp.ViewModels;
 
 public partial class WorkoutViewModel : ObservableObject
 {
     private readonly WorkoutDataBase _database;
+    private readonly AiService _aiService;
 
     [ObservableProperty]
     private ObservableCollection<MuscleGroup> allMuscleGroups = new();
@@ -45,16 +47,18 @@ public partial class WorkoutViewModel : ObservableObject
     [ObservableProperty]
     private TimeSpan selectedTime = DateTime.Now.TimeOfDay;
 
-    public WorkoutViewModel(WorkoutDataBase database)
+    public WorkoutViewModel(WorkoutDataBase database, AiService aiService)
     {
         _database = database;
+        _aiService = aiService;
         LoadWorkouts();
         LoadAllMuscleGroups();
     }
 
-    public WorkoutViewModel(Workout workout, WorkoutDataBase database)
+    public WorkoutViewModel(Workout workout, WorkoutDataBase database, AiService aiService)
     {
         _database = database;
+        _aiService = aiService;
         CurrentWorkout = workout;
         WorkoutName = workout.Name;
         WorkoutDescription = workout.Description;
@@ -146,6 +150,19 @@ public partial class WorkoutViewModel : ObservableObject
     {
         var list = await _database.GetExercisesForWorkoutAsync(workoutId);
         System.Diagnostics.Debug.WriteLine($" Загружено упражнений: {list.Count} для workoutId={workoutId}");
+
+        // Запрашиваем предсказания на основе ИСТОРИИ прошлых тренировок
+        var tasks = list.Select(async we =>
+        {
+            var history = await _database.GetSetHistoryForExerciseAsync(we.ExerciseId);
+            System.Diagnostics.Debug.WriteLine($"[AI] ExerciseId={we.ExerciseId} history={history.Count}");
+            var result = await _aiService.PredictAsync(we.ExerciseId, history);
+            System.Diagnostics.Debug.WriteLine($"[AI] result={result?.text ?? "null"}");
+            if (result != null)
+                we.AiInsight = $"💡 {result.text}";
+        });
+        await Task.WhenAll(tasks);
+
         WorkoutExercises = new ObservableCollection<WorkoutExercise>(list);
     }
 
