@@ -5,9 +5,13 @@
         public App()
         {
             InitializeComponent();
-            string savedTheme = Preferences.Get("AppTheme", "Light");
-            AppTheme theme = savedTheme == "Dark" ? AppTheme.Dark : AppTheme.Light;
-            App.Current.UserAppTheme = theme;
+            string savedTheme = Preferences.Get("AppTheme", "System");
+            App.Current.UserAppTheme = savedTheme switch
+            {
+                "Light" => AppTheme.Light,
+                "Dark" => AppTheme.Dark,
+                _ => AppTheme.Unspecified  // следовать за системой
+            };
 
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
             System.Diagnostics.Debug.WriteLine($"Unhandled: {e.ExceptionObject}");

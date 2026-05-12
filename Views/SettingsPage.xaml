@@ -1,19 +1,143 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FitApp.Views.SettingsPage">
-    <VerticalStackLayout>
-        <HorizontalStackLayout>
-            
-            <CheckBox 
-                x:Name="ThemeToggleCheckBox"
-                CheckedChanged="OnCheckBoxCheckedChanged"
-                Color="Black" />
+             x:Class="FitApp.Views.SettingsPage"
+             Title="Настройки">
 
-            <Label Text="Включить темную тему?"
-                   VerticalOptions="Center" 
-                   />
-        </HorizontalStackLayout>
-        
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="14">
+
+            <!-- ==== Внешний вид ==== -->
+            <Label Text="Внешний вид" Style="{StaticResource SectionTitle}"/>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="12">
+
+                    <!-- Тема -->
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Тема оформления"
+                               FontSize="15"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Светлая / Тёмная / Системная"
+                               Style="{StaticResource Caption}"/>
+                        <Picker x:Name="ThemePicker"
+                                Grid.Row="0" Grid.Column="1"
+                                Grid.RowSpan="2"
+                                WidthRequest="140"
+                                SelectedIndexChanged="OnThemeChanged">
+                            <Picker.Items>
+                                <x:String>Светлая</x:String>
+                                <x:String>Тёмная</x:String>
+                                <x:String>Системная</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ==== Тренировки ==== -->
+            <Label Text="Тренировки" Style="{StaticResource SectionTitle}" Margin="0,8,0,0"/>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="14">
+
+                    <!-- Единицы измерения -->
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Единицы измерения"
+                               FontSize="15"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Килограммы или фунты"
+                               Style="{StaticResource Caption}"/>
+                        <Picker x:Name="UnitsPicker"
+                                Grid.Row="0" Grid.Column="1"
+                                Grid.RowSpan="2"
+                                WidthRequest="110"
+                                SelectedIndexChanged="OnUnitsChanged">
+                            <Picker.Items>
+                                <x:String>кг</x:String>
+                                <x:String>lb</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource BorderSubtleLight}, Dark={StaticResource BorderSubtleDark}}"/>
+
+                    <!-- Таймер отдыха по умолчанию -->
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Таймер отдыха"
+                               FontSize="15"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Длительность по умолчанию"
+                               Style="{StaticResource Caption}"/>
+                        <Picker x:Name="RestTimerPicker"
+                                Grid.Row="0" Grid.Column="1"
+                                Grid.RowSpan="2"
+                                WidthRequest="130"
+                                SelectedIndexChanged="OnRestTimerChanged">
+                            <Picker.Items>
+                                <x:String>60 сек</x:String>
+                                <x:String>90 сек</x:String>
+                                <x:String>120 сек</x:String>
+                                <x:String>180 сек</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource BorderSubtleLight}, Dark={StaticResource BorderSubtleDark}}"/>
+
+                    <!-- Звук -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Text="Звук таймера" FontSize="15"/>
+                            <Label Text="Сигнал по завершении отдыха" Style="{StaticResource Caption}"/>
+                        </VerticalStackLayout>
+                        <Switch x:Name="SoundSwitch"
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                Toggled="OnSoundToggled"/>
+                    </Grid>
+
+                    <!-- Вибрация -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Text="Вибрация" FontSize="15"/>
+                            <Label Text="Вибрация по завершении отдыха" Style="{StaticResource Caption}"/>
+                        </VerticalStackLayout>
+                        <Switch x:Name="VibrationSwitch"
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                Toggled="OnVibrationToggled"/>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ==== Данные ==== -->
+            <Label Text="Данные" Style="{StaticResource SectionTitle}" Margin="0,8,0,0"/>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Button Text="📤 Экспорт в CSV"
+                            Style="{StaticResource SecondaryAction}"
+                            Clicked="OnExportCsv"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ==== О приложении ==== -->
+            <Label Text="О приложении" Style="{StaticResource SectionTitle}" Margin="0,8,0,0"/>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="FitApp" FontSize="16" FontAttributes="Bold"/>
+                    <Label Text="Версия 1.0" Style="{StaticResource Caption}"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
