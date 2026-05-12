@@ -1,55 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="FitApp.Views.ExercisePage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FitApp.ViewModels"
              x:Name="PageRoot"
+             x:DataType="vm:ExerciseSelectionViewModel"
              Title="Выберите упражнение">
 
-    <Grid RowDefinitions="Auto,*,Auto">
+    <ContentPage.Resources>
+        <!-- Стиль чипа фильтра: фон/обводка/цвет текста меняются по IsSelected через VisualState -->
+        <Style x:Key="FilterChipBorder" TargetType="Border">
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 16"/>
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#F2F2F7, Dark=#2C2C2E}"/>
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#D1D1D6, Dark=#3A3A3C}"/>
+        </Style>
+        <Style x:Key="FilterChipLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
+        </Style>
+    </ContentPage.Resources>
 
-        <!-- 🔥 КНОПКИ ВЕРХ -->
-        <HorizontalStackLayout Grid.Row="0" Margin="20">
-            <Button Text="Назад" 
-                    Clicked="OnCancelClicked"
-                    FontSize="18" 
-                    BackgroundColor="Blue"/>
-        </HorizontalStackLayout>
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto" Padding="0">
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20" Spacing="20">
+        <!-- Поиск -->
+        <Border Grid.Row="0" Margin="16,12,16,4" StrokeThickness="0"
+                BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#1C1C1E}"
+                StrokeShape="RoundRectangle 12">
+            <Entry Placeholder="Поиск (рус / eng)…"
+                   Text="{Binding SearchText, Mode=TwoWay}"
+                   BackgroundColor="Transparent"
+                   Margin="12,0"/>
+        </Border>
 
-                <!-- Поиск -->
-                <Entry Placeholder="Поиск упражнения..." 
-                       Text="{Binding SearchText, Mode=TwoWay}"/>
-
-                <!-- Список упражнений -->
-                <CollectionView ItemsSource="{Binding Exercises}"
-                                HeightRequest="400">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Padding="10" ColumnDefinitions="*,Auto">
-                                <Label Grid.Column="0" 
-                                       Text="{Binding Name}" 
-                                       FontSize="16" 
-                                       VerticalOptions="Center"/>
-                                <Button Grid.Column="1" 
-                                        Text="Добавить" 
-                                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.AddExerciseCommand}"
-                                        CommandParameter="{Binding}"
-                                        BackgroundColor="Green" 
-                                        TextColor="White"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-                <!-- Кнопка "Новое упражнение" -->
-                <Button Text="Создать новое упражнение" 
-                        Command="{Binding CreateNewExerciseCommand}"
-                        BackgroundColor="Blue" 
-                        TextColor="Orange"/>
-
-            </VerticalStackLayout>
+        <!-- Чипы мышц -->
+        <ScrollView Grid.Row="1" Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    Margin="0,8,0,0">
+            <HorizontalStackLayout Padding="16,0" BindableLayout.ItemsSource="{Binding MuscleFilters}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:FilterChip">
+                        <Border Style="{StaticResource FilterChipBorder}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.ToggleMuscleFilterCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="#3B82F6"/>
+                                    <Setter Property="Stroke" Value="#3B82F6"/>
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Label Text="{Binding Label}" Style="{StaticResource FilterChipLabel}">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="TextColor" Value="White"/>
+                                        <Setter Property="FontAttributes" Value="Bold"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
         </ScrollView>
 
+        <!-- Чипы оборудования -->
+        <ScrollView Grid.Row="2" Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    Margin="0,8,0,0">
+            <HorizontalStackLayout Padding="16,0" BindableLayout.ItemsSource="{Binding EquipmentFilters}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:FilterChip">
+                        <Border Style="{StaticResource FilterChipBorder}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.ToggleEquipmentFilterCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="#10B981"/>
+                                    <Setter Property="Stroke" Value="#10B981"/>
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Label Text="{Binding Label}" Style="{StaticResource FilterChipLabel}">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="TextColor" Value="White"/>
+                                        <Setter Property="FontAttributes" Value="Bold"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Избранные + сброс -->
+        <HorizontalStackLayout Grid.Row="3" Margin="16,10,16,4" Spacing="8">
+            <Border Style="{StaticResource FilterChipBorder}" Margin="0">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleFavoritesOnlyCommand}"/>
+                </Border.GestureRecognizers>
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding FavoritesOnly}" Value="True">
+                        <Setter Property="BackgroundColor" Value="#F59E0B"/>
+                        <Setter Property="Stroke" Value="#F59E0B"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                <Label Text="⭐ Только избранные" Style="{StaticResource FilterChipLabel}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding FavoritesOnly}" Value="True">
+                            <Setter Property="TextColor" Value="White"/>
+                            <Setter Property="FontAttributes" Value="Bold"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Border>
+
+            <Border Style="{StaticResource FilterChipBorder}" Margin="0">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ResetFiltersCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="Сбросить" Style="{StaticResource FilterChipLabel}"/>
+            </Border>
+        </HorizontalStackLayout>
+
+        <!-- Список упражнений -->
+        <CollectionView Grid.Row="4"
+                        ItemsSource="{Binding Exercises}"
+                        Margin="8,8,8,0"
+                        SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Label Text="Ничего не найдено. Попробуй сбросить фильтры."
+                       HorizontalOptions="Center" VerticalOptions="Center"
+                       TextColor="Gray" Margin="20"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:ExerciseRow">
+                    <Border Margin="6,4"
+                            Padding="14,12"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C1C1E}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.SelectExerciseCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding Name}"
+                                   FontSize="16" FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                            <Label Grid.Row="1" Grid.Column="0"
+                                   Text="{Binding SubLabel}"
+                                   FontSize="12"
+                                   TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"
+                                   Margin="0,2,0,0"/>
+
+                            <!-- Звезда избранного — отдельная тап-зона -->
+                            <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                                    BackgroundColor="Transparent"
+                                    StrokeThickness="0"
+                                    Padding="10,6"
+                                    VerticalOptions="Center">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.ToggleFavoriteCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+                                <Label Text="{Binding StarText}" FontSize="22"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Низ: создать своё + закрыть -->
+        <Grid Grid.Row="5" ColumnDefinitions="*,*" Padding="16,8" ColumnSpacing="12">
+            <Button Grid.Column="0"
+                    Text="Закрыть"
+                    Clicked="OnCancelClicked"
+                    BackgroundColor="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}"
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+            <Button Grid.Column="1"
+                    Text="+ Своё упражнение"
+                    Command="{Binding CreateNewExerciseCommand}"
+                    BackgroundColor="#3B82F6"
+                    TextColor="White"/>
+        </Grid>
     </Grid>
 </ContentPage>

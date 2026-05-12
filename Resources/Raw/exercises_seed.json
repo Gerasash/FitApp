@@ -1,0 +1,269 @@
+{
+  "version": 1,
+  "muscleGroups": [
+    "Грудь", "Спина", "Плечи", "Передняя дельта", "Задняя дельта",
+    "Бицепс", "Трицепс", "Предплечья",
+    "Квадрицепс", "Бицепс бедра", "Ягодицы", "Икры",
+    "Пресс", "Кор", "Поясница"
+  ],
+  "exercises": [
+    {
+      "name": "Жим штанги лёжа", "nameEn": "Barbell Bench Press",
+      "equipment": 0, "category": 0, "mechanic": 0,
+      "instructions": "Сведи лопатки\nГриф опускай на низ груди\nЛокти ~45°\nКасание груди, без отбива",
+      "muscles": [
+        { "name": "Грудь", "role": 0 },
+        { "name": "Трицепс", "role": 1 },
+        { "name": "Передняя дельта", "role": 1 }
+      ]
+    },
+    {
+      "name": "Жим гантелей лёжа", "nameEn": "Dumbbell Bench Press",
+      "equipment": 1, "category": 0, "mechanic": 0,
+      "muscles": [
+        { "name": "Грудь", "role": 0 },
+        { "name": "Трицепс", "role": 1 },
+        { "name": "Передняя дельта", "role": 1 }
+      ]
+    },
+    {
+      "name": "Жим штанги на наклонной", "nameEn": "Incline Barbell Press",
+      "equipment": 0, "category": 0, "mechanic": 0,
+      "muscles": [
+        { "name": "Грудь", "role": 0 },
+        { "name": "Передняя дельта", "role": 1 },
+        { "name": "Трицепс", "role": 1 }
+      ]
+    },
+    {
+      "name": "Отжимания от пола", "nameEn": "Push Up",
+      "equipment": 3, "category": 0, "mechanic": 0,
+      "muscles": [
+        { "name": "Грудь", "role": 0 },
+        { "name": "Трицепс", "role": 1 },
+        { "name": "Кор", "role": 2 }
+      ]
+    },
+    {
+      "name": "Разводка гантелей лёжа", "nameEn": "Dumbbell Fly",
+      "equipment": 1, "category": 1, "mechanic": 0,
+      "muscles": [
+        { "name": "Грудь", "role": 0 },
+        { "name": "Передняя дельта", "role": 1 }
+      ]
+    },
+
+    {
+      "name": "Становая тяга", "nameEn": "Deadlift",
+      "equipment": 0, "category": 0, "mechanic": 3,
+      "instructions": "Гриф над серединой стопы\nНейтральная спина\nПодними грудь, толкнись ногами\nЛоктями к корпусу",
+      "muscles": [
+        { "name": "Спина", "role": 0 },
+        { "name": "Поясница", "role": 0 },
+        { "name": "Ягодицы", "role": 1 },
+        { "name": "Бицепс бедра", "role": 1 },
+        { "name": "Предплечья", "role": 2 }
+      ]
+    },
+    {
+      "name": "Подтягивания", "nameEn": "Pull Up",
+      "equipment": 3, "category": 0, "mechanic": 1,
+      "muscles": [
+        { "name": "Спина", "role": 0 },
+        { "name": "Бицепс", "role": 1 },
+        { "name": "Задняя дельта", "role": 1 }
+      ]
+    },
+    {
+      "name": "Тяга штанги в наклоне", "nameEn": "Barbell Row",
+      "equipment": 0, "category": 0, "mechanic": 1,
+      "muscles": [
+        { "name": "Спина", "role": 0 },
+        { "name": "Бицепс", "role": 1 },
+        { "name": "Задняя дельта", "role": 1 }
+      ]
+    },
+    {
+      "name": "Тяга вертикального блока", "nameEn": "Lat Pulldown",
+      "equipment": 4, "category": 0, "mechanic": 1,
+      "muscles": [
+        { "name": "Спина", "role": 0 },
+        { "name": "Бицепс", "role": 1 }
+      ]
+    },
+    {
+      "name": "Тяга горизонтального блока", "nameEn": "Seated Cable Row",
+      "equipment": 4, "category": 0, "mechanic": 1,
+      "muscles": [
+        { "name": "Спина", "role": 0 },
+        { "name": "Бицепс", "role": 1 },
+        { "name": "Задняя дельта", "role": 1 }
+      ]
+    },
+
+    {
+      "name": "Армейский жим стоя", "nameEn": "Overhead Press",
+      "equipment": 0, "category": 0, "mechanic": 0,
+      "muscles": [
+        { "name": "Передняя дельта", "role": 0 },
+        { "name": "Плечи", "role": 0 },
+        { "name": "Трицепс", "role": 1 },
+        { "name": "Кор", "role": 2 }
+      ]
+    },
+    {
+      "name": "Жим гантелей сидя", "nameEn": "Dumbbell Shoulder Press",
+      "equipment": 1, "category": 0, "mechanic": 0,
+      "muscles": [
+        { "name": "Плечи", "role": 0 },
+        { "name": "Передняя дельта", "role": 0 },
+        { "name": "Трицепс", "role": 1 }
+      ]
+    },
+    {
+      "name": "Махи гантелями в стороны", "nameEn": "Lateral Raise",
+      "equipment": 1, "category": 1, "mechanic": 0,
+      "muscles": [
+        { "name": "Плечи", "role": 0 }
+      ]
+    },
+    {
+      "name": "Махи в наклоне на заднюю дельту", "nameEn": "Reverse Fly",
+      "equipment": 1, "category": 1, "mechanic": 1,
+      "muscles": [
+        { "name": "Задняя дельта", "role": 0 }
+      ]
+    },
+
+    {
+      "name": "Подъём штанги на бицепс", "nameEn": "Barbell Curl",
+      "equipment": 0, "category": 1, "mechanic": 1,
+      "muscles": [
+        { "name": "Бицепс", "role": 0 },
+        { "name": "Предплечья", "role": 1 }
+      ]
+    },
+    {
+      "name": "Молотки", "nameEn": "Hammer Curl",
+      "equipment": 1, "category": 1, "mechanic": 1,
+      "muscles": [
+        { "name": "Бицепс", "role": 0 },
+        { "name": "Предплечья", "role": 0 }
+      ]
+    },
+    {
+      "name": "Подъём гантелей на бицепс", "nameEn": "Dumbbell Curl",
+      "equipment": 1, "category": 1, "mechanic": 1,
+      "muscles": [
+        { "name": "Бицепс", "role": 0 }
+      ]
+    },
+
+    {
+      "name": "Жим узким хватом", "nameEn": "Close Grip Bench Press",
+      "equipment": 0, "category": 0, "mechanic": 0,
+      "muscles": [
+        { "name": "Трицепс", "role": 0 },
+        { "name": "Грудь", "role": 1 }
+      ]
+    },
+    {
+      "name": "Французский жим", "nameEn": "Skullcrusher",
+      "equipment": 0, "category": 1, "mechanic": 0,
+      "muscles": [
+        { "name": "Трицепс", "role": 0 }
+      ]
+    },
+    {
+      "name": "Разгибание рук на блоке", "nameEn": "Triceps Pushdown",
+      "equipment": 4, "category": 1, "mechanic": 0,
+      "muscles": [
+        { "name": "Трицепс", "role": 0 }
+      ]
+    },
+
+    {
+      "name": "Присед со штангой", "nameEn": "Barbell Squat",
+      "equipment": 0, "category": 0, "mechanic": 2,
+      "instructions": "Гриф на трапециях\nНоги на ширине плеч\nКолени по линии носков\nТаз чуть назад, грудь вверх",
+      "muscles": [
+        { "name": "Квадрицепс", "role": 0 },
+        { "name": "Ягодицы", "role": 1 },
+        { "name": "Бицепс бедра", "role": 1 },
+        { "name": "Кор", "role": 2 }
+      ]
+    },
+    {
+      "name": "Жим ногами", "nameEn": "Leg Press",
+      "equipment": 2, "category": 0, "mechanic": 2,
+      "muscles": [
+        { "name": "Квадрицепс", "role": 0 },
+        { "name": "Ягодицы", "role": 1 },
+        { "name": "Бицепс бедра", "role": 1 }
+      ]
+    },
+    {
+      "name": "Румынская тяга", "nameEn": "Romanian Deadlift",
+      "equipment": 0, "category": 0, "mechanic": 3,
+      "muscles": [
+        { "name": "Бицепс бедра", "role": 0 },
+        { "name": "Ягодицы", "role": 0 },
+        { "name": "Поясница", "role": 1 }
+      ]
+    },
+    {
+      "name": "Выпады с гантелями", "nameEn": "Dumbbell Lunge",
+      "equipment": 1, "category": 0, "mechanic": 2,
+      "muscles": [
+        { "name": "Квадрицепс", "role": 0 },
+        { "name": "Ягодицы", "role": 0 },
+        { "name": "Бицепс бедра", "role": 1 }
+      ]
+    },
+    {
+      "name": "Разгибание ног в тренажёре", "nameEn": "Leg Extension",
+      "equipment": 2, "category": 1, "mechanic": 2,
+      "muscles": [
+        { "name": "Квадрицепс", "role": 0 }
+      ]
+    },
+    {
+      "name": "Сгибание ног лёжа", "nameEn": "Leg Curl",
+      "equipment": 2, "category": 1, "mechanic": 3,
+      "muscles": [
+        { "name": "Бицепс бедра", "role": 0 }
+      ]
+    },
+    {
+      "name": "Подъём на носки", "nameEn": "Calf Raise",
+      "equipment": 2, "category": 1, "mechanic": 2,
+      "muscles": [
+        { "name": "Икры", "role": 0 }
+      ]
+    },
+
+    {
+      "name": "Скручивания", "nameEn": "Crunch",
+      "equipment": 3, "category": 1, "mechanic": 5,
+      "muscles": [
+        { "name": "Пресс", "role": 0 }
+      ]
+    },
+    {
+      "name": "Планка", "nameEn": "Plank",
+      "equipment": 3, "category": 1, "mechanic": 5,
+      "muscles": [
+        { "name": "Пресс", "role": 0 },
+        { "name": "Кор", "role": 0 }
+      ]
+    },
+    {
+      "name": "Подъём ног в висе", "nameEn": "Hanging Leg Raise",
+      "equipment": 3, "category": 1, "mechanic": 5,
+      "muscles": [
+        { "name": "Пресс", "role": 0 },
+        { "name": "Кор", "role": 1 }
+      ]
+    }
+  ]
+}

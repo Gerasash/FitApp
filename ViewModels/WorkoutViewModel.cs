@@ -47,6 +47,15 @@ public partial class WorkoutViewModel : ObservableObject
     [ObservableProperty]
     private TimeSpan selectedTime = DateTime.Now.TimeOfDay;
 
+    // ====== Bottom Sheet для ввода подхода ======
+    [ObservableProperty] private bool isSetSheetOpen;
+    [ObservableProperty] private string sheetTitle = "Новый подход";
+    [ObservableProperty] private double sheetWeight;
+    [ObservableProperty] private int sheetReps;
+    [ObservableProperty] private double sheetRpe;
+    private WorkoutExercise? _sheetExercise;
+    private ExerciseSet? _editingSet;
+
     public WorkoutViewModel(WorkoutDataBase database, AiService aiService)
     {
         _database = database;
@@ -79,43 +88,91 @@ public partial class WorkoutViewModel : ObservableObject
         FilteredWorkouts = Workouts;
         //FilterByDate(); // Автоматически фильтрует по сегодняшней дате
     }
+    // Открытие Bottom Sheet для нового подхода
     [RelayCommand]
-    private async Task AddSet(WorkoutExercise workoutExercise)
+    private void AddSet(WorkoutExercise workoutExercise)
     {
         if (workoutExercise == null) return;
 
-        // Простой ввод через диалоги (быстро внедрить)
-        var wText = await Shell.Current.DisplayPromptAsync("Вес", "Введите вес (кг):", keyboard: Keyboard.Numeric);
-        if (!double.TryParse(wText, out var weight)) return;
+        _sheetExercise = workoutExercise;
+        _editingSet = null;
+        SheetTitle = "Новый подход";
 
-        var rText = await Shell.Current.DisplayPromptAsync("Повторы", "Введите количество повторений:", keyboard: Keyboard.Numeric);
-        if (!int.TryParse(rText, out var reps)) return;
+        // Префилл из последнего подхода этого упражнения
+        var last = workoutExercise.Sets?.LastOrDefault();
+        SheetWeight = last?.Weight ?? 20;
+        SheetReps = last?.Reps ?? 8;
+        SheetRpe = last?.RPE ?? 7;
 
-        var rpeText = await Shell.Current.DisplayPromptAsync("RPE", "Введите RPE (например 7.5):", keyboard: Keyboard.Numeric);
-        if (!double.TryParse(rpeText, out var rpe)) rpe = 0;
+        IsSetSheetOpen = true;
+    }
 
-        // Следующий номер подхода
-        var next = (workoutExercise.Sets?.Count ?? 0) + 1;
+    // Открытие Bottom Sheet для редактирования подхода
+    [RelayCommand]
+    private void EditSet(ExerciseSet set)
+    {
+        if (set == null) return;
 
-        var set = new ExerciseSet
+        var parent = WorkoutExercises.FirstOrDefault(we => we.Id == set.WorkoutExerciseId);
+        if (parent == null) return;
+
+        _sheetExercise = parent;
+        _editingSet = set;
+        SheetTitle = $"Подход #{set.SetNumber}";
+        SheetWeight = set.Weight;
+        SheetReps = set.Reps;
+        SheetRpe = set.RPE;
+
+        IsSetSheetOpen = true;
+    }
+
+    [RelayCommand]
+    private void CancelSheet() => IsSetSheetOpen = false;
+
+    [RelayCommand]
+    private void AdjustWeight(string delta)
+    {
+        if (double.TryParse(delta, System.Globalization.CultureInfo.InvariantCulture, out var d))
+            SheetWeight = Math.Max(0, SheetWeight + d);
+    }
+
+    [RelayCommand]
+    private void AdjustReps(string delta)
+    {
+        if (int.TryParse(delta, out var d))
+            SheetReps = Math.Max(0, SheetReps + d);
+    }
+
+    [RelayCommand]
+    private async Task SaveSheet()
+    {
+        if (_sheetExercise == null) return;
+
+        if (_editingSet != null)
         {
-            WorkoutExerciseId = workoutExercise.Id,
-            SetNumber = next,
-            Weight = weight,
-            Reps = reps,
-            RPE = rpe
-        };
+            _editingSet.Weight = SheetWeight;
+            _editingSet.Reps = SheetReps;
+            _editingSet.RPE = SheetRpe;
+            await _database.SaveSetAsync(_editingSet);
+        }
+        else
+        {
+            var next = (_sheetExercise.Sets?.Count ?? 0) + 1;
+            var set = new ExerciseSet
+            {
+                WorkoutExerciseId = _sheetExercise.Id,
+                SetNumber = next,
+                Weight = SheetWeight,
+                Reps = SheetReps,
+                RPE = SheetRpe
+            };
+            await _database.SaveSetAsync(set);
+            _sheetExercise.Sets ??= new List<ExerciseSet>();
+            _sheetExercise.Sets.Add(set);
+        }
 
-        await _database.SaveSetAsync(set);
-
-        // Обновляем UI (важно, чтобы Sets не был null)
-        workoutExercise.Sets ??= new List<ExerciseSet>();
-        workoutExercise.Sets.Add(set);
-
+        IsSetSheetOpen = false;
         await LoadExercisesForWorkout(CurrentWorkout.Id);
-
-        // Если не обновляется вложенный CollectionView:
-        OnPropertyChanged(nameof(WorkoutExercises));
     }
 
     [RelayCommand]
@@ -229,6 +286,38 @@ public partial class WorkoutViewModel : ObservableObject
 
         // 2. Добавляем в UI список
         WorkoutExercises.Add(newLink);
+
+        // 3. Подтягиваем мышцы упражнения в тренировку (без дублей)
+        await AttachExerciseMusclesToWorkoutAsync(exercise.Id);
+    }
+
+    // Линкуем все мышцы упражнения к текущей тренировке, пропуская уже существующие связи.
+    // Это и кладёт строки в WorkoutMuscleGroup (для фильтра по мышцам), и обновляет UI-чипы.
+    private async Task AttachExerciseMusclesToWorkoutAsync(int exerciseId)
+    {
+        if (CurrentWorkout == null) return;
+
+        var exMuscles = await _database.GetExerciseMusclesAsync(exerciseId);
+        if (exMuscles.Count == 0) return;
+
+        var existingLinks = await _database.GetWorkoutMuscleGroupsForWorkoutAsync(CurrentWorkout.Id);
+        var existingIds = new HashSet<int>(existingLinks.Select(l => l.MuscleGroupId));
+
+        var addedAny = false;
+        foreach (var em in exMuscles)
+        {
+            if (existingIds.Contains(em.MuscleGroupId)) continue;
+            await _database.SaveWorkoutMuscleGroupAsync(
+                new WorkoutMuscleGroup(CurrentWorkout.Id, em.MuscleGroupId));
+            existingIds.Add(em.MuscleGroupId);
+            addedAny = true;
+        }
+
+        if (addedAny)
+        {
+            // Перезагружаем выбранные мышцы для текущей тренировки, чтобы UI обновился
+            await LoadSelectedMuscleGroupsForWorkout(CurrentWorkout.Id);
+        }
     }
     [RelayCommand]
     private async Task UpdateWorkout()

@@ -17,6 +17,10 @@
             <ShellContent Route="WorkoutListPage"
                           ContentTemplate="{DataTemplate views:WorkoutListPage}"/>
         </Tab>
+        <Tab Title="Шаблоны">
+            <ShellContent Route="TemplatesPage"
+                          ContentTemplate="{DataTemplate views:TemplatesPage}"/>
+        </Tab>
         <Tab Title="Прогресс">
             <ShellContent Route="ProgressPage"
                           ContentTemplate="{DataTemplate views:ProgressPage}"/>

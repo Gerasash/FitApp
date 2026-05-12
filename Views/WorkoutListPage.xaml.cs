@@ -19,15 +19,13 @@ public partial class WorkoutListPage : ContentPage
         BindingContext = new WorkoutViewModel(database, aiService);
     }
 
-    private async void OnWorkoutSelected(object sender, SelectionChangedEventArgs e)
+    private async void OnWorkoutTapped(object sender, TappedEventArgs e)
     {
-        if (e.CurrentSelection.FirstOrDefault() is not Workout workout) return;
+        if (e.Parameter is not Workout workout) return;
 
         var page = new WorkoutPage(_database, _aiService);
         page.Init(workout);
         await Navigation.PushAsync(page);
-
-        ((CollectionView)sender).SelectedItem = null;
     }
     protected override async void OnAppearing()
     {

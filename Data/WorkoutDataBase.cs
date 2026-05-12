@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using FitApp.Models;
 using SQLite;
@@ -33,8 +35,498 @@ namespace FitApp.Data
             await _connection.CreateTableAsync<WorkoutExercise>();
             await _connection.CreateTableAsync<ExerciseSet>();
             await _connection.CreateTableAsync<AIPrediction>();
+            await _connection.CreateTableAsync<ExerciseMuscleGroup>();
+            await _connection.CreateTableAsync<WorkoutTemplate>();
+            await _connection.CreateTableAsync<TemplateExercise>();
+
+            await SeedBuiltInExercisesAsync();
+            await SeedBuiltInTemplatesAsync();
 
             _initialized = true;
+        }
+
+        // --- Seed встроенной базы упражнений (один раз при первом запуске) ---
+
+        private const string SeedFileName = "exercises_seed.json";
+
+        private async Task SeedBuiltInExercisesAsync()
+        {
+            try
+            {
+                using var stream = await FileSystem.OpenAppPackageFileAsync(SeedFileName);
+                using var reader = new StreamReader(stream);
+                var json = await reader.ReadToEndAsync();
+                var seed = JsonSerializer.Deserialize<SeedRoot>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                if (seed == null) return;
+
+                // 1) Группы мышц — find-or-create по имени (восстанавливаются, если юзер их удалил)
+                var allMg = await _connection.Table<MuscleGroup>().ToListAsync();
+                var mgByName = allMg.ToDictionary(m => m.Name.Trim().ToLowerInvariant(), m => m);
+                foreach (var name in seed.MuscleGroups ?? Enumerable.Empty<string>())
+                {
+                    var key = name.Trim().ToLowerInvariant();
+                    if (mgByName.ContainsKey(key)) continue;
+                    var mg = new MuscleGroup(name);
+                    await _connection.InsertAsync(mg);
+                    mgByName[key] = mg;
+                }
+
+                // 2) Упражнения — find-or-create по имени; связи EMG пересоздаём, чтобы Id всегда были валидные.
+                var existingExercises = await _connection.Table<Exercise>().ToListAsync();
+                var exByName = existingExercises
+                    .GroupBy(e => e.Name.Trim().ToLowerInvariant())
+                    .ToDictionary(g => g.Key, g => g.First());
+
+                foreach (var ex in seed.Exercises ?? Enumerable.Empty<SeedExercise>())
+                {
+                    int primaryMgId = 0;
+                    if (ex.Muscles is { Count: > 0 })
+                    {
+                        var primary = ex.Muscles.FirstOrDefault(m => m.Role == 0) ?? ex.Muscles[0];
+                        if (mgByName.TryGetValue(primary.Name.Trim().ToLowerInvariant(), out var pmg))
+                            primaryMgId = pmg.Id;
+                    }
+
+                    var key = ex.Name.Trim().ToLowerInvariant();
+                    Exercise entity;
+                    if (exByName.TryGetValue(key, out var existing))
+                    {
+                        entity = existing;
+                        // Подновляем мета-данные на случай, если они обновились в JSON
+                        entity.NameEn = ex.NameEn;
+                        entity.EquipmentType = ex.Equipment;
+                        entity.Category = ex.Category;
+                        entity.Mechanic = ex.Mechanic;
+                        entity.Instructions = ex.Instructions;
+                        if (primaryMgId != 0) entity.PrimaryMuscleGroupId = primaryMgId;
+                        await _connection.UpdateAsync(entity);
+                    }
+                    else
+                    {
+                        entity = new Exercise
+                        {
+                            Name = ex.Name,
+                            NameEn = ex.NameEn,
+                            PrimaryMuscleGroupId = primaryMgId,
+                            EquipmentType = ex.Equipment,
+                            Category = ex.Category,
+                            Mechanic = ex.Mechanic,
+                            Instructions = ex.Instructions,
+                            IsCustom = false,
+                            IsArchived = false,
+                            IsFavorite = false,
+                            CreatedAt = DateTime.UtcNow
+                        };
+                        await _connection.InsertAsync(entity);
+                    }
+
+                    // Пересобираем связи мышц для этого упражнения
+                    await _connection.ExecuteAsync(
+                        "DELETE FROM ExerciseMuscleGroups WHERE ExerciseId = ?", entity.Id);
+                    if (ex.Muscles != null)
+                    {
+                        foreach (var m in ex.Muscles)
+                        {
+                            if (!mgByName.TryGetValue(m.Name.Trim().ToLowerInvariant(), out var mg)) continue;
+                            await _connection.InsertAsync(new ExerciseMuscleGroup
+                            {
+                                ExerciseId = entity.Id,
+                                MuscleGroupId = mg.Id,
+                                Role = m.Role
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[Seed] Ошибка загрузки базы упражнений: {ex}");
+            }
+        }
+
+        private sealed class SeedRoot
+        {
+            [JsonPropertyName("version")] public int Version { get; set; }
+            [JsonPropertyName("muscleGroups")] public List<string>? MuscleGroups { get; set; }
+            [JsonPropertyName("exercises")] public List<SeedExercise>? Exercises { get; set; }
+        }
+
+        private sealed class SeedExercise
+        {
+            [JsonPropertyName("name")] public string Name { get; set; } = string.Empty;
+            [JsonPropertyName("nameEn")] public string? NameEn { get; set; }
+            [JsonPropertyName("equipment")] public int Equipment { get; set; }
+            [JsonPropertyName("category")] public int Category { get; set; }
+            [JsonPropertyName("mechanic")] public int Mechanic { get; set; }
+            [JsonPropertyName("instructions")] public string? Instructions { get; set; }
+            [JsonPropertyName("muscles")] public List<SeedMuscle>? Muscles { get; set; }
+        }
+
+        private sealed class SeedMuscle
+        {
+            [JsonPropertyName("name")] public string Name { get; set; } = string.Empty;
+            [JsonPropertyName("role")] public int Role { get; set; }
+        }
+
+        // --- Seed встроенных шаблонов тренировок ---
+
+        private const string TemplatesSeedFileName = "templates_seed.json";
+
+        private async Task SeedBuiltInTemplatesAsync()
+        {
+            try
+            {
+                using var stream = await FileSystem.OpenAppPackageFileAsync(TemplatesSeedFileName);
+                using var reader = new StreamReader(stream);
+                var json = await reader.ReadToEndAsync();
+                var seed = JsonSerializer.Deserialize<TemplateSeedRoot>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                if (seed?.Templates == null) return;
+
+                // Карта упражнений по имени (lowercase) — чтобы привязывать TemplateExercise по имени из JSON
+                var allExercises = await _connection.Table<Exercise>().ToListAsync();
+                var exByName = allExercises
+                    .GroupBy(e => e.Name.Trim().ToLowerInvariant())
+                    .ToDictionary(g => g.Key, g => g.First());
+
+                // Карта существующих встроенных шаблонов по имени
+                var existingTemplates = await _connection.Table<WorkoutTemplate>()
+                    .Where(t => t.IsBuiltIn)
+                    .ToListAsync();
+                var tplByName = existingTemplates
+                    .GroupBy(t => t.Name.Trim().ToLowerInvariant())
+                    .ToDictionary(g => g.Key, g => g.First());
+
+                int order = 0;
+                foreach (var t in seed.Templates)
+                {
+                    var key = t.Name.Trim().ToLowerInvariant();
+                    WorkoutTemplate entity;
+                    if (tplByName.TryGetValue(key, out var existing))
+                    {
+                        entity = existing;
+                        entity.Description = t.Description;
+                        entity.FolderName = t.Folder;
+                        entity.OrderIndex = order;
+                        await _connection.UpdateAsync(entity);
+                    }
+                    else
+                    {
+                        entity = new WorkoutTemplate
+                        {
+                            Name = t.Name,
+                            Description = t.Description,
+                            FolderName = t.Folder,
+                            IsBuiltIn = true,
+                            OrderIndex = order,
+                            CreatedAt = DateTime.UtcNow
+                        };
+                        await _connection.InsertAsync(entity);
+                    }
+                    order++;
+
+                    // Пересобираем список упражнений шаблона
+                    await _connection.ExecuteAsync(
+                        "DELETE FROM TemplateExercises WHERE TemplateId = ?", entity.Id);
+
+                    if (t.Exercises != null)
+                    {
+                        int idx = 0;
+                        foreach (var te in t.Exercises)
+                        {
+                            if (!exByName.TryGetValue(te.Exercise.Trim().ToLowerInvariant(), out var ex))
+                            {
+                                System.Diagnostics.Debug.WriteLine(
+                                    $"[Seed] Шаблон '{t.Name}': не нашёл упражнение '{te.Exercise}', пропуск");
+                                continue;
+                            }
+                            await _connection.InsertAsync(new TemplateExercise
+                            {
+                                TemplateId = entity.Id,
+                                ExerciseId = ex.Id,
+                                OrderIndex = idx++,
+                                TargetSets = te.Sets > 0 ? te.Sets : 3,
+                                RepsMin = te.RepsMin,
+                                RepsMax = te.RepsMax,
+                                RestSeconds = te.Rest,
+                                Notes = te.Notes
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[Seed] Ошибка загрузки шаблонов: {ex}");
+            }
+        }
+
+        private sealed class TemplateSeedRoot
+        {
+            [JsonPropertyName("templates")] public List<TemplateSeed>? Templates { get; set; }
+        }
+
+        private sealed class TemplateSeed
+        {
+            [JsonPropertyName("name")] public string Name { get; set; } = string.Empty;
+            [JsonPropertyName("folder")] public string? Folder { get; set; }
+            [JsonPropertyName("description")] public string? Description { get; set; }
+            [JsonPropertyName("exercises")] public List<TemplateExerciseSeed>? Exercises { get; set; }
+        }
+
+        private sealed class TemplateExerciseSeed
+        {
+            [JsonPropertyName("exercise")] public string Exercise { get; set; } = string.Empty;
+            [JsonPropertyName("sets")] public int Sets { get; set; } = 3;
+            [JsonPropertyName("repsMin")] public int? RepsMin { get; set; }
+            [JsonPropertyName("repsMax")] public int? RepsMax { get; set; }
+            [JsonPropertyName("rest")] public int? Rest { get; set; }
+            [JsonPropertyName("notes")] public string? Notes { get; set; }
+        }
+
+        // --- Шаблоны: CRUD + запуск тренировки ---
+
+        public async Task<List<WorkoutTemplate>> GetTemplatesAsync(bool includeArchived = false)
+        {
+            await EnsureInitializedAsync();
+            var q = _connection.Table<WorkoutTemplate>();
+            if (!includeArchived) q = q.Where(t => !t.IsArchived);
+            return await q.OrderBy(t => t.OrderIndex).ToListAsync();
+        }
+
+        public async Task<WorkoutTemplate?> GetTemplateAsync(int id)
+        {
+            await EnsureInitializedAsync();
+            return await _connection.FindAsync<WorkoutTemplate>(id);
+        }
+
+        public async Task<List<TemplateExercise>> GetTemplateExercisesAsync(int templateId)
+        {
+            await EnsureInitializedAsync();
+            var items = await _connection.Table<TemplateExercise>()
+                .Where(te => te.TemplateId == templateId)
+                .OrderBy(te => te.OrderIndex)
+                .ToListAsync();
+            foreach (var it in items)
+            {
+                var ex = await _connection.FindAsync<Exercise>(it.ExerciseId);
+                it.ExerciseName = ex?.Name;
+            }
+            return items;
+        }
+
+        public async Task<int> SaveTemplateAsync(WorkoutTemplate template)
+        {
+            await EnsureInitializedAsync();
+            return template.Id == 0
+                ? await _connection.InsertAsync(template)
+                : await _connection.UpdateAsync(template);
+        }
+
+        public async Task DeleteTemplateAsync(WorkoutTemplate template)
+        {
+            await EnsureInitializedAsync();
+            if (template.IsBuiltIn)
+            {
+                // Встроенные не удаляем — архивируем (восстановятся как видимые при сбросе IsArchived)
+                template.IsArchived = true;
+                await _connection.UpdateAsync(template);
+            }
+            else
+            {
+                await _connection.ExecuteAsync(
+                    "DELETE FROM TemplateExercises WHERE TemplateId = ?", template.Id);
+                await _connection.DeleteAsync(template);
+            }
+        }
+
+        public async Task<int> AddTemplateExerciseAsync(TemplateExercise te)
+        {
+            await EnsureInitializedAsync();
+            return te.Id == 0
+                ? await _connection.InsertAsync(te)
+                : await _connection.UpdateAsync(te);
+        }
+
+        public async Task DeleteTemplateExerciseAsync(TemplateExercise te)
+        {
+            await EnsureInitializedAsync();
+            await _connection.DeleteAsync(te);
+        }
+
+        // Создаёт новую тренировку на основе шаблона. Возвращает её Id.
+        // Подходы не пред-создаются — юзер добавляет по факту.
+        public async Task<int> StartWorkoutFromTemplateAsync(int templateId, DateTime? startTime = null)
+        {
+            await EnsureInitializedAsync();
+            var template = await _connection.FindAsync<WorkoutTemplate>(templateId);
+            if (template == null) throw new InvalidOperationException("Шаблон не найден");
+
+            var templateExercises = await _connection.Table<TemplateExercise>()
+                .Where(te => te.TemplateId == templateId)
+                .OrderBy(te => te.OrderIndex)
+                .ToListAsync();
+
+            // 1) Создаём тренировку
+            var workout = new Workout
+            {
+                Name = template.Name,
+                Description = template.Description ?? string.Empty,
+                StartTime = startTime ?? DateTime.Now
+            };
+            await _connection.InsertAsync(workout);
+
+            // 2) Копируем упражнения
+            int order = 1;
+            var muscleIds = new HashSet<int>();
+            foreach (var te in templateExercises)
+            {
+                var we = new WorkoutExercise
+                {
+                    WorkoutId = workout.Id,
+                    ExerciseId = te.ExerciseId,
+                    OrderIndex = order++
+                };
+                await _connection.InsertAsync(we);
+
+                // Пред-создаём пустые подходы по TargetSets из шаблона,
+                // чтобы юзер сразу видел плановые сеты и заполнял вес/повторы.
+                int targetSets = te.TargetSets > 0 ? te.TargetSets : 3;
+                int suggestedReps = te.RepsMax ?? te.RepsMin ?? 0;
+                for (int i = 1; i <= targetSets; i++)
+                {
+                    await _connection.InsertAsync(new ExerciseSet
+                    {
+                        WorkoutExerciseId = we.Id,
+                        SetNumber = i,
+                        Weight = 0,
+                        Reps = suggestedReps,
+                        RPE = 0
+                    });
+                }
+
+                // Собираем мышцы упражнения для подвязки к тренировке
+                var emgs = await _connection.Table<ExerciseMuscleGroup>()
+                    .Where(x => x.ExerciseId == te.ExerciseId)
+                    .ToListAsync();
+                foreach (var emg in emgs) muscleIds.Add(emg.MuscleGroupId);
+            }
+
+            // 3) Подвязываем мышцы к тренировке
+            foreach (var mid in muscleIds)
+            {
+                await _connection.InsertAsync(new WorkoutMuscleGroup(workout.Id, mid));
+            }
+
+            // 4) Обновляем статистику шаблона
+            template.TimesUsed += 1;
+            template.LastUsedAt = DateTime.UtcNow;
+            await _connection.UpdateAsync(template);
+
+            return workout.Id;
+        }
+
+        // Создаёт пользовательский шаблон из текущей тренировки.
+        // TargetSets = фактическое число подходов упражнения; RepsMin/RepsMax — диапазон из реальных повторений.
+        public async Task<int> CreateTemplateFromWorkoutAsync(int workoutId, string name, string? folder = "Мои")
+        {
+            await EnsureInitializedAsync();
+            var workout = await _connection.FindAsync<Workout>(workoutId);
+            if (workout == null) throw new InvalidOperationException("Тренировка не найдена");
+
+            var template = new WorkoutTemplate
+            {
+                Name = string.IsNullOrWhiteSpace(name) ? workout.Name : name.Trim(),
+                Description = workout.Description,
+                FolderName = string.IsNullOrWhiteSpace(folder) ? "Мои" : folder,
+                IsBuiltIn = false,
+                CreatedAt = DateTime.UtcNow
+            };
+            await _connection.InsertAsync(template);
+
+            var workoutExercises = await _connection.Table<WorkoutExercise>()
+                .Where(we => we.WorkoutId == workoutId)
+                .OrderBy(we => we.OrderIndex)
+                .ToListAsync();
+
+            int order = 0;
+            foreach (var we in workoutExercises)
+            {
+                var sets = await _connection.Table<ExerciseSet>()
+                    .Where(s => s.WorkoutExerciseId == we.Id)
+                    .ToListAsync();
+                int targetSets = sets.Count > 0 ? sets.Count : 3;
+                int? repsMin = sets.Count > 0 ? sets.Min(s => s.Reps) : null;
+                int? repsMax = sets.Count > 0 ? sets.Max(s => s.Reps) : null;
+
+                await _connection.InsertAsync(new TemplateExercise
+                {
+                    TemplateId = template.Id,
+                    ExerciseId = we.ExerciseId,
+                    OrderIndex = order++,
+                    TargetSets = targetSets,
+                    RepsMin = repsMin,
+                    RepsMax = repsMax
+                });
+            }
+
+            return template.Id;
+        }
+
+        // --- ExerciseMuscleGroup helpers ---
+
+        public async Task<List<MuscleGroup>> GetMusclesForExerciseAsync(int exerciseId)
+        {
+            await EnsureInitializedAsync();
+            return await _connection.QueryAsync<MuscleGroup>(@"
+                SELECT mg.* FROM MuscleGroups mg
+                INNER JOIN ExerciseMuscleGroups emg ON mg.Id = emg.MuscleGroupId
+                WHERE emg.ExerciseId = ?
+                ORDER BY emg.Role ASC", exerciseId);
+        }
+
+        public async Task<List<ExerciseMuscleGroup>> GetExerciseMusclesAsync(int exerciseId)
+        {
+            await EnsureInitializedAsync();
+            return await _connection.Table<ExerciseMuscleGroup>()
+                .Where(x => x.ExerciseId == exerciseId)
+                .ToListAsync();
+        }
+
+        // Все связи упражнение↔мышца одним запросом (для построения списка с тегами без N+1)
+        public async Task<List<ExerciseMuscleGroup>> GetAllExerciseMusclesAsync()
+        {
+            await EnsureInitializedAsync();
+            return await _connection.Table<ExerciseMuscleGroup>().ToListAsync();
+        }
+
+        public async Task ToggleExerciseFavoriteAsync(int exerciseId)
+        {
+            await EnsureInitializedAsync();
+            var ex = await _connection.FindAsync<Exercise>(exerciseId);
+            if (ex == null) return;
+            ex.IsFavorite = !ex.IsFavorite;
+            await _connection.UpdateAsync(ex);
+        }
+
+        public async Task<List<Exercise>> GetExercisesByMuscleAsync(int muscleGroupId, bool primaryOnly = false)
+        {
+            await EnsureInitializedAsync();
+            var sql = primaryOnly
+                ? @"SELECT DISTINCT e.* FROM Exercises e
+                    INNER JOIN ExerciseMuscleGroups emg ON e.Id = emg.ExerciseId
+                    WHERE emg.MuscleGroupId = ? AND emg.Role = 0 AND e.IsArchived = 0
+                    ORDER BY e.Name"
+                : @"SELECT DISTINCT e.* FROM Exercises e
+                    INNER JOIN ExerciseMuscleGroups emg ON e.Id = emg.ExerciseId
+                    WHERE emg.MuscleGroupId = ? AND e.IsArchived = 0
+                    ORDER BY e.Name";
+            return await _connection.QueryAsync<Exercise>(sql, muscleGroupId);
         }
 
         private Task EnsureInitializedAsync() => _initTask;

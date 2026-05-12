@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="FitApp.Views.TemplatesPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FitApp.ViewModels"
+             x:Name="PageRoot"
+             x:DataType="vm:TemplatesViewModel"
+             Title="Шаблоны">
+
+    <ContentPage.Resources>
+        <Style x:Key="FolderChipBorder" TargetType="Border">
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 18"/>
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#F2F2F7, Dark=#2C2C2E}"/>
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#D1D1D6, Dark=#3A3A3C}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Папки сверху -->
+        <ScrollView Grid.Row="0" Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    Margin="0,10,0,4">
+            <HorizontalStackLayout Padding="16,0" BindableLayout.ItemsSource="{Binding Folders}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Border Style="{StaticResource FolderChipBorder}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.SelectFolderCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Source={x:Reference PageRoot}, Path=BindingContext.SelectedFolder, Mode=OneWay}"
+                                             Value="{Binding .}">
+                                    <Setter Property="BackgroundColor" Value="#3B82F6"/>
+                                    <Setter Property="Stroke" Value="#3B82F6"/>
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Label Text="{Binding .}" FontSize="13"
+                                   TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                   VerticalOptions="Center"/>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Список карточек -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Templates}"
+                        Margin="8,8,8,16"
+                        SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Label Text="Шаблонов пока нет."
+                       HorizontalOptions="Center" VerticalOptions="Center"
+                       TextColor="Gray" Margin="20"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:TemplateCard">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem Text="Скрыть"
+                                           BackgroundColor="#EF4444"
+                                           Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.DeleteTemplateCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Margin="6,6"
+                                Padding="16,14"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 14"
+                                BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C1C1E}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTemplateTapped"
+                                                      CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="4">
+
+                                <!-- Папка/тег -->
+                                <Label Grid.Row="0" Grid.Column="0"
+                                       Text="{Binding Folder}"
+                                       FontSize="11"
+                                       TextColor="#3B82F6"
+                                       FontAttributes="Bold"/>
+
+                                <!-- Кнопка Старт -->
+                                <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="4"
+                                        Text="▶ Старт"
+                                        VerticalOptions="Center"
+                                        Padding="14,8"
+                                        FontSize="14"
+                                        BackgroundColor="#10B981"
+                                        TextColor="White"
+                                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.StartWorkoutCommand}"
+                                        CommandParameter="{Binding .}"/>
+
+                                <!-- Название -->
+                                <Label Grid.Row="1" Grid.Column="0"
+                                       Text="{Binding Name}"
+                                       FontSize="18" FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+
+                                <!-- Превью упражнений -->
+                                <Label Grid.Row="2" Grid.Column="0"
+                                       Text="{Binding ExercisesPreview}"
+                                       FontSize="12"
+                                       TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"
+                                       LineBreakMode="TailTruncation"/>
+
+                                <!-- Мета -->
+                                <Label Grid.Row="3" Grid.Column="0"
+                                       Text="{Binding MetaLine}"
+                                       FontSize="11"
+                                       TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}"
+                                       Margin="0,2,0,0"/>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Низ: кнопка нового шаблона -->
+        <Button Grid.Row="2"
+                Text="+ Новый шаблон"
+                Margin="16,4,16,12"
+                BackgroundColor="#3B82F6"
+                TextColor="White"
+                Clicked="OnNewTemplateClicked"/>
+    </Grid>
+</ContentPage>

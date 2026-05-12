@@ -5,31 +5,32 @@
              xmlns:local="clr-namespace:FitApp.ViewModels"
              Title="MuscleGroupsListPage">
 
-    <VerticalStackLayout>
-        <Entry Placeholder="Введите название группы мышц" 
+    <!-- Grid с RowDefinitions: верхние строки Auto под форму, а "*" отдаёт всю
+         оставшуюся высоту списку — иначе CollectionView внутри StackLayout не скроллится. -->
+    <Grid RowDefinitions="Auto,Auto,*" Padding="0">
+
+        <Entry Grid.Row="0"
+               Placeholder="Введите название группы мышц"
                Text="{Binding MuscleGroupName}"/>
-        <Button Text="Добавить группу мышц" Command="{Binding AddMuscleGroupCommand}"/>
-        
 
-        <VerticalStackLayout >
-            <CollectionView ItemsSource="{Binding MuscleGroups}" 
-                    
-                    SelectionMode="Single" 
-                    BackgroundColor="Gray"
-                    x:Name="WorkoutCollectionView"
-                    >
-                <CollectionView.ItemTemplate >
-                    <DataTemplate >
-                        <StackLayout Orientation="Horizontal" Padding ="15" >
-                            <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
-                            <Button Text="X" 
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:MuscleGroupViewModel}},Path=DeleteMuscleGroupCommand}" 
-                            CommandParameter="{Binding .}"></Button>
+        <Button Grid.Row="1"
+                Text="Добавить группу мышц"
+                Command="{Binding AddMuscleGroupCommand}"/>
 
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
-    </VerticalStackLayout>
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding MuscleGroups}"
+                        SelectionMode="Single"
+                        BackgroundColor="Gray"
+                        x:Name="WorkoutCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Padding="15">
+                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
+                        <!-- Удаление встроенных групп мышц намеренно отключено:
+                             они являются частью базы упражнений и автоматически восстановятся при следующем запуске. -->
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

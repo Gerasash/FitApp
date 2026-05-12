@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "name": "Push Day",
+      "folder": "PPL",
+      "description": "Толкающий день: грудь, плечи, трицепс",
+      "exercises": [
+        { "exercise": "Жим штанги лёжа", "sets": 4, "repsMin": 6, "repsMax": 8, "rest": 180 },
+        { "exercise": "Жим штанги на наклонной", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 120 },
+        { "exercise": "Армейский жим стоя", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 120 },
+        { "exercise": "Разводка гантелей лёжа", "sets": 3, "repsMin": 10, "repsMax": 12, "rest": 90 },
+        { "exercise": "Махи гантелями в стороны", "sets": 3, "repsMin": 12, "repsMax": 15, "rest": 60 },
+        { "exercise": "Разгибание рук на блоке", "sets": 3, "repsMin": 10, "repsMax": 12, "rest": 60 }
+      ]
+    },
+    {
+      "name": "Pull Day",
+      "folder": "PPL",
+      "description": "Тянущий день: спина, бицепс, задняя дельта",
+      "exercises": [
+        { "exercise": "Становая тяга", "sets": 3, "repsMin": 5, "repsMax": 5, "rest": 240 },
+        { "exercise": "Подтягивания", "sets": 4, "repsMin": 6, "repsMax": 10, "rest": 120 },
+        { "exercise": "Тяга штанги в наклоне", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 120 },
+        { "exercise": "Тяга горизонтального блока", "sets": 3, "repsMin": 10, "repsMax": 12, "rest": 90 },
+        { "exercise": "Махи в наклоне на заднюю дельту", "sets": 3, "repsMin": 12, "repsMax": 15, "rest": 60 },
+        { "exercise": "Подъём штанги на бицепс", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 90 }
+      ]
+    },
+    {
+      "name": "Leg Day",
+      "folder": "PPL",
+      "description": "День ног: квадрицепс, бицепс бедра, ягодицы",
+      "exercises": [
+        { "exercise": "Присед со штангой", "sets": 4, "repsMin": 6, "repsMax": 8, "rest": 180 },
+        { "exercise": "Румынская тяга", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 150 },
+        { "exercise": "Жим ногами", "sets": 3, "repsMin": 10, "repsMax": 12, "rest": 120 },
+        { "exercise": "Сгибание ног лёжа", "sets": 3, "repsMin": 10, "repsMax": 12, "rest": 90 },
+        { "exercise": "Разгибание ног в тренажёре", "sets": 3, "repsMin": 12, "repsMax": 15, "rest": 60 },
+        { "exercise": "Подъём на носки", "sets": 4, "repsMin": 12, "repsMax": 15, "rest": 60 }
+      ]
+    },
+    {
+      "name": "Upper Body",
+      "folder": "Upper/Lower",
+      "description": "Верх тела целиком",
+      "exercises": [
+        { "exercise": "Жим штанги лёжа", "sets": 4, "repsMin": 6, "repsMax": 8, "rest": 180 },
+        { "exercise": "Тяга штанги в наклоне", "sets": 4, "repsMin": 6, "repsMax": 8, "rest": 150 },
+        { "exercise": "Армейский жим стоя", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 120 },
+        { "exercise": "Подтягивания", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 120 },
+        { "exercise": "Молотки", "sets": 3, "repsMin": 10, "repsMax": 12, "rest": 60 },
+        { "exercise": "Французский жим", "sets": 3, "repsMin": 10, "repsMax": 12, "rest": 60 }
+      ]
+    },
+    {
+      "name": "Lower Body",
+      "folder": "Upper/Lower",
+      "description": "Низ тела целиком",
+      "exercises": [
+        { "exercise": "Присед со штангой", "sets": 4, "repsMin": 6, "repsMax": 8, "rest": 180 },
+        { "exercise": "Румынская тяга", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 150 },
+        { "exercise": "Выпады с гантелями", "sets": 3, "repsMin": 10, "repsMax": 10, "rest": 90 },
+        { "exercise": "Сгибание ног лёжа", "sets": 3, "repsMin": 10, "repsMax": 12, "rest": 60 },
+        { "exercise": "Подъём на носки", "sets": 4, "repsMin": 12, "repsMax": 15, "rest": 60 },
+        { "exercise": "Планка", "sets": 3, "repsMin": 30, "repsMax": 60, "rest": 60, "notes": "Время в секундах" }
+      ]
+    },
+    {
+      "name": "Full Body Beginner",
+      "folder": "Full Body",
+      "description": "Базовый шаблон для начинающих, 1 раз в 2-3 дня",
+      "exercises": [
+        { "exercise": "Присед со штангой", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 120 },
+        { "exercise": "Жим штанги лёжа", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 120 },
+        { "exercise": "Тяга штанги в наклоне", "sets": 3, "repsMin": 8, "repsMax": 10, "rest": 120 },
+        { "exercise": "Армейский жим стоя", "sets": 2, "repsMin": 10, "repsMax": 12, "rest": 90 },
+        { "exercise": "Планка", "sets": 3, "repsMin": 30, "repsMax": 45, "rest": 60, "notes": "Время в секундах" }
+      ]
+    }
+  ]
+}
