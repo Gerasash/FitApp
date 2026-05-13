@@ -4,6 +4,8 @@ using FitApp.ViewModels;
 using FitApp.Views;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 namespace FitApp
 {
     public static class MauiProgram
@@ -11,6 +13,12 @@ namespace FitApp
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            // LiveCharts: глобальные настройки (тема/палитра)
+            LiveCharts.Configure(config =>
+                config.AddSkiaSharp()
+                      .AddDefaultMappers()
+                      .AddLightTheme());
+
             builder
                 .UseMauiApp<App>()
                 .UseSkiaSharp()

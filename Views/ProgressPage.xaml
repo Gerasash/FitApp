@@ -291,11 +291,15 @@
                         <Label Text="График веса" FontSize="16" FontAttributes="Bold"/>
                         <Label Text="Фиолетовая линия — рабочий вес. Оранжевый пунктир — расчётный 1ПМ (формула Эпли)."
                                FontSize="11" TextColor="Gray"/>
+                        <!-- TEMP: проверка, валит ли страницу именно LiveCharts -->
+                        <Label Text="[chart placeholder]" FontSize="12" TextColor="Gray"/>
+                        <!--
                         <lvc:CartesianChart HeightRequest="240"
                                             Series="{Binding ChartSeries}"
                                             XAxes="{Binding ChartXAxes}"
                                             YAxes="{Binding ChartYAxes}"
                                             LegendPosition="Bottom"/>
+                        -->
                     </VerticalStackLayout>
                 </Border>
             </VerticalStackLayout>

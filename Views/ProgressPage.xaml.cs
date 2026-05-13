@@ -12,7 +12,18 @@ public partial class ProgressPage : ContentPage
 
     public ProgressPage(WorkoutDataBase database)
     {
-        InitializeComponent();
+        try
+        {
+            InitializeComponent();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("[ProgressPage] InitializeComponent FAILED:");
+            for (var e = (Exception?)ex; e != null; e = e.InnerException)
+                System.Diagnostics.Debug.WriteLine($"  -> {e.GetType().Name}: {e.Message}\n{e.StackTrace}");
+            throw;
+        }
+
         _viewModel = new ProgressViewModel(database);
         BindingContext = _viewModel;
 
@@ -20,11 +31,14 @@ public partial class ProgressPage : ContentPage
 
         // Перерисовываем календарь при изменении данных или темы
         _viewModel.PropertyChanged += OnVmPropertyChanged;
-        Application.Current!.RequestedThemeChanged += (_, __) =>
+        if (Application.Current != null)
         {
-            _calendarDrawable.IsDarkTheme = Application.Current.RequestedTheme == AppTheme.Dark;
-            ActivityCalendar.Invalidate();
-        };
+            Application.Current.RequestedThemeChanged += (_, __) =>
+            {
+                _calendarDrawable.IsDarkTheme = Application.Current.RequestedTheme == AppTheme.Dark;
+                ActivityCalendar.Invalidate();
+            };
+        }
     }
 
     private void OnVmPropertyChanged(object? sender, PropertyChangedEventArgs e)

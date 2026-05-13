@@ -53,8 +53,46 @@ public partial class WorkoutViewModel : ObservableObject
     [ObservableProperty] private double sheetWeight;
     [ObservableProperty] private int sheetReps;
     [ObservableProperty] private double sheetRpe;
+    [ObservableProperty] private string sheetRpeTitle = "";
+    [ObservableProperty] private string sheetRpeHint = "";
     private WorkoutExercise? _sheetExercise;
     private ExerciseSet? _editingSet;
+
+    // Фиксированная Hevy-шкала RPE
+    public IReadOnlyList<RpeOption> RpeOptions { get; } = new[]
+    {
+        new RpeOption(6.0, "6"),
+        new RpeOption(7.0, "7"),
+        new RpeOption(7.5, "7.5"),
+        new RpeOption(8.0, "8"),
+        new RpeOption(8.5, "8.5"),
+        new RpeOption(9.0, "9"),
+        new RpeOption(9.5, "9.5"),
+        new RpeOption(10.0, "10"),
+    };
+
+    partial void OnSheetRpeChanged(double value)
+    {
+        // Обновляем выделение чипа
+        foreach (var opt in RpeOptions)
+            opt.IsSelected = Math.Abs(opt.Value - value) < 0.001;
+
+        // Текстовое описание RPE — как в Hevy
+        (SheetRpeTitle, SheetRpeHint) = value switch
+        {
+            <= 6.0 => ("Легко", "Могли бы сделать ещё 4+ повторений"),
+            <= 7.0 => ("Умеренно", "Могли бы сделать ещё 3 повторения"),
+            <= 7.5 => ("Умеренно-тяжело", "Могли бы сделать ещё 2-3 повторения"),
+            <= 8.0 => ("Очень тяжёлое усилие", "Могли бы точно сделать ещё 2 повторения"),
+            <= 8.5 => ("Тяжело", "Могли бы сделать ещё 1-2 повторения"),
+            <= 9.0 => ("Очень тяжело", "Могли бы сделать ещё 1 повторение"),
+            <= 9.5 => ("Почти максимум", "Возможно, ещё 1 повторение"),
+            _      => ("Максимум", "Больше повторений уже не сделать")
+        };
+    }
+
+    [RelayCommand]
+    private void SelectRpe(double value) => SheetRpe = value;
 
     public WorkoutViewModel(WorkoutDataBase database, AiService aiService)
     {
