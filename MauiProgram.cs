@@ -3,6 +3,7 @@ using FitApp.Services;
 using FitApp.ViewModels;
 using FitApp.Views;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 namespace FitApp
 {
     public static class MauiProgram
@@ -12,6 +13,7 @@ namespace FitApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

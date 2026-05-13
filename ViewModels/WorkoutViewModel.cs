@@ -398,9 +398,16 @@ public partial class WorkoutViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void DeleteWorkout(Workout workout)
+    private async Task DeleteWorkout(Workout workout)
     {
         if (workout == null) return;
+
+        var confirm = await Shell.Current.DisplayAlert(
+            "Удалить тренировку?",
+            $"«{workout.Name}» от {workout.StartTime:dd.MM.yyyy} будет удалена вместе со всеми подходами. Действие необратимо.",
+            "Удалить",
+            "Отмена");
+        if (!confirm) return;
 
         await _database.DeleteWorkout(workout);
         await LoadWorkouts();
