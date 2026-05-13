@@ -220,10 +220,29 @@
                                                         </Border.GestureRecognizers>
 
                                                         <Grid ColumnDefinitions="Auto,*,*,Auto" ColumnSpacing="10">
-                                                            <Label Grid.Column="0"
-                                                                   Text="{Binding SetNumber, StringFormat='#{0}'}"
-                                                                   FontAttributes="Bold"
-                                                                   VerticalOptions="Center"/>
+                                                            <!-- Тапабельный бейдж типа подхода: 1/2/3 / W / F / D -->
+                                                            <Border Grid.Column="0"
+                                                                    StrokeThickness="1"
+                                                                    Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#3A3A3A}"
+                                                                    WidthRequest="34"
+                                                                    HeightRequest="34"
+                                                                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}"
+                                                                    VerticalOptions="Center">
+                                                                <Border.StrokeShape>
+                                                                    <RoundRectangle CornerRadius="8"/>
+                                                                </Border.StrokeShape>
+                                                                <Border.GestureRecognizers>
+                                                                    <TapGestureRecognizer
+                                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:WorkoutViewModel}}, Path=ChangeSetTypeCommand}"
+                                                                        CommandParameter="{Binding .}"/>
+                                                                </Border.GestureRecognizers>
+                                                                <Label Text="{Binding DisplayBadge}"
+                                                                       TextColor="{Binding BadgeColor}"
+                                                                       FontAttributes="Bold"
+                                                                       FontSize="15"
+                                                                       HorizontalOptions="Center"
+                                                                       VerticalOptions="Center"/>
+                                                            </Border>
 
                                                             <Label Grid.Column="1"
                                                                    Text="{Binding Weight, StringFormat='{0:F1} кг'}"

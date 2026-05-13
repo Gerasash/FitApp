@@ -146,6 +146,33 @@ public partial class WorkoutViewModel : ObservableObject
     }
 
     // Открытие Bottom Sheet для редактирования подхода
+    // Меняем тип подхода через ActionSheet
+    [RelayCommand]
+    private async Task ChangeSetType(ExerciseSet set)
+    {
+        if (set == null) return;
+        const string warmup = "W  Разминка";
+        const string normal = "1  Нормальный";
+        const string failure = "F  В отказ";
+        const string drop = "D  Дроп-сет";
+
+        var choice = await Shell.Current.DisplayActionSheet(
+            "Тип подхода", "Отмена", null,
+            warmup, normal, failure, drop);
+        if (string.IsNullOrEmpty(choice) || choice == "Отмена") return;
+
+        set.Kind = choice switch
+        {
+            warmup => SetType.Warmup,
+            failure => SetType.Failure,
+            drop => SetType.DropSet,
+            _ => SetType.Normal
+        };
+        await _database.SaveSetAsync(set);
+        if (CurrentWorkout != null)
+            await LoadExercisesForWorkout(CurrentWorkout.Id);
+    }
+
     [RelayCommand]
     private void EditSet(ExerciseSet set)
     {

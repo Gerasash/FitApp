@@ -695,6 +695,7 @@ namespace FitApp.Data
                     .Where(s => s.WorkoutExerciseId == item.Id)
                     .OrderBy(s => s.SetNumber)
                     .ToListAsync();
+                ExerciseSet.RecomputeBadges(item.Sets);
             }
 
             return workoutExercises;
