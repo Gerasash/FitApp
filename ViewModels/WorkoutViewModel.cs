@@ -426,7 +426,14 @@ public partial class WorkoutViewModel : ObservableObject
     [RelayCommand]
     private async Task AddWorkout()  // Task вместо void для async
     {
-        if (!string.IsNullOrEmpty(WorkoutName))
+        if (string.IsNullOrWhiteSpace(WorkoutName))
+        {
+            await Shell.Current.DisplayAlert(
+                "Нужно название",
+                "Введите название тренировки, чтобы её можно было создать.",
+                "OK");
+            return;
+        }
         {
             // Объединяем дату и время
             var combinedDateTime = SelectedDate.Date.Add(SelectedTime);

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Maui;
 namespace FitApp
 {
     public static class MauiProgram
@@ -22,6 +23,7 @@ namespace FitApp
             builder
                 .UseMauiApp<App>()
                 .UseSkiaSharp()
+                .UseLiveCharts()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

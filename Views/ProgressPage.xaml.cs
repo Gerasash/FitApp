@@ -1,6 +1,7 @@
 using FitApp.Data;
 using FitApp.ViewModels;
 using FitApp.Views.Drawables;
+using LiveChartsCore.SkiaSharpView.Maui;
 using System.ComponentModel;
 
 namespace FitApp.Views;
@@ -28,6 +29,33 @@ public partial class ProgressPage : ContentPage
         BindingContext = _viewModel;
 
         ActivityCalendar.Drawable = _calendarDrawable;
+
+        // График — создаём в code-behind, чтобы обойти возможный XAML namespace краш на LiveCharts
+        try
+        {
+            var chart = new CartesianChart
+            {
+                HeightRequest = 240,
+                LegendPosition = LiveChartsCore.Measure.LegendPosition.Bottom
+            };
+            chart.SetBinding(CartesianChart.SeriesProperty, nameof(ProgressViewModel.ChartSeries));
+            chart.SetBinding(CartesianChart.XAxesProperty, nameof(ProgressViewModel.ChartXAxes));
+            chart.SetBinding(CartesianChart.YAxesProperty, nameof(ProgressViewModel.ChartYAxes));
+            ChartHost.Content = chart;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("[ProgressPage] Chart init FAILED:");
+            for (var e = (Exception?)ex; e != null; e = e.InnerException)
+                System.Diagnostics.Debug.WriteLine($"  -> {e.GetType().Name}: {e.Message}\n{e.StackTrace}");
+            ChartHost.Content = new Label
+            {
+                Text = "График временно недоступен",
+                TextColor = Colors.Gray,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
+            };
+        }
 
         // Перерисовываем календарь при изменении данных или темы
         _viewModel.PropertyChanged += OnVmPropertyChanged;

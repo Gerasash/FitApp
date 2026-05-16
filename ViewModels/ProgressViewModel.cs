@@ -292,7 +292,13 @@ public partial class ProgressViewModel : ObservableObject
         if (points.Count == 0)
         {
             ChartPoints = new ObservableCollection<ProgressPoint>();
+            ChartSeries = Array.Empty<ISeries>();
+            MaxWeight = 0;
+            AvgRpe = 0;
+            TotalWorkouts = 0;
+            ForecastWeight = 0;
             ForecastLabel = "Нет данных";
+            TrendLabel = "—";
             return;
         }
 
@@ -332,7 +338,13 @@ public partial class ProgressViewModel : ObservableObject
         {
             new Axis
             {
-                Labeler = v => new DateTime((long)v).ToString("dd.MM"),
+                Labeler = v =>
+                {
+                    var ticks = (long)v;
+                    if (ticks < DateTime.MinValue.Ticks || ticks > DateTime.MaxValue.Ticks)
+                        return string.Empty;
+                    return new DateTime(ticks).ToString("dd.MM");
+                },
                 UnitWidth = TimeSpan.FromDays(1).Ticks,
                 MinStep = TimeSpan.FromDays(1).Ticks,
                 TextSize = 11,
