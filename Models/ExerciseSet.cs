@@ -32,6 +32,10 @@ public class ExerciseSet
     // sqlite-net хранит enum как int; миграция CreateTableAsync добавит колонку автоматически.
     public SetType Kind { get; set; } = SetType.Normal;
 
+    // Поля синхронизации
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsDeleted { get; set; }
+
     // --- Только для UI: бейдж и его цвет. Перевычисляются после загрузки сетов. ---
     [Ignore] public string DisplayBadge { get; set; } = "1";
     [Ignore] public Microsoft.Maui.Graphics.Color BadgeColor { get; set; }

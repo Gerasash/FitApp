@@ -23,6 +23,14 @@ public class Workout
     public string Description { get; set; }
     [Column("StartTime")]
     public DateTime StartTime { get; set; }
+
+    // Владелец записи. 1 = локальный профиль, создаётся при первом запуске.
+    public int UserId { get; set; } = 1;
+
+    // Поля синхронизации (last-write-wins по UpdatedAt; IsDeleted — soft delete).
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsDeleted { get; set; }
+
     public Workout()
     {
         

@@ -24,6 +24,10 @@ public class WorkoutExercise
     // ИИ важно знать: делал ты это свежим или уставшим
     public int OrderIndex { get; set; }
 
+    // Поля синхронизации
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsDeleted { get; set; }
+
     // Навигационные свойства (для удобства в коде)
     [OneToMany(CascadeOperations = CascadeOperation.All)]
     public List<ExerciseSet> Sets { get; set; } = new();

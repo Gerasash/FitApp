@@ -28,6 +28,7 @@ namespace FitApp.Data
         {
             if (_initialized) return;
 
+            await _connection.CreateTableAsync<User>();
             await _connection.CreateTableAsync<Workout>();
             await _connection.CreateTableAsync<Exercise>();
             await _connection.CreateTableAsync<MuscleGroup>();
@@ -39,10 +40,59 @@ namespace FitApp.Data
             await _connection.CreateTableAsync<WorkoutTemplate>();
             await _connection.CreateTableAsync<TemplateExercise>();
 
+            await EnsureLocalUserAsync();
             await SeedBuiltInExercisesAsync();
             await SeedBuiltInTemplatesAsync();
 
             _initialized = true;
+        }
+
+        // --- Профиль пользователя ---
+
+        // Id локального профиля. Пока нет аутентификации — всегда 1.
+        // Когда подключим Web API, отсюда же будет возвращаться Id залогиненного юзера.
+        public const int LocalUserId = 1;
+
+        // Создаёт локальный профиль при первом запуске и привязывает к нему уже
+        // существующие тренировки/шаблоны, у которых UserId=0 (старые записи до миграции).
+        private async Task EnsureLocalUserAsync()
+        {
+            var existing = await _connection.FindAsync<User>(LocalUserId);
+            if (existing == null)
+            {
+                await _connection.InsertAsync(new User
+                {
+                    Id = LocalUserId,
+                    DisplayName = "Я",
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                });
+            }
+
+            // Бэкфилл UserId на старых записях, созданных до появления поля.
+            await _connection.ExecuteAsync(
+                "UPDATE Workouts SET UserId = ? WHERE UserId = 0", LocalUserId);
+            await _connection.ExecuteAsync(
+                "UPDATE WorkoutTemplates SET UserId = ? WHERE UserId = 0 AND IsBuiltIn = 0",
+                LocalUserId);
+        }
+
+        public async Task<User> GetCurrentUserAsync()
+        {
+            await EnsureInitializedAsync();
+            var user = await _connection.FindAsync<User>(LocalUserId);
+            return user ?? new User { Id = LocalUserId, DisplayName = "Я" };
+        }
+
+        public async Task<int> SaveUserAsync(User user)
+        {
+            await EnsureInitializedAsync();
+            user.UpdatedAt = DateTime.UtcNow;
+            if (user.Id == 0) user.Id = LocalUserId;
+            var existing = await _connection.FindAsync<User>(user.Id);
+            return existing == null
+                ? await _connection.InsertAsync(user)
+                : await _connection.UpdateAsync(user);
         }
 
         // --- Seed встроенной базы упражнений (один раз при первом запуске) ---

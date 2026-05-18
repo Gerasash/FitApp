@@ -27,6 +27,10 @@ public class TemplateExercise
     // Номер суперсета: упражнения с одним числом выполняются связкой
     public int? SupersetGroup { get; set; }
 
+    // Поля синхронизации
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsDeleted { get; set; }
+
     // Не сохраняется — подтягиваем для UI
     [Ignore] public string? ExerciseName { get; set; }
 }

@@ -17,6 +17,10 @@ public class WorkoutMuscleGroup
     [ForeignKey(typeof(MuscleGroup))] // Указываем, что это внешний ключ к таблице MuscleGroups
     public int MuscleGroupId { get; set; }
 
+    // Поля синхронизации
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsDeleted { get; set; }
+
     public WorkoutMuscleGroup() { }
 
     public WorkoutMuscleGroup(int workoutId, int muscleGroupId)

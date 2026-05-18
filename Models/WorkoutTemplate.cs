@@ -27,4 +27,11 @@ public class WorkoutTemplate
     public bool IsArchived { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    // Владелец пользовательского шаблона. Для встроенных IsBuiltIn=true UserId=0.
+    public int UserId { get; set; } = 1;
+
+    // Поля синхронизации
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsDeleted { get; set; }
 }
