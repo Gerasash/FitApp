@@ -45,6 +45,7 @@ namespace FitApp
             builder.Services.AddTransient<TemplatesPage>();
             builder.Services.AddTransient<TemplatesViewModel>();
             builder.Services.AddTransient<TemplateEditorPage>();
+            builder.Services.AddTransient<SettingsPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

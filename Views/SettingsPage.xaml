@@ -7,6 +7,131 @@
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="14">
 
+            <!-- ==== Профиль ==== -->
+            <Label Text="Профиль" Style="{StaticResource SectionTitle}"/>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="14">
+
+                    <!-- Имя -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Имя" FontSize="15"/>
+                        <Label Text="Используется для приветствия" Style="{StaticResource Caption}"/>
+                        <Entry x:Name="DisplayNameEntry"
+                               Placeholder="Например, Гера"
+                               Unfocused="OnProfileChanged"/>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource BorderSubtleLight}, Dark={StaticResource BorderSubtleDark}}"/>
+
+                    <!-- Вес -->
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Вес тела"
+                               FontSize="15"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Кг. Используется моделью прогноза"
+                               Style="{StaticResource Caption}"/>
+                        <Entry x:Name="BodyweightEntry"
+                               Grid.Row="0" Grid.Column="1"
+                               Grid.RowSpan="2"
+                               WidthRequest="90"
+                               Keyboard="Numeric"
+                               Placeholder="0"
+                               HorizontalTextAlignment="End"
+                               Unfocused="OnProfileChanged"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource BorderSubtleLight}, Dark={StaticResource BorderSubtleDark}}"/>
+
+                    <!-- Возраст -->
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Возраст"
+                               FontSize="15"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Полных лет"
+                               Style="{StaticResource Caption}"/>
+                        <Entry x:Name="AgeEntry"
+                               Grid.Row="0" Grid.Column="1"
+                               Grid.RowSpan="2"
+                               WidthRequest="90"
+                               Keyboard="Numeric"
+                               Placeholder="0"
+                               HorizontalTextAlignment="End"
+                               Unfocused="OnProfileChanged"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource BorderSubtleLight}, Dark={StaticResource BorderSubtleDark}}"/>
+
+                    <!-- Пол -->
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Пол"
+                               FontSize="15"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Фича для модели прогноза"
+                               Style="{StaticResource Caption}"/>
+                        <Picker x:Name="SexPicker"
+                                Grid.Row="0" Grid.Column="1"
+                                Grid.RowSpan="2"
+                                WidthRequest="140"
+                                SelectedIndexChanged="OnProfileChanged">
+                            <Picker.Items>
+                                <x:String>Не указан</x:String>
+                                <x:String>Мужской</x:String>
+                                <x:String>Женский</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource BorderSubtleLight}, Dark={StaticResource BorderSubtleDark}}"/>
+
+                    <!-- Начало занятий -->
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Начало занятий"
+                               FontSize="15"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Когда начал тренироваться"
+                               Style="{StaticResource Caption}"/>
+                        <DatePicker x:Name="ExperienceStartDatePicker"
+                                    Grid.Row="0" Grid.Column="1"
+                                    Grid.RowSpan="2"
+                                    Format="dd.MM.yyyy"
+                                    DateSelected="OnProfileChanged"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource BorderSubtleLight}, Dark={StaticResource BorderSubtleDark}}"/>
+
+                    <!-- Целевой RPE -->
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Целевой RPE"
+                               FontSize="15"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="К нему подгоняет нагрузку планировщик"
+                               Style="{StaticResource Caption}"/>
+                        <Picker x:Name="TargetRpePicker"
+                                Grid.Row="0" Grid.Column="1"
+                                Grid.RowSpan="2"
+                                WidthRequest="100"
+                                SelectedIndexChanged="OnProfileChanged">
+                            <Picker.Items>
+                                <x:String>6.0</x:String>
+                                <x:String>6.5</x:String>
+                                <x:String>7.0</x:String>
+                                <x:String>7.5</x:String>
+                                <x:String>8.0</x:String>
+                                <x:String>8.5</x:String>
+                                <x:String>9.0</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
             <!-- ==== Внешний вид ==== -->
             <Label Text="Внешний вид" Style="{StaticResource SectionTitle}"/>
 
