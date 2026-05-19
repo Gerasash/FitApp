@@ -603,6 +603,41 @@ namespace FitApp.Data
                 .ToListAsync();
         }
 
+        public async Task<Exercise?> GetExerciseByIdAsync(int exerciseId)
+        {
+            await EnsureInitializedAsync();
+            return await _connection.FindAsync<Exercise>(exerciseId);
+        }
+
+        /// <summary>Имя первичной мышечной группы упражнения (Role=0).
+        /// Используется ML-сервисом для кодирования категориальной фичи.
+        /// Реализовано через типизированный API (без сырого SQL), потому что
+        /// имя таблицы MuscleGroup в БД — без 's', а старый SQL в проекте
+        /// ссылается на 'MuscleGroups'.</summary>
+        public async Task<string?> GetPrimaryMuscleNameAsync(int exerciseId)
+        {
+            await EnsureInitializedAsync();
+
+            // 1) Ищем связь Primary (Role=0). Если её нет — берём любую первую.
+            var emg = await _connection.Table<ExerciseMuscleGroup>()
+                .Where(x => x.ExerciseId == exerciseId)
+                .OrderBy(x => x.Role)
+                .FirstOrDefaultAsync();
+
+            // 2) Fallback: на старых упражнениях связи могло не быть — тогда
+            // берём PrimaryMuscleGroupId из самого Exercise.
+            int? muscleId = emg?.MuscleGroupId;
+            if (muscleId == null || muscleId == 0)
+            {
+                var ex = await _connection.FindAsync<Exercise>(exerciseId);
+                if (ex == null || ex.PrimaryMuscleGroupId == 0) return null;
+                muscleId = ex.PrimaryMuscleGroupId;
+            }
+
+            var mg = await _connection.FindAsync<MuscleGroup>(muscleId.Value);
+            return mg?.Name;
+        }
+
         public async Task<int> SaveExerciseAsync(Exercise exercise)
         {
             await EnsureInitializedAsync();
@@ -825,6 +860,43 @@ namespace FitApp.Data
                 ORDER BY w.StartTime DESC
                 LIMIT ?";
             return await _connection.QueryAsync<ExerciseSet>(query, exerciseId, limit);
+        }
+
+        // --- История на уровне ТРЕНИРОВКИ для ML-сервиса ---
+
+        /// <summary>
+        /// Возвращает агрегированную историю упражнения у пользователя: одна
+        /// строка на тренировку с готовыми статистиками (top 1RM по Эпли,
+        /// средние RPE, повторения и т.д.). Сортировка ASC по дате — удобно
+        /// для построения лагов и наклонов на стороне ML-сервиса.
+        /// Исключаются разминочные сеты (Kind = 1 = SetType.Warmup), чтобы
+        /// фичи совпадали с теми, на которых обучалась модель.
+        /// </summary>
+        public async Task<List<ExerciseWorkoutHistoryRow>> GetExerciseWorkoutHistoryAsync(
+            int userId, int exerciseId, int limit = 30)
+        {
+            await EnsureInitializedAsync();
+            const string sql = @"
+                SELECT w.StartTime as Date,
+                       MAX(es.Weight * (1.0 + es.Reps / 30.0)) as TopEpley1Rm,
+                       MAX(es.Weight) as TopWeight,
+                       COUNT(es.Id) as NSets,
+                       AVG(es.RPE) as AvgRpe,
+                       MIN(es.RPE) as MinRpe,
+                       MAX(es.RPE) as MaxRpe,
+                       AVG(CAST(es.Reps AS REAL)) as AvgReps
+                FROM ExerciseSets es
+                JOIN WorkoutExercises we ON es.WorkoutExerciseId = we.Id
+                JOIN Workouts w ON we.WorkoutId = w.id
+                WHERE we.ExerciseId = ?
+                  AND w.UserId = ?
+                  AND es.Kind <> 1     -- исключаем разминочные сеты
+                  AND es.Weight > 0    -- незаполненные подходы пропускаем
+                GROUP BY w.id
+                ORDER BY w.StartTime ASC
+                LIMIT ?";
+            return await _connection.QueryAsync<ExerciseWorkoutHistoryRow>(
+                sql, exerciseId, userId, limit);
         }
 
         // --- AI предсказания ---

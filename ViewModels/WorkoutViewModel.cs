@@ -13,6 +13,8 @@ public partial class WorkoutViewModel : ObservableObject
 {
     private readonly WorkoutDataBase _database;
     private readonly AiService _aiService;
+    private readonly OnnxPredictionService _onnxService;
+    private readonly WorkoutPlannerService _plannerService;
 
     [ObservableProperty]
     private ObservableCollection<MuscleGroup> allMuscleGroups = new();
@@ -94,18 +96,22 @@ public partial class WorkoutViewModel : ObservableObject
     [RelayCommand]
     private void SelectRpe(double value) => SheetRpe = value;
 
-    public WorkoutViewModel(WorkoutDataBase database, AiService aiService)
+    public WorkoutViewModel(WorkoutDataBase database, AiService aiService, OnnxPredictionService onnxService, WorkoutPlannerService plannerService)
     {
         _database = database;
         _aiService = aiService;
+        _onnxService = onnxService;
+        _plannerService = plannerService;
         LoadWorkouts();
         LoadAllMuscleGroups();
     }
 
-    public WorkoutViewModel(Workout workout, WorkoutDataBase database, AiService aiService)
+    public WorkoutViewModel(Workout workout, WorkoutDataBase database, AiService aiService, OnnxPredictionService onnxService, WorkoutPlannerService plannerService)
     {
         _database = database;
         _aiService = aiService;
+        _onnxService = onnxService;
+        _plannerService = plannerService;
         CurrentWorkout = workout;
         WorkoutName = workout.Name;
         WorkoutDescription = workout.Description;
@@ -273,15 +279,24 @@ public partial class WorkoutViewModel : ObservableObject
         var list = await _database.GetExercisesForWorkoutAsync(workoutId);
         System.Diagnostics.Debug.WriteLine($" Загружено упражнений: {list.Count} для workoutId={workoutId}");
 
-        // Запрашиваем предсказания на основе ИСТОРИИ прошлых тренировок
+        // Прогноз через offline ONNX-модель. Запускается параллельно для всех
+        // упражнений тренировки; модель загружается лениво на первом вызове и
+        // дальше переиспользуется (см. OnnxPredictionService).
         var tasks = list.Select(async we =>
         {
-            var history = await _database.GetSetHistoryForExerciseAsync(we.ExerciseId);
-            System.Diagnostics.Debug.WriteLine($"[AI] ExerciseId={we.ExerciseId} history={history.Count}");
-            var result = await _aiService.PredictAsync(we.ExerciseId, history);
-            System.Diagnostics.Debug.WriteLine($"[AI] result={result?.text ?? "null"}");
+            var result = await _onnxService.PredictAsync(we.ExerciseId);
+            System.Diagnostics.Debug.WriteLine(
+                $"[Onnx] ExerciseId={we.ExerciseId} → {result?.Text ?? "null"}");
             if (result != null)
-                we.AiInsight = $"💡 {result.text}";
+                we.AiInsight = $"💡 {result.Text}";
+
+            // Этап 5: модуль планирования. Считаем рекомендацию на
+            // следующую тренировку (вес/повторы/подходы) на основе
+            // прогноза модели и целевого RPE из профиля.
+            var plan = await _plannerService.GetRecommendationAsync(we.ExerciseId);
+            System.Diagnostics.Debug.WriteLine(
+                $"[Planner] ExerciseId={we.ExerciseId} → {plan?.Text ?? "null"}");
+            we.Plan = plan;
         });
         await Task.WhenAll(tasks);
 
@@ -318,6 +333,41 @@ public partial class WorkoutViewModel : ObservableObject
         // 3) обновить UI (самый надежный способ)
         await LoadExercisesForWorkout(CurrentWorkout.Id);
     }
+    /// <summary>Применить рекомендацию планировщика — создаёт N пустых
+    /// (точнее, пред-заполненных) рабочих подходов с рекомендованным весом
+    /// и повторами. RPE оставляем пустым (0) — атлет проставит фактический
+    /// после выполнения.</summary>
+    [RelayCommand]
+    private async Task ApplyPlan(WorkoutExercise we)
+    {
+        if (we == null || we.Plan == null || CurrentWorkout == null) return;
+
+        var plan = we.Plan;
+        var confirm = await Shell.Current.DisplayAlert(
+            "Применить план",
+            $"Создать {plan.Sets} подход(ов): {plan.WeightKg:0.#} кг × {plan.Reps} повт. (RPE цель {plan.TargetRpe:0.#})?",
+            "Создать", "Отмена");
+        if (!confirm) return;
+
+        we.Sets ??= new List<ExerciseSet>();
+        int startNumber = we.Sets.Count + 1;
+        for (int i = 0; i < plan.Sets; i++)
+        {
+            var set = new ExerciseSet
+            {
+                WorkoutExerciseId = we.Id,
+                SetNumber = startNumber + i,
+                Weight = plan.WeightKg,
+                Reps = plan.Reps,
+                RPE = 0,             // фактический RPE проставит атлет
+                Kind = SetType.Normal
+            };
+            await _database.SaveSetAsync(set);
+        }
+
+        await LoadExercisesForWorkout(CurrentWorkout.Id);
+    }
+
     [RelayCommand]
     private async Task DeleteSet(ExerciseSet set)
     {

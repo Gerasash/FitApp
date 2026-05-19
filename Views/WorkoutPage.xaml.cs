@@ -14,17 +14,21 @@ public partial class WorkoutPage : ContentPage
     private WorkoutViewModel _viewModel;
     private readonly WorkoutDataBase _database;
     private readonly AiService _aiService;
+    private readonly OnnxPredictionService _onnxService;
+    private readonly WorkoutPlannerService _plannerService;
 
-    public WorkoutPage(WorkoutDataBase database, AiService aiService)
+    public WorkoutPage(WorkoutDataBase database, AiService aiService, OnnxPredictionService onnxService, WorkoutPlannerService plannerService)
     {
         InitializeComponent();
         _database = database;
         _aiService = aiService;
+        _onnxService = onnxService;
+        _plannerService = plannerService;
     }
 
     public void Init(Workout workout)
     {
-        _viewModel = new WorkoutViewModel(workout, _database, _aiService);
+        _viewModel = new WorkoutViewModel(workout, _database, _aiService, _onnxService, _plannerService);
         BindingContext = _viewModel;
         _viewModel.PropertyChanged += OnVmPropertyChanged;
         Appearing += async (s, e) => await _viewModel.LoadExercisesForWorkout(workout.Id);

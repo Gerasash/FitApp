@@ -33,6 +33,14 @@ namespace FitApp
             
             builder.Services.AddSingleton<WorkoutDataBase>();
             builder.Services.AddSingleton<AiService>();
+            // Offline ML-предиктор (LightGBM в ONNX, inference на устройстве).
+            // Singleton — модель загружается лениво на первом вызове и
+            // переиспользуется до конца жизни приложения.
+            builder.Services.AddSingleton<OnnxPredictionService>();
+            // Модуль планирования следующей тренировки. Использует
+            // OnnxPredictionService + историю из БД. Singleton — чистый,
+            // не хранит состояния между вызовами.
+            builder.Services.AddSingleton<WorkoutPlannerService>();
 
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<WorkoutPage>();

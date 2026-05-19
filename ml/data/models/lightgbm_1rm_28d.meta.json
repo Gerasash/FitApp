@@ -1,0 +1,57 @@
+{
+  "horizon_days": 28,
+  "feature_columns": [
+    "lag_1rm_1",
+    "lag_1rm_2",
+    "lag_1rm_3",
+    "lag_1rm_5",
+    "diff_1",
+    "mean_1rm_5",
+    "mean_rpe_5",
+    "slope_3",
+    "slope_5",
+    "n_history",
+    "days_since_first",
+    "days_since_last",
+    "top_1rm",
+    "top_weight",
+    "n_sets",
+    "avg_rpe",
+    "min_rpe",
+    "max_rpe",
+    "avg_reps",
+    "sex_male",
+    "bodyweight",
+    "age",
+    "training_age_months",
+    "target_rpe_profile",
+    "exercise_id",
+    "is_compound",
+    "equipment",
+    "primary_muscle_code"
+  ],
+  "categorical_columns": [
+    "exercise_id",
+    "equipment",
+    "primary_muscle_code",
+    "sex_male",
+    "is_compound"
+  ],
+  "target_column": "target_1rm",
+  "muscle_classes": [
+    "Бицепс",
+    "Грудь",
+    "Ноги",
+    "Плечи",
+    "Спина",
+    "Трицепс"
+  ],
+  "best_iteration": 326,
+  "test_metrics": {
+    "mae": 1.436504633474689,
+    "rmse": 2.295263564598361,
+    "mape": 2.082672410903034
+  },
+  "training_examples": 79047,
+  "test_examples": 22967
+}

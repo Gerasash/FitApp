@@ -40,4 +40,15 @@ public class WorkoutExercise
 
     [Ignore]
     public bool HasAiInsight => !string.IsNullOrEmpty(AiInsight);
+
+    // Рекомендация модуля планирования (этап 5). Заполняется
+    // WorkoutPlannerService при загрузке упражнений тренировки.
+    [Ignore]
+    public PlanRecommendation? Plan { get; set; }
+
+    [Ignore]
+    public bool HasPlan => Plan != null;
+
+    [Ignore]
+    public string PlanText => Plan?.Text ?? string.Empty;
 }
