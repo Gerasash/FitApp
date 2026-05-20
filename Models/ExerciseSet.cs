@@ -36,6 +36,14 @@ public class ExerciseSet
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     public bool IsDeleted { get; set; }
 
+    // Глобально уникальный идентификатор записи (см. Workout.SyncId).
+    [Indexed(Unique = true)]
+    public string SyncId { get; set; } = Guid.NewGuid().ToString();
+
+    // Денормализованная ссылка на родительский WorkoutExercise.SyncId.
+    [Indexed]
+    public string WorkoutExerciseSyncId { get; set; } = "";
+
     // --- Только для UI: бейдж и его цвет. Перевычисляются после загрузки сетов. ---
     [Ignore] public string DisplayBadge { get; set; } = "1";
     [Ignore] public Microsoft.Maui.Graphics.Color BadgeColor { get; set; }

@@ -41,10 +41,55 @@ namespace FitApp.Data
             await _connection.CreateTableAsync<TemplateExercise>();
 
             await EnsureLocalUserAsync();
+            await BackfillSyncIdsAsync();
             await SeedBuiltInExercisesAsync();
             await SeedBuiltInTemplatesAsync();
 
             _initialized = true;
+        }
+
+        // Бэкфилл SyncId на существующих записях (миграция к шагу 6 — sync).
+        // sqlite-net автоматически добавляет колонку при CreateTableAsync, но
+        // значения дефолта берёт null/"", а нам нужны GUID и денормализованные
+        // FK по SyncId родителей.
+        private async Task BackfillSyncIdsAsync()
+        {
+            // Workouts: для записей с пустым SyncId генерируем новый GUID.
+            var workoutsToFix = await _connection.QueryAsync<Workout>(
+                "SELECT * FROM Workouts WHERE SyncId IS NULL OR SyncId = ''");
+            foreach (var w in workoutsToFix)
+            {
+                w.SyncId = Guid.NewGuid().ToString();
+                await _connection.UpdateAsync(w);
+            }
+
+            // WorkoutExercises: SyncId + WorkoutSyncId (через JOIN).
+            var wesToFix = await _connection.QueryAsync<WorkoutExercise>(
+                "SELECT * FROM WorkoutExercises WHERE SyncId IS NULL OR SyncId = '' OR WorkoutSyncId IS NULL OR WorkoutSyncId = ''");
+            foreach (var we in wesToFix)
+            {
+                if (string.IsNullOrEmpty(we.SyncId)) we.SyncId = Guid.NewGuid().ToString();
+                if (string.IsNullOrEmpty(we.WorkoutSyncId))
+                {
+                    var parent = await _connection.FindAsync<Workout>(we.WorkoutId);
+                    we.WorkoutSyncId = parent?.SyncId ?? Guid.NewGuid().ToString();
+                }
+                await _connection.UpdateAsync(we);
+            }
+
+            // ExerciseSets: SyncId + WorkoutExerciseSyncId.
+            var setsToFix = await _connection.QueryAsync<ExerciseSet>(
+                "SELECT * FROM ExerciseSets WHERE SyncId IS NULL OR SyncId = '' OR WorkoutExerciseSyncId IS NULL OR WorkoutExerciseSyncId = ''");
+            foreach (var s in setsToFix)
+            {
+                if (string.IsNullOrEmpty(s.SyncId)) s.SyncId = Guid.NewGuid().ToString();
+                if (string.IsNullOrEmpty(s.WorkoutExerciseSyncId))
+                {
+                    var parent = await _connection.FindAsync<WorkoutExercise>(s.WorkoutExerciseId);
+                    s.WorkoutExerciseSyncId = parent?.SyncId ?? Guid.NewGuid().ToString();
+                }
+                await _connection.UpdateAsync(s);
+            }
         }
 
         // --- Профиль пользователя ---
@@ -439,6 +484,7 @@ namespace FitApp.Data
                 var we = new WorkoutExercise
                 {
                     WorkoutId = workout.Id,
+                    WorkoutSyncId = workout.SyncId,
                     ExerciseId = te.ExerciseId,
                     OrderIndex = order++
                 };
@@ -453,6 +499,7 @@ namespace FitApp.Data
                     await _connection.InsertAsync(new ExerciseSet
                     {
                         WorkoutExerciseId = we.Id,
+                        WorkoutExerciseSyncId = we.SyncId,
                         SetNumber = i,
                         Weight = 0,
                         Reps = suggestedReps,
@@ -580,6 +627,16 @@ namespace FitApp.Data
         }
 
         private Task EnsureInitializedAsync() => _initTask;
+
+        /// <summary>
+        /// Доступ к низкоуровневому соединению (для SyncService — он работает
+        /// напрямую с таблицами через сырые SQL-запросы).
+        /// </summary>
+        public async Task<SQLiteAsyncConnection> GetConnectionAsync()
+        {
+            await EnsureInitializedAsync();
+            return _connection;
+        }
 
         // --- Упражнения ---
 
@@ -789,6 +846,7 @@ namespace FitApp.Data
         public async Task<int> AddExerciseToWorkoutAsync(WorkoutExercise item)
         {
             await EnsureInitializedAsync();
+            item.UpdatedAt = DateTime.UtcNow;
             return await _connection.InsertAsync(item);
         }
 
@@ -812,6 +870,7 @@ namespace FitApp.Data
         public async Task<int> SaveSetAsync(ExerciseSet set)
         {
             await EnsureInitializedAsync();
+            set.UpdatedAt = DateTime.UtcNow;
             if (set.Id != 0)
                 return await _connection.UpdateAsync(set);
             else
@@ -835,9 +894,11 @@ namespace FitApp.Data
             await EnsureInitializedAsync();
 
             var existing = await GetSetsForWorkoutExerciseAsync(workoutExerciseId);
+            var parentWe = await _connection.FindAsync<WorkoutExercise>(workoutExerciseId);
             var set = new ExerciseSet
             {
                 WorkoutExerciseId = workoutExerciseId,
+                WorkoutExerciseSyncId = parentWe?.SyncId ?? "",
                 SetNumber = existing.Count + 1,
                 Weight = weight,
                 Reps = reps,

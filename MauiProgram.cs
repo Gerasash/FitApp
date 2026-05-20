@@ -1,5 +1,6 @@
 ﻿using FitApp.Data;
 using FitApp.Services;
+using FitApp.Services.Sync;
 using FitApp.ViewModels;
 using FitApp.Views;
 using Microsoft.Extensions.Logging;
@@ -42,6 +43,19 @@ namespace FitApp
             // не хранит состояния между вызовами.
             builder.Services.AddSingleton<WorkoutPlannerService>();
 
+            // === Этап 6: синхронизация с FitApp.Api ===
+            // BaseUrl выносим в константу/конфиг. Сейчас — локальный сервер
+            // dev-машины (для эмулятора Android используется 10.0.2.2).
+            // После деплоя на Render заменим на https://....onrender.com.
+            // Для Windows-десктоп тестов оставляем localhost.
+            builder.Services.AddSingleton(sp => new HttpClient
+            {
+                BaseAddress = new Uri(GetApiBaseUrl()),
+                Timeout = TimeSpan.FromSeconds(30)
+            });
+            builder.Services.AddSingleton<AuthClient>();
+            builder.Services.AddSingleton<SyncService>();
+
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<WorkoutPage>();
             builder.Services.AddTransient<MuscleGroupsListPage>();
@@ -54,12 +68,24 @@ namespace FitApp
             builder.Services.AddTransient<TemplatesViewModel>();
             builder.Services.AddTransient<TemplateEditorPage>();
             builder.Services.AddTransient<SettingsPage>();
+            builder.Services.AddTransient<AccountPage>();
+            builder.Services.AddTransient<AccountViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
+        }
+
+        private static string GetApiBaseUrl()
+        {
+            // На Android-эмуляторе localhost хоста = 10.0.2.2.
+#if ANDROID
+            return "http://10.0.2.2:5127/";
+#else
+            return "http://localhost:5127/";
+#endif
         }
     }
 }

@@ -31,6 +31,12 @@ public class Workout
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     public bool IsDeleted { get; set; }
 
+    // Глобально уникальный идентификатор для сервера. На клиенте Id остаётся
+    // локальным AUTOINCREMENT, а SyncId — постоянный (GUID), переносится
+    // вместе с записью между устройствами через POST /sync.
+    [Indexed(Unique = true)]
+    public string SyncId { get; set; } = Guid.NewGuid().ToString();
+
     public Workout()
     {
         

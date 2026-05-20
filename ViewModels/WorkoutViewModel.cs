@@ -232,6 +232,7 @@ public partial class WorkoutViewModel : ObservableObject
             var set = new ExerciseSet
             {
                 WorkoutExerciseId = _sheetExercise.Id,
+                WorkoutExerciseSyncId = _sheetExercise.SyncId,
                 SetNumber = next,
                 Weight = SheetWeight,
                 Reps = SheetReps,
@@ -356,6 +357,7 @@ public partial class WorkoutViewModel : ObservableObject
             var set = new ExerciseSet
             {
                 WorkoutExerciseId = we.Id,
+                WorkoutExerciseSyncId = we.SyncId,
                 SetNumber = startNumber + i,
                 Weight = plan.WeightKg,
                 Reps = plan.Reps,
@@ -391,6 +393,7 @@ public partial class WorkoutViewModel : ObservableObject
         var newLink = new WorkoutExercise
         {
             WorkoutId = CurrentWorkout.Id,
+            WorkoutSyncId = CurrentWorkout.SyncId,
             ExerciseId = exercise.Id,
             ExerciseName = exercise.Name, // Для отображения
             OrderIndex = WorkoutExercises.Count + 1

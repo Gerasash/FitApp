@@ -242,6 +242,20 @@
                 </VerticalStackLayout>
             </Border>
 
+            <!-- ==== Облако ==== -->
+            <Label Text="Облако" Style="{StaticResource SectionTitle}" Margin="0,8,0,0"/>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Облачная синхронизация" FontSize="15"/>
+                    <Label Text="Войдите, чтобы данные сохранялись на сервере и были доступны на других устройствах."
+                           Style="{StaticResource Caption}"/>
+                    <Button Text="Аккаунт и синхронизация"
+                            Style="{StaticResource SecondaryAction}"
+                            Clicked="OnOpenAccount"/>
+                </VerticalStackLayout>
+            </Border>
+
             <!-- ==== Данные ==== -->
             <Label Text="Данные" Style="{StaticResource SectionTitle}" Margin="0,8,0,0"/>
 

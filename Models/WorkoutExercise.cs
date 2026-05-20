@@ -28,6 +28,15 @@ public class WorkoutExercise
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     public bool IsDeleted { get; set; }
 
+    // Глобально уникальный идентификатор записи (см. Workout.SyncId).
+    [Indexed(Unique = true)]
+    public string SyncId { get; set; } = Guid.NewGuid().ToString();
+
+    // Денормализованная ссылка на родительский Workout.SyncId — упрощает
+    // sync (на сервере FK по SyncId, а не по локальному int Id).
+    [Indexed]
+    public string WorkoutSyncId { get; set; } = "";
+
     // Навигационные свойства (для удобства в коде)
     [OneToMany(CascadeOperations = CascadeOperation.All)]
     public List<ExerciseSet> Sets { get; set; } = new();

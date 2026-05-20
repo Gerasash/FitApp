@@ -35,4 +35,9 @@
         </Tab>
     </TabBar>
 
+    <!-- Аккаунт — не вкладка, попадаем через "Настройки → Аккаунт" -->
+    <ShellContent Route="AccountPage"
+                  ContentTemplate="{DataTemplate views:AccountPage}"
+                  FlyoutItemIsVisible="False"/>
+
 </Shell>

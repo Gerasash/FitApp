@@ -170,4 +170,9 @@ public partial class SettingsPage : ContentPage
     {
         await DisplayAlert("Экспорт", "Функция будет добавлена позже", "OK");
     }
+
+    async void OnOpenAccount(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("///AccountPage");
+    }
 }
