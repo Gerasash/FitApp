@@ -80,12 +80,16 @@ namespace FitApp
 
         private static string GetApiBaseUrl()
         {
-            // На Android-эмуляторе localhost хоста = 10.0.2.2.
-#if ANDROID
-            return "http://10.0.2.2:5127/";
-#else
-            return "http://localhost:5127/";
-#endif
+            // Боевой сервер на Render (free tier — засыпает через 15 мин неактивности,
+            // первый запрос после сна занимает ~30 сек, потом отвечает мгновенно).
+            return "https://fitapp-api-8l70.onrender.com/";
+
+            // --- Локальный dev-сервер (раскомментировать при отладке API локально) ---
+            // #if ANDROID
+            //     return "http://10.0.2.2:5127/";     // localhost хоста для Android-эмулятора
+            // #else
+            //     return "http://localhost:5127/";
+            // #endif
         }
     }
 }
