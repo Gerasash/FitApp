@@ -13,16 +13,46 @@ public class AppDb
 
     public AppDb(IConfiguration config)
     {
-        // Neon даёт строку вида postgres://user:pass@ep-xxx.neon.tech/neondb?sslmode=require
-        // Render передаёт её через переменную DATABASE_URL.
         var raw = config["DATABASE_URL"]
                   ?? config["ConnectionStrings:Postgres"]
                   ?? throw new InvalidOperationException(
                       "PostgreSQL connection string not found. Set DATABASE_URL env var.");
 
-        // Npgsql не принимает схему «postgres://» — конвертируем в «postgresql://»
-        // (оба варианта встречаются у провайдеров).
-        _connectionString = raw.Replace("postgres://", "postgresql://", StringComparison.OrdinalIgnoreCase);
+        _connectionString = BuildConnectionString(raw);
+    }
+
+    /// <summary>
+    /// Конвертирует URI-формат (postgres://user:pass@host/db?sslmode=require)
+    /// в формат ключ-значение, который понимает Npgsql.
+    /// Если строка уже в формате ADO.NET — возвращает как есть.
+    /// </summary>
+    private static string BuildConnectionString(string rawUrl)
+    {
+        if (rawUrl.Contains("Host=", StringComparison.OrdinalIgnoreCase) ||
+            rawUrl.Contains("Server=", StringComparison.OrdinalIgnoreCase))
+            return rawUrl;
+
+        // Нормализуем схему: Npgsql умеет разбирать Uri только как Uri, но
+        // System.Uri принимает оба варианта (postgres:// и postgresql://).
+        var normalized = rawUrl.StartsWith("postgres://", StringComparison.OrdinalIgnoreCase)
+            ? "postgresql://" + rawUrl["postgres://".Length..]
+            : rawUrl;
+
+        var uri = new Uri(normalized);
+        var userInfo = uri.UserInfo.Split(':');
+
+        var builder = new NpgsqlConnectionStringBuilder
+        {
+            Host = uri.Host,
+            Port = uri.IsDefaultPort ? 5432 : uri.Port,
+            Username = Uri.UnescapeDataString(userInfo[0]),
+            Password = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : "",
+            Database = uri.AbsolutePath.TrimStart('/'),
+            SslMode = SslMode.Require,
+            TrustServerCertificate = true
+        };
+
+        return builder.ToString();
     }
 
     public NpgsqlConnection OpenConnection()
