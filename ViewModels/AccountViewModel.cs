@@ -121,10 +121,27 @@ public partial class AccountViewModel : ObservableObject
     private async Task Logout()
     {
         await _auth.LogoutAsync();
+        // Сбрасываем курсор синхронизации — иначе следующий вход под другим
+        // (или тем же) аккаунтом увидит stale LastSyncUtc и не отправит
+        // локальные тренировки, которые «старее» этой метки.
+        _sync.ResetLastSyncUtc();
         IsLoggedIn = false;
         Email = "";
         StatusText = "Вы вышли.";
         LastSyncText = "";
+    }
+
+    /// <summary>
+    /// Принудительно сбрасывает LastSyncUtc и сразу запускает синхронизацию.
+    /// Полезно когда курсор «застрял» (например, после неудачных попыток
+    /// или из-за clock skew с сервером) и локальные тренировки не пушатся.
+    /// </summary>
+    [RelayCommand]
+    private async Task ForceFullResync()
+    {
+        _sync.ResetLastSyncUtc();
+        UpdateLastSyncText();
+        await Sync();
     }
 
     [RelayCommand]

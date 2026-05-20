@@ -57,6 +57,11 @@
                             Command="{Binding SyncCommand}"
                             IsEnabled="{Binding IsNotBusy}"/>
 
+                    <Button Text="⟳ Полная пересинхронизация"
+                            Style="{StaticResource SecondaryAction}"
+                            Command="{Binding ForceFullResyncCommand}"
+                            IsEnabled="{Binding IsNotBusy}"/>
+
                     <Button Text="Выйти"
                             Style="{StaticResource SecondaryAction}"
                             Command="{Binding LogoutCommand}"

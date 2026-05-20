@@ -38,6 +38,16 @@ public class SyncService
         DateTime.TryParse(Preferences.Default.Get(LastSyncKey, ""), out var t) ? t : null;
 
     /// <summary>
+    /// Сбрасывает курсор LastSyncUtc — следующая синхронизация заберёт всю
+    /// локальную БД целиком и так же забёрет всё с сервера. Вызывается
+    /// при Logout (новый аккаунт = новый курсор) и для ручного «полного ресинка».
+    /// </summary>
+    public void ResetLastSyncUtc()
+    {
+        Preferences.Default.Remove(LastSyncKey);
+    }
+
+    /// <summary>
     /// Одна итерация синхронизации. Возвращает краткую статистику для UI.
     /// Бросает исключение, если юзер не залогинен или сервер недоступен.
     /// </summary>
