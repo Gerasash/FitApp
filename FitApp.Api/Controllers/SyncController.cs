@@ -3,7 +3,7 @@ using FitApp.Api.Data;
 using FitApp.Api.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
+using Npgsql;
 
 namespace FitApp.Api.Controllers;
 
@@ -36,7 +36,7 @@ public class SyncController : ControllerBase
         if (userId == null) return Unauthorized();
 
         await using var conn = _db.OpenConnection();
-        await using var tx = conn.BeginTransaction();
+        await using var tx = await conn.BeginTransactionAsync();
 
         // 1. Применяем входящие изменения клиента.
         await UpsertWorkouts(conn, tx, userId.Value, req.Workouts);
@@ -57,7 +57,7 @@ public class SyncController : ControllerBase
             ExerciseSets = await SelectExerciseSets(conn, tx, userId.Value, req.LastSyncUtc)
         };
 
-        tx.Commit();
+        await tx.CommitAsync();
 
         _log.LogInformation(
             "Sync user={UserId} pushed W={W} WE={WE} ES={ES} pulled W={pW} WE={pWE} ES={pES}",
@@ -78,7 +78,7 @@ public class SyncController : ControllerBase
     // Логика одна и та же: если запись новее существующей по UpdatedAtUtc —
     // перезаписываем; иначе игнорируем (last-write-wins).
 
-    private static async Task UpsertWorkouts(SqliteConnection conn, SqliteTransaction tx,
+    private static async Task UpsertWorkouts(NpgsqlConnection conn, NpgsqlTransaction tx,
         long userId, List<WorkoutSyncDto> items)
     {
         foreach (var w in items)
@@ -87,27 +87,27 @@ public class SyncController : ControllerBase
             cmd.Transaction = tx;
             cmd.CommandText = @"
                 INSERT INTO Workouts (SyncId, UserId, Name, Description, StartTime, UpdatedAtUtc, IsDeleted)
-                VALUES ($sid, $uid, $name, $desc, $start, $upd, $del)
+                VALUES (@sid, @uid, @name, @desc, @start, @upd, @del)
                 ON CONFLICT(SyncId) DO UPDATE SET
-                    Name = excluded.Name,
-                    Description = excluded.Description,
-                    StartTime = excluded.StartTime,
-                    UpdatedAtUtc = excluded.UpdatedAtUtc,
-                    IsDeleted = excluded.IsDeleted
-                WHERE excluded.UpdatedAtUtc > Workouts.UpdatedAtUtc
-                  AND Workouts.UserId = $uid;";
-            cmd.Parameters.AddWithValue("$sid", w.SyncId);
-            cmd.Parameters.AddWithValue("$uid", userId);
-            cmd.Parameters.AddWithValue("$name", (object?)w.Name ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("$desc", (object?)w.Description ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("$start", w.StartTime.ToString("o"));
-            cmd.Parameters.AddWithValue("$upd", w.UpdatedAtUtc.ToString("o"));
-            cmd.Parameters.AddWithValue("$del", w.IsDeleted ? 1 : 0);
+                    Name = EXCLUDED.Name,
+                    Description = EXCLUDED.Description,
+                    StartTime = EXCLUDED.StartTime,
+                    UpdatedAtUtc = EXCLUDED.UpdatedAtUtc,
+                    IsDeleted = EXCLUDED.IsDeleted
+                WHERE EXCLUDED.UpdatedAtUtc > Workouts.UpdatedAtUtc
+                  AND Workouts.UserId = @uid;";
+            cmd.Parameters.AddWithValue("@sid", w.SyncId);
+            cmd.Parameters.AddWithValue("@uid", userId);
+            cmd.Parameters.AddWithValue("@name", (object?)w.Name ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@desc", (object?)w.Description ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@start", w.StartTime.ToString("o"));
+            cmd.Parameters.AddWithValue("@upd", w.UpdatedAtUtc.ToString("o"));
+            cmd.Parameters.AddWithValue("@del", w.IsDeleted ? 1 : 0);
             await cmd.ExecuteNonQueryAsync();
         }
     }
 
-    private static async Task UpsertWorkoutExercises(SqliteConnection conn, SqliteTransaction tx,
+    private static async Task UpsertWorkoutExercises(NpgsqlConnection conn, NpgsqlTransaction tx,
         long userId, List<WorkoutExerciseSyncDto> items)
     {
         foreach (var we in items)
@@ -116,27 +116,27 @@ public class SyncController : ControllerBase
             cmd.Transaction = tx;
             cmd.CommandText = @"
                 INSERT INTO WorkoutExercises (SyncId, UserId, WorkoutSyncId, ExerciseRefId, OrderIndex, UpdatedAtUtc, IsDeleted)
-                VALUES ($sid, $uid, $wid, $eid, $ord, $upd, $del)
+                VALUES (@sid, @uid, @wid, @eid, @ord, @upd, @del)
                 ON CONFLICT(SyncId) DO UPDATE SET
-                    WorkoutSyncId = excluded.WorkoutSyncId,
-                    ExerciseRefId = excluded.ExerciseRefId,
-                    OrderIndex = excluded.OrderIndex,
-                    UpdatedAtUtc = excluded.UpdatedAtUtc,
-                    IsDeleted = excluded.IsDeleted
-                WHERE excluded.UpdatedAtUtc > WorkoutExercises.UpdatedAtUtc
-                  AND WorkoutExercises.UserId = $uid;";
-            cmd.Parameters.AddWithValue("$sid", we.SyncId);
-            cmd.Parameters.AddWithValue("$uid", userId);
-            cmd.Parameters.AddWithValue("$wid", we.WorkoutSyncId);
-            cmd.Parameters.AddWithValue("$eid", we.ExerciseRefId);
-            cmd.Parameters.AddWithValue("$ord", we.OrderIndex);
-            cmd.Parameters.AddWithValue("$upd", we.UpdatedAtUtc.ToString("o"));
-            cmd.Parameters.AddWithValue("$del", we.IsDeleted ? 1 : 0);
+                    WorkoutSyncId = EXCLUDED.WorkoutSyncId,
+                    ExerciseRefId = EXCLUDED.ExerciseRefId,
+                    OrderIndex = EXCLUDED.OrderIndex,
+                    UpdatedAtUtc = EXCLUDED.UpdatedAtUtc,
+                    IsDeleted = EXCLUDED.IsDeleted
+                WHERE EXCLUDED.UpdatedAtUtc > WorkoutExercises.UpdatedAtUtc
+                  AND WorkoutExercises.UserId = @uid;";
+            cmd.Parameters.AddWithValue("@sid", we.SyncId);
+            cmd.Parameters.AddWithValue("@uid", userId);
+            cmd.Parameters.AddWithValue("@wid", we.WorkoutSyncId);
+            cmd.Parameters.AddWithValue("@eid", we.ExerciseRefId);
+            cmd.Parameters.AddWithValue("@ord", we.OrderIndex);
+            cmd.Parameters.AddWithValue("@upd", we.UpdatedAtUtc.ToString("o"));
+            cmd.Parameters.AddWithValue("@del", we.IsDeleted ? 1 : 0);
             await cmd.ExecuteNonQueryAsync();
         }
     }
 
-    private static async Task UpsertExerciseSets(SqliteConnection conn, SqliteTransaction tx,
+    private static async Task UpsertExerciseSets(NpgsqlConnection conn, NpgsqlTransaction tx,
         long userId, List<ExerciseSetSyncDto> items)
     {
         foreach (var s in items)
@@ -145,49 +145,49 @@ public class SyncController : ControllerBase
             cmd.Transaction = tx;
             cmd.CommandText = @"
                 INSERT INTO ExerciseSets (SyncId, UserId, WorkoutExerciseSyncId, SetNumber, Weight, Reps, RPE, IsAssisted, Kind, UpdatedAtUtc, IsDeleted)
-                VALUES ($sid, $uid, $weid, $num, $w, $reps, $rpe, $assist, $kind, $upd, $del)
+                VALUES (@sid, @uid, @weid, @num, @w, @reps, @rpe, @assist, @kind, @upd, @del)
                 ON CONFLICT(SyncId) DO UPDATE SET
-                    WorkoutExerciseSyncId = excluded.WorkoutExerciseSyncId,
-                    SetNumber = excluded.SetNumber,
-                    Weight = excluded.Weight,
-                    Reps = excluded.Reps,
-                    RPE = excluded.RPE,
-                    IsAssisted = excluded.IsAssisted,
-                    Kind = excluded.Kind,
-                    UpdatedAtUtc = excluded.UpdatedAtUtc,
-                    IsDeleted = excluded.IsDeleted
-                WHERE excluded.UpdatedAtUtc > ExerciseSets.UpdatedAtUtc
-                  AND ExerciseSets.UserId = $uid;";
-            cmd.Parameters.AddWithValue("$sid", s.SyncId);
-            cmd.Parameters.AddWithValue("$uid", userId);
-            cmd.Parameters.AddWithValue("$weid", s.WorkoutExerciseSyncId);
-            cmd.Parameters.AddWithValue("$num", s.SetNumber);
-            cmd.Parameters.AddWithValue("$w", s.Weight);
-            cmd.Parameters.AddWithValue("$reps", s.Reps);
-            cmd.Parameters.AddWithValue("$rpe", s.RPE);
-            cmd.Parameters.AddWithValue("$assist", s.IsAssisted ? 1 : 0);
-            cmd.Parameters.AddWithValue("$kind", s.Kind);
-            cmd.Parameters.AddWithValue("$upd", s.UpdatedAtUtc.ToString("o"));
-            cmd.Parameters.AddWithValue("$del", s.IsDeleted ? 1 : 0);
+                    WorkoutExerciseSyncId = EXCLUDED.WorkoutExerciseSyncId,
+                    SetNumber = EXCLUDED.SetNumber,
+                    Weight = EXCLUDED.Weight,
+                    Reps = EXCLUDED.Reps,
+                    RPE = EXCLUDED.RPE,
+                    IsAssisted = EXCLUDED.IsAssisted,
+                    Kind = EXCLUDED.Kind,
+                    UpdatedAtUtc = EXCLUDED.UpdatedAtUtc,
+                    IsDeleted = EXCLUDED.IsDeleted
+                WHERE EXCLUDED.UpdatedAtUtc > ExerciseSets.UpdatedAtUtc
+                  AND ExerciseSets.UserId = @uid;";
+            cmd.Parameters.AddWithValue("@sid", s.SyncId);
+            cmd.Parameters.AddWithValue("@uid", userId);
+            cmd.Parameters.AddWithValue("@weid", s.WorkoutExerciseSyncId);
+            cmd.Parameters.AddWithValue("@num", s.SetNumber);
+            cmd.Parameters.AddWithValue("@w", s.Weight);
+            cmd.Parameters.AddWithValue("@reps", s.Reps);
+            cmd.Parameters.AddWithValue("@rpe", s.RPE);
+            cmd.Parameters.AddWithValue("@assist", s.IsAssisted ? 1 : 0);
+            cmd.Parameters.AddWithValue("@kind", s.Kind);
+            cmd.Parameters.AddWithValue("@upd", s.UpdatedAtUtc.ToString("o"));
+            cmd.Parameters.AddWithValue("@del", s.IsDeleted ? 1 : 0);
             await cmd.ExecuteNonQueryAsync();
         }
     }
 
     // ---------- SELECT (pull) ----------
 
-    private static async Task<List<WorkoutSyncDto>> SelectWorkouts(SqliteConnection conn,
-        SqliteTransaction tx, long userId, DateTime? since)
+    private static async Task<List<WorkoutSyncDto>> SelectWorkouts(NpgsqlConnection conn,
+        NpgsqlTransaction tx, long userId, DateTime? since)
     {
         var list = new List<WorkoutSyncDto>();
         await using var cmd = conn.CreateCommand();
         cmd.Transaction = tx;
         cmd.CommandText = @"SELECT SyncId, Name, Description, StartTime, UpdatedAtUtc, IsDeleted
                             FROM Workouts
-                            WHERE UserId = $uid
-                              AND ($since IS NULL OR UpdatedAtUtc > $since)
+                            WHERE UserId = @uid
+                              AND (@since::text IS NULL OR UpdatedAtUtc > @since)
                             ORDER BY UpdatedAtUtc";
-        cmd.Parameters.AddWithValue("$uid", userId);
-        cmd.Parameters.AddWithValue("$since", (object?)since?.ToString("o") ?? DBNull.Value);
+        cmd.Parameters.AddWithValue("@uid", userId);
+        cmd.Parameters.AddWithValue("@since", (object?)since?.ToString("o") ?? DBNull.Value);
         await using var r = await cmd.ExecuteReaderAsync();
         while (await r.ReadAsync())
         {
@@ -204,19 +204,19 @@ public class SyncController : ControllerBase
         return list;
     }
 
-    private static async Task<List<WorkoutExerciseSyncDto>> SelectWorkoutExercises(SqliteConnection conn,
-        SqliteTransaction tx, long userId, DateTime? since)
+    private static async Task<List<WorkoutExerciseSyncDto>> SelectWorkoutExercises(NpgsqlConnection conn,
+        NpgsqlTransaction tx, long userId, DateTime? since)
     {
         var list = new List<WorkoutExerciseSyncDto>();
         await using var cmd = conn.CreateCommand();
         cmd.Transaction = tx;
         cmd.CommandText = @"SELECT SyncId, WorkoutSyncId, ExerciseRefId, OrderIndex, UpdatedAtUtc, IsDeleted
                             FROM WorkoutExercises
-                            WHERE UserId = $uid
-                              AND ($since IS NULL OR UpdatedAtUtc > $since)
+                            WHERE UserId = @uid
+                              AND (@since::text IS NULL OR UpdatedAtUtc > @since)
                             ORDER BY UpdatedAtUtc";
-        cmd.Parameters.AddWithValue("$uid", userId);
-        cmd.Parameters.AddWithValue("$since", (object?)since?.ToString("o") ?? DBNull.Value);
+        cmd.Parameters.AddWithValue("@uid", userId);
+        cmd.Parameters.AddWithValue("@since", (object?)since?.ToString("o") ?? DBNull.Value);
         await using var r = await cmd.ExecuteReaderAsync();
         while (await r.ReadAsync())
         {
@@ -233,19 +233,19 @@ public class SyncController : ControllerBase
         return list;
     }
 
-    private static async Task<List<ExerciseSetSyncDto>> SelectExerciseSets(SqliteConnection conn,
-        SqliteTransaction tx, long userId, DateTime? since)
+    private static async Task<List<ExerciseSetSyncDto>> SelectExerciseSets(NpgsqlConnection conn,
+        NpgsqlTransaction tx, long userId, DateTime? since)
     {
         var list = new List<ExerciseSetSyncDto>();
         await using var cmd = conn.CreateCommand();
         cmd.Transaction = tx;
         cmd.CommandText = @"SELECT SyncId, WorkoutExerciseSyncId, SetNumber, Weight, Reps, RPE, IsAssisted, Kind, UpdatedAtUtc, IsDeleted
                             FROM ExerciseSets
-                            WHERE UserId = $uid
-                              AND ($since IS NULL OR UpdatedAtUtc > $since)
+                            WHERE UserId = @uid
+                              AND (@since::text IS NULL OR UpdatedAtUtc > @since)
                             ORDER BY UpdatedAtUtc";
-        cmd.Parameters.AddWithValue("$uid", userId);
-        cmd.Parameters.AddWithValue("$since", (object?)since?.ToString("o") ?? DBNull.Value);
+        cmd.Parameters.AddWithValue("@uid", userId);
+        cmd.Parameters.AddWithValue("@since", (object?)since?.ToString("o") ?? DBNull.Value);
         await using var r = await cmd.ExecuteReaderAsync();
         while (await r.ReadAsync())
         {

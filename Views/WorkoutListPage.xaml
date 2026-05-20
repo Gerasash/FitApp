@@ -135,22 +135,24 @@
                             SelectionMode="None">
 
                 <CollectionView.EmptyView>
-                    <Border Padding="20"
+                    <Border Padding="24"
                             StrokeThickness="0"
                             BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="14"/>
                         </Border.StrokeShape>
 
-                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                            <Label Text="💪" FontSize="44" HorizontalOptions="Center"/>
                             <Label Text="Тренировок нет"
-                                   FontSize="16"
+                                   FontSize="17"
                                    FontAttributes="Bold"
                                    HorizontalOptions="Center"/>
-                            <Label Text="Попробуй сбросить фильтры или добавь новую тренировку."
+                            <Label Text="Добавь свою первую тренировку через форму выше или сбрось фильтры."
                                    FontSize="13"
                                    TextColor="Gray"
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
                     </Border>
                 </CollectionView.EmptyView>

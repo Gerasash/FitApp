@@ -26,8 +26,8 @@ public class AuthClient
         var resp = await _http.PostAsJsonAsync("auth/register", new AuthRequest(email, password));
         if (!resp.IsSuccessStatusCode)
         {
-            var error = await resp.Content.ReadAsStringAsync();
-            throw new InvalidOperationException($"Регистрация не удалась: {(int)resp.StatusCode}. {error}");
+            var body = await resp.Content.ReadAsStringAsync();
+            throw new InvalidOperationException(NetworkErrors.ParseAuthError(resp.StatusCode, body));
         }
         var auth = await resp.Content.ReadFromJsonAsync<AuthResponse>()
                    ?? throw new InvalidOperationException("Пустой ответ /auth/register");
@@ -40,8 +40,8 @@ public class AuthClient
         var resp = await _http.PostAsJsonAsync("auth/login", new AuthRequest(email, password));
         if (!resp.IsSuccessStatusCode)
         {
-            var error = await resp.Content.ReadAsStringAsync();
-            throw new InvalidOperationException($"Вход не удался: {(int)resp.StatusCode}. {error}");
+            var body = await resp.Content.ReadAsStringAsync();
+            throw new InvalidOperationException(NetworkErrors.ParseAuthError(resp.StatusCode, body));
         }
         var auth = await resp.Content.ReadFromJsonAsync<AuthResponse>()
                    ?? throw new InvalidOperationException("Пустой ответ /auth/login");

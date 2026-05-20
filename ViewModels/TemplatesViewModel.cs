@@ -56,6 +56,7 @@ public partial class TemplatesViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<TemplateCard> templates = new();
     [ObservableProperty] private ObservableCollection<string> folders = new();
     [ObservableProperty] private string? selectedFolder; // null = все
+    [ObservableProperty] private bool isRefreshing;       // для RefreshView pull-to-refresh
 
     private List<TemplateCard> _allCards = new();
 
@@ -68,7 +69,9 @@ public partial class TemplatesViewModel : ObservableObject
     [RelayCommand]
     public async Task LoadAsync()
     {
-        var tpls = await _database.GetTemplatesAsync();
+        try
+        {
+            var tpls = await _database.GetTemplatesAsync();
         var cards = new List<TemplateCard>();
         foreach (var t in tpls)
         {
@@ -87,6 +90,11 @@ public partial class TemplatesViewModel : ObservableObject
 
         SelectedFolder ??= "Все";
         ApplyFolder();
+        }
+        finally
+        {
+            IsRefreshing = false;
+        }
     }
 
     [RelayCommand]

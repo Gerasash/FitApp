@@ -1,32 +1,32 @@
 # Render Blueprint для FitApp.Api.
-# Документация: https://render.com/docs/blueprint-spec
+# База данных — Neon PostgreSQL (бесплатно, постоянное хранилище).
+# CONNECTION STRING задаётся вручную через Render Dashboard →
+# fitapp-api → Environment → DATABASE_URL.
 #
-# Что делает:
-# - Поднимает web-сервис из Dockerfile в папке FitApp.Api на FREE плане
-# - SQLite живёт в эфемерной файловой системе контейнера:
-#   данные сохраняются между запросами, но СБРАСЫВАЮТСЯ при перезапуске
-#   и засыпании сервиса (через 15 минут неактивности).
-#   Для ВКР-демо это ок — перед демо войти в аккаунт заново.
-# - Прокидывает env-переменные: путь к БД, JWT-секрет, порт
-#
-# После пуша в репо: в Render Dashboard → New → Blueprint → выбрать репо.
+# Как получить строку подключения:
+#   1. Зарегистрируйся на neon.tech
+#   2. New Project → выбери регион (eu-central-1 ближе к РФ)
+#   3. Dashboard → Connection string → скопируй «Pooler» URL (sslmode=require)
+#   4. Вставь в Render Dashboard → fitapp-api → Environment → DATABASE_URL
 services:
   - type: web
     name: fitapp-api
     runtime: docker
     plan: free
-    region: frankfurt          # ближе к РФ, меньше пинг
+    region: frankfurt
     dockerfilePath: ./FitApp.Api/Dockerfile
     dockerContext: ./FitApp.Api
     healthCheckPath: /health
     envVars:
-      # SQLite в эфемерной FS. /tmp гарантированно writable.
-      - key: Database__Path
-        value: /tmp/fitapp.db
+      # PostgreSQL connection string (Neon или другой Postgres-провайдер).
+      # Формат: postgresql://user:pass@host/db?sslmode=require
+      # Вводится вручную в Render Dashboard (sync:false — не хранится в git).
+      - key: DATABASE_URL
+        sync: false
       # Render пробрасывает $PORT → ASP.NET слушает на нём
       - key: ASPNETCORE_URLS
         value: http://+:$PORT
-      # JWT-секрет вводим вручную в Dashboard (sync:false → не из blueprint)
+      # JWT-секрет — тоже вводится вручную
       - key: Jwt__Secret
         sync: false
       - key: Jwt__Issuer

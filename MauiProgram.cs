@@ -51,7 +51,9 @@ namespace FitApp
             builder.Services.AddSingleton(sp => new HttpClient
             {
                 BaseAddress = new Uri(GetApiBaseUrl()),
-                Timeout = TimeSpan.FromSeconds(30)
+                // На Render free tier cold start занимает до 30 сек —
+                // ставим 60 чтобы первый запрос после сна точно прошёл.
+                Timeout = TimeSpan.FromSeconds(60)
             });
             builder.Services.AddSingleton<AuthClient>();
             builder.Services.AddSingleton<SyncService>();

@@ -50,15 +50,24 @@
             </HorizontalStackLayout>
         </ScrollView>
 
-        <!-- Список карточек -->
-        <CollectionView Grid.Row="1"
-                        ItemsSource="{Binding Templates}"
+        <!-- Список карточек с pull-to-refresh -->
+        <RefreshView Grid.Row="1"
+                     IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                     Command="{Binding LoadCommand}">
+        <CollectionView ItemsSource="{Binding Templates}"
                         Margin="8,8,8,16"
                         SelectionMode="None">
             <CollectionView.EmptyView>
-                <Label Text="Шаблонов пока нет."
-                       HorizontalOptions="Center" VerticalOptions="Center"
-                       TextColor="Gray" Margin="20"/>
+                <VerticalStackLayout Padding="32" Spacing="10"
+                                     HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="📋" FontSize="48" HorizontalOptions="Center"/>
+                    <Label Text="Шаблонов пока нет"
+                           FontSize="17" FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Создай свой первый шаблон тренировки — потом можно будет одним тапом начинать сессию."
+                           FontSize="13" TextColor="Gray"
+                           HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="vm:TemplateCard">
@@ -127,6 +136,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        </RefreshView>
 
         <!-- Низ: кнопка нового шаблона -->
         <Button Grid.Row="2"

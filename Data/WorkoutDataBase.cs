@@ -60,6 +60,10 @@ namespace FitApp.Data
             foreach (var w in workoutsToFix)
             {
                 w.SyncId = Guid.NewGuid().ToString();
+                // Если UpdatedAt не задан (старая запись до этапа 6) — ставим сейчас,
+                // чтобы запись попала в push-батч при первой синхронизации.
+                if (w.UpdatedAt == default)
+                    w.UpdatedAt = DateTime.UtcNow;
                 await _connection.UpdateAsync(w);
             }
 
@@ -721,6 +725,7 @@ namespace FitApp.Data
         public async Task<int> SaveWorkout(Workout workout)
         {
             await EnsureInitializedAsync();
+            workout.UpdatedAt = DateTime.UtcNow; // обновляем метку — SyncService видит изменение
             if (workout.Id == 0)
                 return await _connection.InsertAsync(workout);
             else

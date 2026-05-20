@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace FitApp.Api.Controllers;
 
 /// <summary>
-/// Проверочный endpoint — отвечает что сервис жив и SQLite доступен.
-/// Нужен для smoke-теста локально и для Render health checks.
+/// Проверочный endpoint — отвечает что сервис жив и БД доступна.
+/// Используется Render для health check и для smoke-теста вручную.
 /// </summary>
 [ApiController]
 [Route("health")]
@@ -25,14 +25,13 @@ public class HealthController : ControllerBase
         {
             await using var conn = _db.OpenConnection();
             await using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT StartedAtUtc FROM HealthCheck WHERE Id = 1";
-            var startedAt = (string?)await cmd.ExecuteScalarAsync();
+            cmd.CommandText = "SELECT 1";
+            await cmd.ExecuteScalarAsync();
 
             return Ok(new
             {
                 status = "ok",
-                serverTimeUtc = DateTime.UtcNow.ToString("o"),
-                dbStartedAtUtc = startedAt
+                serverTimeUtc = DateTime.UtcNow.ToString("o")
             });
         }
         catch (Exception ex)

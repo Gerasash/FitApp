@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FitApp.Services.Sync;
@@ -74,6 +75,7 @@ public partial class AccountViewModel : ObservableObject
         }
         IsBusy = true;
         StatusText = "Вход...";
+        using var coldStart = StartColdStartHint();
         try
         {
             await _auth.LoginAsync(Email.Trim(), Password);
@@ -84,7 +86,7 @@ public partial class AccountViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            StatusText = "Ошибка: " + ex.Message;
+            StatusText = NetworkErrors.Friendly(ex);
         }
         finally { IsBusy = false; }
     }
@@ -99,6 +101,7 @@ public partial class AccountViewModel : ObservableObject
         }
         IsBusy = true;
         StatusText = "Регистрация...";
+        using var coldStart = StartColdStartHint();
         try
         {
             await _auth.RegisterAsync(Email.Trim(), Password);
@@ -109,7 +112,7 @@ public partial class AccountViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            StatusText = "Ошибка: " + ex.Message;
+            StatusText = NetworkErrors.Friendly(ex);
         }
         finally { IsBusy = false; }
     }
@@ -129,6 +132,7 @@ public partial class AccountViewModel : ObservableObject
     {
         IsBusy = true;
         StatusText = "Синхронизация...";
+        using var coldStart = StartColdStartHint();
         try
         {
             var stats = await _sync.RunOnceAsync();
@@ -137,7 +141,7 @@ public partial class AccountViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            StatusText = "Ошибка: " + ex.Message;
+            StatusText = NetworkErrors.Friendly(ex);
             // Если сервер сказал «токен невалиден» — AuthClient уже почистил
             // SecureStorage, переключаемся в форму входа.
             if (await _auth.GetTokenAsync() == null) IsLoggedIn = false;
@@ -151,5 +155,38 @@ public partial class AccountViewModel : ObservableObject
         LastSyncText = last == null
             ? "Последняя синхронизация: ещё не было"
             : $"Последняя синхронизация: {last.Value.ToLocalTime():dd.MM.yyyy HH:mm}";
+    }
+
+    /// <summary>
+    /// Через 5 сек после начала операции подменяет StatusText на подсказку
+    /// про cold start. Render free tier засыпает через 15 минут и первый
+    /// запрос после сна занимает ~30 сек. CTS отменяет таймер если операция
+    /// закончилась раньше (в finally через using).
+    /// </summary>
+    private IDisposable StartColdStartHint()
+    {
+        var cts = new CancellationTokenSource();
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await Task.Delay(TimeSpan.FromSeconds(5), cts.Token);
+                if (cts.IsCancellationRequested) return;
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    if (IsBusy)
+                        StatusText = "Сервер засыпал, поднимаем (~30 сек)...";
+                });
+            }
+            catch (TaskCanceledException) { /* норм — операция завершилась */ }
+        });
+        return new ActionDisposable(() => cts.Cancel());
+    }
+
+    private sealed class ActionDisposable : IDisposable
+    {
+        private readonly Action _action;
+        public ActionDisposable(Action action) => _action = action;
+        public void Dispose() => _action();
     }
 }

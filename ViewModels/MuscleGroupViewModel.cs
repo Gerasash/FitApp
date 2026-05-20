@@ -54,11 +54,15 @@ public partial class MuscleGroupViewModel : ObservableObject
     [RelayCommand]
     private async Task DeleteMuscleGroup(MuscleGroup muscleGroup)
     {
-        if (muscleGroup != null)
-        {
-            await _database.DeleteMuscleGroupAsync(muscleGroup);
-            MuscleGroups.Remove(muscleGroup);
-        }
+        if (muscleGroup == null) return;
+        var confirm = await Shell.Current.DisplayAlert(
+            "Удаление",
+            $"Удалить группу «{muscleGroup.Name}»?",
+            "Удалить", "Отмена");
+        if (!confirm) return;
+
+        await _database.DeleteMuscleGroupAsync(muscleGroup);
+        MuscleGroups.Remove(muscleGroup);
         await LoadMuscleGroupsAsync();
     }
 }

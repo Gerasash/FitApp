@@ -323,6 +323,13 @@ public partial class WorkoutViewModel : ObservableObject
     {
         if (we == null) return;
 
+        var setCount = we.Sets?.Count ?? 0;
+        var msg = setCount > 0
+            ? $"Удалить упражнение и все его подходы ({setCount})?"
+            : "Удалить упражнение из тренировки?";
+        var confirm = await Shell.Current.DisplayAlert("Удаление", msg, "Удалить", "Отмена");
+        if (!confirm) return;
+
         // 1) удалить подходы этого упражнения
         if (we.Sets != null)
             foreach (var s in we.Sets)

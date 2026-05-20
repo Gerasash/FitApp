@@ -89,13 +89,46 @@ public partial class SettingsPage : ContentPage
             ? null
             : DisplayNameEntry.Text.Trim();
 
-        _user.Bodyweight = double.TryParse(
+        // Bodyweight: разумные границы 20..300 кг. За их пределами — игнорируем
+        // и подсвечиваем поле красным, чтобы юзер увидел проблему.
+        var bwParsed = double.TryParse(
             BodyweightEntry.Text?.Replace(',', '.'),
             NumberStyles.Float,
             CultureInfo.InvariantCulture,
-            out var bw) ? bw : 0;
+            out var bw);
+        if (string.IsNullOrWhiteSpace(BodyweightEntry.Text))
+        {
+            _user.Bodyweight = 0;
+            BodyweightEntry.TextColor = null;
+        }
+        else if (bwParsed && bw >= 20 && bw <= 300)
+        {
+            _user.Bodyweight = bw;
+            BodyweightEntry.TextColor = null;
+        }
+        else
+        {
+            BodyweightEntry.TextColor = Colors.Red;
+            return; // не сохраняем мусор
+        }
 
-        _user.Age = int.TryParse(AgeEntry.Text, out var age) ? age : 0;
+        // Age: 5..120 лет.
+        var ageParsed = int.TryParse(AgeEntry.Text, out var age);
+        if (string.IsNullOrWhiteSpace(AgeEntry.Text))
+        {
+            _user.Age = 0;
+            AgeEntry.TextColor = null;
+        }
+        else if (ageParsed && age >= 5 && age <= 120)
+        {
+            _user.Age = age;
+            AgeEntry.TextColor = null;
+        }
+        else
+        {
+            AgeEntry.TextColor = Colors.Red;
+            return;
+        }
 
         _user.Sex = SexPicker.SelectedIndex is >= 0 and <= 2 ? SexPicker.SelectedIndex : 0;
 
