@@ -47,6 +47,9 @@ public class SyncService
         Preferences.Default.Remove(LastSyncKey);
     }
 
+    /// <summary>Диагностическая строка, заполняется в RunOnceAsync.</summary>
+    public string LastDiagnostics { get; private set; } = "";
+
     /// <summary>
     /// Одна итерация синхронизации. Возвращает краткую статистику для UI.
     /// Бросает исключение, если юзер не залогинен или сервер недоступен.
@@ -57,6 +60,15 @@ public class SyncService
                     ?? throw new InvalidOperationException("Не залогинен — токен отсутствует.");
 
         var since = LastSyncUtc;
+
+        // Фиксируем КЛИЕНТСКОЕ время в начале sync — будем использовать его
+        // как новый курсор LastSyncUtc вместо ServerTimeUtc. Причина:
+        // UpdatedAt всех локальных записей ставится клиентом (DateTime.UtcNow),
+        // поэтому курсор тоже должен быть в клиентской временной шкале —
+        // иначе clock skew между ПК/телефоном и сервером (Render) ломает
+        // фильтр "UpdatedAt >= since" и push становится пустым.
+        var clientNowAtStart = DateTime.UtcNow;
+
         var push = await BuildPushBatchAsync(since);
 
         using var req = new HttpRequestMessage(HttpMethod.Post, "sync")
@@ -77,7 +89,9 @@ public class SyncService
 
         var applied = await ApplyServerResponseAsync(pulled);
 
-        Preferences.Default.Set(LastSyncKey, pulled.ServerTimeUtc.ToString("o"));
+        // Сохраняем КЛИЕНТСКОЕ время начала sync, а не pulled.ServerTimeUtc —
+        // см. комментарий выше про clock skew.
+        Preferences.Default.Set(LastSyncKey, clientNowAtStart.ToString("o"));
 
         return new SyncStats(
             Pushed: push.Workouts.Count + push.WorkoutExercises.Count + push.ExerciseSets.Count,
@@ -148,8 +162,16 @@ public class SyncService
             return await conn.Table<T>().ToListAsync();
         // sqlite-net хранит DateTime как ticks или ISO — сравнение через
         // динамический where на конкретном поле UpdatedAt.
+        //
+        // Используем >= вместо >, чтобы компенсировать clock skew между
+        // сервером (ServerTimeUtc) и клиентом (UpdatedAt = DateTime.UtcNow):
+        // если серверные часы хоть на миллисекунду впереди клиентских,
+        // свежесозданная запись с UpdatedAt < LastSyncUtc никогда не уедет.
+        // Сервер идемпотентен (ON CONFLICT ... WHERE EXCLUDED.UpdatedAtUtc >
+        // existing.UpdatedAtUtc) — повторно прилетевшая запись с тем же
+        // UpdatedAt просто не перезапишет ничего.
         return await conn.QueryAsync<T>(
-            $"SELECT * FROM {GetTableName<T>()} WHERE UpdatedAt > ?", since.Value);
+            $"SELECT * FROM {GetTableName<T>()} WHERE UpdatedAt >= ?", since.Value);
     }
 
     private static string GetTableName<T>()
