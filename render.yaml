@@ -1,0 +1,37 @@
+# Render Blueprint для FitApp.Api.
+# Документация: https://render.com/docs/blueprint-spec
+#
+# Что делает:
+# - Поднимает web-сервис из Dockerfile в папке FitApp.Api на FREE плане
+# - SQLite живёт в эфемерной файловой системе контейнера:
+#   данные сохраняются между запросами, но СБРАСЫВАЮТСЯ при перезапуске
+#   и засыпании сервиса (через 15 минут неактивности).
+#   Для ВКР-демо это ок — перед демо войти в аккаунт заново.
+# - Прокидывает env-переменные: путь к БД, JWT-секрет, порт
+#
+# После пуша в репо: в Render Dashboard → New → Blueprint → выбрать репо.
+services:
+  - type: web
+    name: fitapp-api
+    runtime: docker
+    plan: free
+    region: frankfurt          # ближе к РФ, меньше пинг
+    dockerfilePath: ./FitApp.Api/Dockerfile
+    dockerContext: ./FitApp.Api
+    healthCheckPath: /health
+    envVars:
+      # SQLite в эфемерной FS. /tmp гарантированно writable.
+      - key: Database__Path
+        value: /tmp/fitapp.db
+      # Render пробрасывает $PORT → ASP.NET слушает на нём
+      - key: ASPNETCORE_URLS
+        value: http://+:$PORT
+      # JWT-секрет вводим вручную в Dashboard (sync:false → не из blueprint)
+      - key: Jwt__Secret
+        sync: false
+      - key: Jwt__Issuer
+        value: FitApp.Api
+      - key: Jwt__Audience
+        value: FitApp
+      - key: Jwt__ExpirationDays
+        value: "30"

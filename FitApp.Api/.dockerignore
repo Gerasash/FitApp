@@ -1,0 +1,31 @@
+# Артефакты сборки
+bin/
+obj/
+**/bin/
+**/obj/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+
+# Локальная БД (не тащим в образ — на сервере свежая)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Тестовые скрипты
+test_*.sh
+
+# Git
+.git/
+.gitignore
+
+# Docker сам себя не копирует
+Dockerfile
+.dockerignore
+
+# Логи
+*.log
