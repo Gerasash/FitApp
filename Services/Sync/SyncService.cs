@@ -59,15 +59,31 @@ public class SyncService
         var token = await _auth.GetTokenAsync()
                     ?? throw new InvalidOperationException("Не залогинен — токен отсутствует.");
 
+        var clientNowAtStart = DateTime.UtcNow;
         var since = LastSyncUtc;
 
-        // Фиксируем КЛИЕНТСКОЕ время в начале sync — будем использовать его
-        // как новый курсор LastSyncUtc вместо ServerTimeUtc. Причина:
-        // UpdatedAt всех локальных записей ставится клиентом (DateTime.UtcNow),
-        // поэтому курсор тоже должен быть в клиентской временной шкале —
-        // иначе clock skew между ПК/телефоном и сервером (Render) ломает
-        // фильтр "UpdatedAt >= since" и push становится пустым.
-        var clientNowAtStart = DateTime.UtcNow;
+        // Защита от битого курсора: если LastSyncUtc оказался в будущем
+        // относительно клиентских часов (например после Full Resync,
+        // которая раньше сохраняла серверное время, или при перестановке
+        // системного времени назад) — сбрасываем его, иначе ни одна
+        // запись с UpdatedAt = client.UtcNow никогда не пройдёт фильтр.
+        if (since.HasValue && since.Value > clientNowAtStart)
+        {
+            since = null;
+            Preferences.Default.Remove(LastSyncKey);
+        }
+
+        // ДИАГНОСТИКА
+        var diagConn = await _db.GetConnectionAsync();
+        var totalW = await diagConn.Table<FitApp.Models.Workout>().CountAsync();
+        var topRows = await diagConn.QueryAsync<FitApp.Models.Workout>(
+            "SELECT * FROM Workouts ORDER BY UpdatedAt DESC LIMIT 1");
+        DateTime? maxUpd = topRows.Count > 0 ? topRows[0].UpdatedAt : (DateTime?)null;
+        LastDiagnostics =
+            $"W={totalW} max={maxUpd?.ToString("HH:mm:ss.fff") ?? "-"} " +
+            $"since={since?.ToString("HH:mm:ss.fff") ?? "null"} " +
+            $"now={clientNowAtStart:HH:mm:ss.fff} " +
+            $"max>since={(maxUpd.HasValue && since.HasValue ? (maxUpd.Value >= since.Value).ToString() : "n/a")}";
 
         var push = await BuildPushBatchAsync(since);
 

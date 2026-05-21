@@ -153,7 +153,7 @@ public partial class AccountViewModel : ObservableObject
         try
         {
             var stats = await _sync.RunOnceAsync();
-            StatusText = $"Готово. Отправлено: {stats.Pushed}, новых: {stats.PulledNew}, обновлено: {stats.PulledUpdated}.";
+            StatusText = $"Готово. Отправлено: {stats.Pushed}, новых: {stats.PulledNew}, обновлено: {stats.PulledUpdated}.\n{_sync.LastDiagnostics}";
             UpdateLastSyncText();
         }
         catch (Exception ex)
