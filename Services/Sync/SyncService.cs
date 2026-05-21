@@ -47,8 +47,6 @@ public class SyncService
         Preferences.Default.Remove(LastSyncKey);
     }
 
-    /// <summary>Диагностическая строка, заполняется в RunOnceAsync.</summary>
-    public string LastDiagnostics { get; private set; } = "";
 
     /// <summary>
     /// Одна итерация синхронизации. Возвращает краткую статистику для UI.
@@ -72,18 +70,6 @@ public class SyncService
             since = null;
             Preferences.Default.Remove(LastSyncKey);
         }
-
-        // ДИАГНОСТИКА
-        var diagConn = await _db.GetConnectionAsync();
-        var totalW = await diagConn.Table<FitApp.Models.Workout>().CountAsync();
-        var topRows = await diagConn.QueryAsync<FitApp.Models.Workout>(
-            "SELECT * FROM Workouts ORDER BY UpdatedAt DESC LIMIT 1");
-        DateTime? maxUpd = topRows.Count > 0 ? topRows[0].UpdatedAt : (DateTime?)null;
-        LastDiagnostics =
-            $"W={totalW} max={maxUpd?.ToString("HH:mm:ss.fff") ?? "-"} " +
-            $"since={since?.ToString("HH:mm:ss.fff") ?? "null"} " +
-            $"now={clientNowAtStart:HH:mm:ss.fff} " +
-            $"max>since={(maxUpd.HasValue && since.HasValue ? (maxUpd.Value >= since.Value).ToString() : "n/a")}";
 
         var push = await BuildPushBatchAsync(since);
 
