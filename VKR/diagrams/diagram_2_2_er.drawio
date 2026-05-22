@@ -1,0 +1,248 @@
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram id="er_fitapp" name="Рисунок 2.2 — ER-диаграмма БД FitApp">
+    <mxGraphModel dx="1654" dy="900" grid="1" gridSize="10" guides="1"
+      tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1"
+      pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ═══ ЛЕГЕНДА ═══ -->
+        <mxCell id="legend_title" value="Обозначения:"
+          style="text;html=1;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_pk" value="🔑 = PK (первичный ключ)"
+          style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="20" y="40" width="200" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_fk" value="🔗 = SyncId (GUID, UNIQUE)"
+          style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="20" y="58" width="200" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_fk2" value="↗ = FK (внешний ключ)"
+          style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="20" y="76" width="200" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITY: UserProfile -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="t_user" value="UserProfile"
+          style="swimlane;startSize=30;fontStyle=1;fontSize=12;
+                 fillColor=#d5e8d4;strokeColor=#82b366;rounded=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="20" y="120" width="220" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="t_user_body"
+          value="&lt;font size='10'&gt;🔑 Id : INTEGER PK&lt;br/&gt;BodyweightKg : REAL&lt;br/&gt;Age : INTEGER&lt;br/&gt;Sex : TEXT&lt;br/&gt;TargetRPE : REAL&lt;br/&gt;TrainingStartDate : TEXT&lt;/font&gt;"
+          style="text;html=1;align=left;verticalAlign=top;
+                 spacingLeft=6;strokeColor=none;fillColor=none;"
+          vertex="1" parent="t_user">
+          <mxGeometry y="30" width="220" height="155" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITY: Workouts -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="t_workout" value="Workouts"
+          style="swimlane;startSize=30;fontStyle=1;fontSize=12;
+                 fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="310" y="120" width="240" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="t_workout_body"
+          value="&lt;font size='10'&gt;🔑 Id : INTEGER PK&lt;br/&gt;🔗 SyncId : TEXT UNIQUE&lt;br/&gt;Name : TEXT&lt;br/&gt;Description : TEXT&lt;br/&gt;StartTime : TEXT (UTC)&lt;br/&gt;UpdatedAt : TEXT (UTC)&lt;br/&gt;IsDeleted : INTEGER&lt;br/&gt;↗ UserId : INTEGER FK&lt;/font&gt;"
+          style="text;html=1;align=left;verticalAlign=top;
+                 spacingLeft=6;strokeColor=none;fillColor=none;"
+          vertex="1" parent="t_workout">
+          <mxGeometry y="30" width="240" height="195" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITY: MuscleGroups -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="t_muscle" value="MuscleGroups"
+          style="swimlane;startSize=30;fontStyle=1;fontSize=12;
+                 fillColor=#e1d5e7;strokeColor=#9673a6;rounded=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="890" y="120" width="210" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t_muscle_body"
+          value="&lt;font size='10'&gt;🔑 Id : INTEGER PK&lt;br/&gt;Name : TEXT&lt;/font&gt;"
+          style="text;html=1;align=left;verticalAlign=top;
+                 spacingLeft=6;strokeColor=none;fillColor=none;"
+          vertex="1" parent="t_muscle">
+          <mxGeometry y="30" width="210" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITY: WorkoutMuscleGroups (join) -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="t_wmg" value="WorkoutMuscleGroups"
+          style="swimlane;startSize=30;fontStyle=1;fontSize=11;
+                 fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="640" y="120" width="220" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="t_wmg_body"
+          value="&lt;font size='10'&gt;↗ WorkoutId : INTEGER FK&lt;br/&gt;↗ MuscleGroupId : INTEGER FK&lt;/font&gt;"
+          style="text;html=1;align=left;verticalAlign=top;
+                 spacingLeft=6;strokeColor=none;fillColor=none;"
+          vertex="1" parent="t_wmg">
+          <mxGeometry y="30" width="220" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITY: WorkoutExercises -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="t_we" value="WorkoutExercises"
+          style="swimlane;startSize=30;fontStyle=1;fontSize=12;
+                 fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="310" y="430" width="240" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="t_we_body"
+          value="&lt;font size='10'&gt;🔑 Id : INTEGER PK&lt;br/&gt;🔗 SyncId : TEXT UNIQUE&lt;br/&gt;↗ WorkoutId : INTEGER FK&lt;br/&gt;WorkoutSyncId : TEXT&lt;br/&gt;↗ ExerciseId : INTEGER FK&lt;br/&gt;OrderIndex : INTEGER&lt;br/&gt;UpdatedAt : TEXT (UTC)&lt;br/&gt;IsDeleted : INTEGER&lt;/font&gt;"
+          style="text;html=1;align=left;verticalAlign=top;
+                 spacingLeft=6;strokeColor=none;fillColor=none;"
+          vertex="1" parent="t_we">
+          <mxGeometry y="30" width="240" height="195" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITY: Exercises -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="t_exercise" value="Exercises"
+          style="swimlane;startSize=30;fontStyle=1;fontSize=12;
+                 fillColor=#f8cecc;strokeColor=#b85450;rounded=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="660" y="430" width="230" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="t_exercise_body"
+          value="&lt;font size='10'&gt;🔑 Id : INTEGER PK&lt;br/&gt;Name : TEXT&lt;br/&gt;↗ PrimaryMuscleGroupId : INT FK&lt;br/&gt;IsCompound : INTEGER&lt;br/&gt;Equipment : INTEGER&lt;/font&gt;"
+          style="text;html=1;align=left;verticalAlign=top;
+                 spacingLeft=6;strokeColor=none;fillColor=none;"
+          vertex="1" parent="t_exercise">
+          <mxGeometry y="30" width="230" height="135" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITY: ExerciseSets -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="t_sets" value="ExerciseSets"
+          style="swimlane;startSize=30;fontStyle=1;fontSize=12;
+                 fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="310" y="750" width="240" height="285" as="geometry" />
+        </mxCell>
+        <mxCell id="t_sets_body"
+          value="&lt;font size='10'&gt;🔑 Id : INTEGER PK&lt;br/&gt;🔗 SyncId : TEXT UNIQUE&lt;br/&gt;↗ WorkoutExerciseId : INT FK&lt;br/&gt;WorkoutExerciseSyncId : TEXT&lt;br/&gt;SetNumber : INTEGER&lt;br/&gt;Weight : REAL&lt;br/&gt;Reps : INTEGER&lt;br/&gt;RPE : REAL&lt;br/&gt;IsAssisted : INTEGER&lt;br/&gt;Kind : INTEGER (SetType)&lt;br/&gt;UpdatedAt : TEXT (UTC)&lt;br/&gt;IsDeleted : INTEGER&lt;/font&gt;"
+          style="text;html=1;align=left;verticalAlign=top;
+                 spacingLeft=6;strokeColor=none;fillColor=none;"
+          vertex="1" parent="t_sets">
+          <mxGeometry y="30" width="240" height="255" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- RELATIONSHIPS (arrows) -->
+        <!-- ═══════════════════════════════════ -->
+
+        <!-- UserProfile 1 → M Workouts -->
+        <mxCell id="rel_user_workout"
+          value="1"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;
+                 startArrow=ERone;exitX=1;exitY=0.5;entryX=0;entryY=0.5;
+                 fontSize=10;"
+          edge="1" source="t_user" target="t_workout" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" x="0" y="-10" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel_user_workout_m" value="M"
+          style="text;html=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="290" y="215" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Workouts M → M MuscleGroups (via join) -->
+        <mxCell id="rel_workout_wmg"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;
+                 startArrow=ERmany;exitX=1;exitY=0.5;entryX=0;entryY=0.5;
+                 fontSize=10;"
+          edge="1" source="t_workout" target="t_wmg" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_wmg_muscle"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;
+                 startArrow=ERone;exitX=1;exitY=0.5;entryX=0;entryY=0.5;
+                 fontSize=10;"
+          edge="1" source="t_wmg" target="t_muscle" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Workouts 1 → M WorkoutExercises -->
+        <mxCell id="rel_workout_we"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;
+                 startArrow=ERone;exitX=0.5;exitY=1;entryX=0.5;entryY=0;
+                 fontSize=10;"
+          edge="1" source="t_workout" target="t_we" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_1m_we" value="1 : M"
+          style="text;html=1;fontSize=9;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="418" y="352" width="40" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- Exercises 1 → M WorkoutExercises -->
+        <mxCell id="rel_exercise_we"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;
+                 startArrow=ERone;exitX=0;exitY=0.5;entryX=1;entryY=0.5;
+                 fontSize=10;"
+          edge="1" source="t_exercise" target="t_we" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Exercises M → 1 MuscleGroups -->
+        <mxCell id="rel_exercise_muscle"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERone;
+                 startArrow=ERmany;exitX=1;exitY=0;entryX=0;entryY=1;
+                 fontSize=10;"
+          edge="1" source="t_exercise" target="t_muscle" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_muscle_ex" value="M:1 (primary)"
+          style="text;html=1;fontSize=9;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="810" y="340" width="90" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- WorkoutExercises 1 → M ExerciseSets -->
+        <mxCell id="rel_we_sets"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;
+                 startArrow=ERone;exitX=0.5;exitY=1;entryX=0.5;entryY=0;
+                 fontSize=10;"
+          edge="1" source="t_we" target="t_sets" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_1m_sets" value="1 : M"
+          style="text;html=1;fontSize=9;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="418" y="664" width="40" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- Caption -->
+        <mxCell id="caption"
+          value="Рисунок 2.2 — ER-диаграмма базы данных клиента FitApp"
+          style="text;html=1;fontSize=11;fontStyle=2;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="20" y="1060" width="1200" height="24" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

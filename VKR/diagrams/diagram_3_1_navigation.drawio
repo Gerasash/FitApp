@@ -1,0 +1,232 @@
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram id="nav_fitapp" name="Рисунок 3.1 — Схема навигации FitApp">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1"
+      tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1"
+      pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ═══ AppShell ═══ -->
+        <mxCell id="shell"
+          value="&lt;b&gt;AppShell&lt;/b&gt;&lt;br&gt;&lt;font size='9'&gt;(Shell навигация)&lt;/font&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;
+                 strokeColor=#666666;fontColor=#333333;fontSize=12;
+                 fontStyle=1;arcSize=8;shadow=0;"
+          vertex="1" parent="1">
+          <mxGeometry x="440" y="30" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- ═══ TabBar ═══ -->
+        <mxCell id="tabbar"
+          value="&lt;b&gt;TabBar (нижняя панель)&lt;/b&gt;"
+          style="swimlane;startSize=28;fillColor=#dae8fc;strokeColor=#6c8ebf;
+                 fontSize=11;fontStyle=1;rounded=1;arcSize=4;"
+          vertex="1" parent="1">
+          <mxGeometry x="60" y="150" width="940" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Tab 1: Дневник -->
+        <mxCell id="tab_diary"
+          value="📔 Дневник&lt;br&gt;&lt;font size='9'&gt;WorkoutListPage&lt;/font&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;
+                 strokeColor=#d6b656;fontSize=10;"
+          vertex="1" parent="tabbar">
+          <mxGeometry x="10" y="32" width="155" height="38" as="geometry" />
+        </mxCell>
+        <!-- Tab 2: Прогресс -->
+        <mxCell id="tab_progress"
+          value="📈 Прогресс&lt;br&gt;&lt;font size='9'&gt;ProgressPage&lt;/font&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;
+                 strokeColor=#d6b656;fontSize=10;"
+          vertex="1" parent="tabbar">
+          <mxGeometry x="195" y="32" width="155" height="38" as="geometry" />
+        </mxCell>
+        <!-- Tab 3: Каталог -->
+        <mxCell id="tab_catalog"
+          value="📚 Каталог&lt;br&gt;&lt;font size='9'&gt;ExerciseCatalogPage&lt;/font&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;
+                 strokeColor=#d6b656;fontSize=10;"
+          vertex="1" parent="tabbar">
+          <mxGeometry x="383" y="32" width="155" height="38" as="geometry" />
+        </mxCell>
+        <!-- Tab 4: Шаблоны -->
+        <mxCell id="tab_templates"
+          value="📋 Шаблоны&lt;br&gt;&lt;font size='9'&gt;TemplatesPage&lt;/font&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;
+                 strokeColor=#d6b656;fontSize=10;"
+          vertex="1" parent="tabbar">
+          <mxGeometry x="572" y="32" width="155" height="38" as="geometry" />
+        </mxCell>
+        <!-- Tab 5: Аккаунт -->
+        <mxCell id="tab_account"
+          value="👤 Аккаунт&lt;br&gt;&lt;font size='9'&gt;AccountPage&lt;/font&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;
+                 strokeColor=#d6b656;fontSize=10;"
+          vertex="1" parent="tabbar">
+          <mxGeometry x="760" y="32" width="155" height="38" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Shell → TabBar -->
+        <mxCell id="arr_shell_tab"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;"
+          edge="1" source="shell" target="tabbar" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- CHILD PAGES под Дневником -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="page_workout"
+          value="&lt;b&gt;WorkoutPage&lt;/b&gt;&lt;br&gt;&lt;font size='9'&gt;Детальная тренировка:&lt;br/&gt;упражнения + подходы&lt;/font&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;
+                 strokeColor=#6c8ebf;fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="60" y="320" width="170" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: WorkoutListPage → WorkoutPage -->
+        <mxCell id="arr_diary_workout"
+          value="GoToAsync&lt;br&gt;(workoutId)"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;
+                 fontSize=9;fontStyle=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;"
+          edge="1" source="tab_diary" target="page_workout" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="147" y="270" />
+              <mxPoint x="145" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ExerciseSet note inside WorkoutPage -->
+        <mxCell id="note_sets"
+          value="↳ SetRowView (вес / повторы / RPE)"
+          style="text;html=1;fontSize=9;fontStyle=2;align=left;"
+          vertex="1" parent="1">
+          <mxGeometry x="60" y="395" width="220" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- CHILD PAGES под Шаблонами -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="page_template_editor"
+          value="&lt;b&gt;TemplateEditorPage&lt;/b&gt;&lt;br&gt;&lt;font size='9'&gt;Создание / редактирование&lt;br/&gt;шаблона тренировки&lt;/font&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;
+                 strokeColor=#6c8ebf;fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="590" y="320" width="170" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: TemplatesPage → TemplateEditorPage -->
+        <mxCell id="arr_templates_editor"
+          value="GoToAsync&lt;br&gt;(templateId?)"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;
+                 fontSize=9;fontStyle=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;"
+          edge="1" source="tab_templates" target="page_template_editor" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="649" y="270" />
+              <mxPoint x="675" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- CHILD PAGES под Прогрессом -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="note_progress"
+          value="Прогресс 1ПМ по упражнению:&lt;br&gt;выбор упражнения + линейный тренд + прогноз через 28 дней"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;
+                 strokeColor=#4caf50;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="245" y="320" width="230" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: ProgressPage → note -->
+        <mxCell id="arr_progress_note"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;
+                 fontSize=9;exitX=0.5;exitY=1;entryX=0.5;entryY=0;"
+          edge="1" source="tab_progress" target="note_progress" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="272" y="270" />
+              <mxPoint x="360" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- Catalog note -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="note_catalog"
+          value="Каталог упражнений:&lt;br&gt;список + фильтр по группе мышц&lt;br&gt;(нет дочерних страниц)"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;
+                 strokeColor=#4caf50;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="420" y="320" width="155" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_catalog_note"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;
+                 exitX=0.5;exitY=1;entryX=0.5;entryY=0;"
+          edge="1" source="tab_catalog" target="note_catalog" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="270" />
+              <mxPoint x="497" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- Account note -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="note_account"
+          value="Аккаунт:&lt;br&gt;вход / регистрация + синхронизация&lt;br&gt;(нет дочерних страниц)"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;
+                 strokeColor=#4caf50;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="785" y="320" width="165" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_account_note"
+          value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;
+                 exitX=0.5;exitY=1;entryX=0.5;entryY=0;"
+          edge="1" source="tab_account" target="note_account" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="837" y="270" />
+              <mxPoint x="867" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ═══ Легенда ═══ -->
+        <mxCell id="legend_1"
+          value="— переход GoToAsync (Shell URI)"
+          style="text;html=1;fontSize=9;fontStyle=2;"
+          vertex="1" parent="1">
+          <mxGeometry x="60" y="450" width="270" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_2"
+          value="Все переходы регистрируются в AppShell.xaml (ShellContent / Routes)"
+          style="text;html=1;fontSize=9;fontStyle=2;"
+          vertex="1" parent="1">
+          <mxGeometry x="60" y="468" width="450" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- Caption -->
+        <mxCell id="caption"
+          value="Рисунок 3.1 — Схема навигации клиентского приложения FitApp"
+          style="text;html=1;fontSize=11;fontStyle=2;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="60" y="510" width="900" height="24" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
