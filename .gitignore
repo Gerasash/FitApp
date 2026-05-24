@@ -70,3 +70,6 @@ ml/data/*.csv
 ml/data/*.parquet
 ml/data/*.feather
 !ml/data/.gitkeep
+
+# DrawIO temporary and backup files
+.$*.bkp

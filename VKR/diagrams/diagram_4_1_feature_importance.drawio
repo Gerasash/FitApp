@@ -1,217 +1,191 @@
 <mxfile host="app.diagrams.net" version="21.0.0">
   <diagram id="feat_imp" name="Рисунок 4.1 — Важность признаков LightGBM">
-    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1"
+    <mxGraphModel dx="1422" dy="762" grid="0" gridSize="10" guides="1"
       tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1"
-      pageWidth="900" pageHeight="660" math="0" shadow="0">
+      pageWidth="960" pageHeight="700" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <!-- Title -->
-        <mxCell id="title" value="Важность признаков (LightGBM, gain)"
-          style="text;html=1;fontSize=13;fontStyle=1;align=center;"
+        <!-- Заголовок -->
+        <mxCell id="title"
+          value="Важность признаков (LightGBM, метрика gain)"
+          style="text;html=1;fontSize=14;fontStyle=1;fontFamily=Times New Roman;align=center;"
           vertex="1" parent="1">
-          <mxGeometry x="20" y="10" width="820" height="28" as="geometry" />
+          <mxGeometry x="10" y="10" width="920" height="30" as="geometry" />
         </mxCell>
 
-        <!-- Y-axis label -->
-        <mxCell id="yaxis" value="Признак"
-          style="text;html=1;fontSize=10;fontStyle=2;align=right;"
+        <!-- Ось Y (подпись) -->
+        <mxCell id="yaxis_label"
+          value="Признак"
+          style="text;html=1;fontSize=11;fontStyle=2;fontFamily=Times New Roman;
+                 align=center;rotation=-90;"
           vertex="1" parent="1">
-          <mxGeometry x="0" y="50" width="65" height="400" as="geometry" />
+          <mxGeometry x="-15" y="260" width="80" height="20" as="geometry" />
         </mxCell>
 
-        <!-- X-axis line -->
-        <mxCell id="xaxis_line" value=""
-          style="line;html=1;strokeColor=#333;strokeWidth=1;"
+        <!-- Ось X -->
+        <mxCell id="xaxis_line"
+          value=""
+          style="line;html=1;strokeColor=#333333;strokeWidth=2;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="510" width="600" height="10" as="geometry" />
+          <mxGeometry x="270" y="520" width="630" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="xaxis_label" value="Вклад в точность (gain, отн. ед.)"
-          style="text;html=1;fontSize=10;fontStyle=2;align=center;"
+        <mxCell id="xaxis_label"
+          value="Вклад в точность прогноза (gain, отн. ед.)"
+          style="text;html=1;fontSize=11;fontStyle=2;fontFamily=Times New Roman;align=center;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="525" width="600" height="18" as="geometry" />
+          <mxGeometry x="270" y="540" width="630" height="22" as="geometry" />
         </mxCell>
 
-        <!-- === BARS (horizontal) ===
-             Max value = 1082 (mean_1rm_5) → mapped to 570px width
-             Scale: px = round(value / 1082 * 570)
-
-             Bars (top to bottom, most important first):
-             mean_1rm_5     = 1082  → 570px
-             top_1rm        = 900   → 474px
-             lag_1rm_1      = 348   → 183px
-             top_weight     = 119   →  63px
-             training_age   =  62   →  33px
-             exercise_id    =  37   →  20px
-             bodyweight     =  24   →  13px
-             days_since     =  20   →  11px
-             target_rpe     =  18   →  10px
-             lag_1rm_3      =  14   →   7px
-        -->
-
-        <!-- Row 1: mean_1rm_5 -->
-        <mxCell id="lbl1" value="mean_1rm_5 (среднее 1ПМ за 5 сессий)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
+        <!-- ─── Метки признаков (правое выравнивание) ─── -->
+        <mxCell id="lbl1" value="mean_1rm_5 — среднее 1ПМ за 5 сессий"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="20" y="53" width="225" height="36" as="geometry" />
+          <mxGeometry x="10" y="58" width="255" height="36" as="geometry" />
         </mxCell>
+        <mxCell id="lbl2" value="top_1rm — лучший 1ПМ за всё время"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="102" width="255" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl3" value="lag_1rm_1 — 1ПМ предыдущей сессии"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="146" width="255" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl4" value="top_weight — макс. вес в упражнении"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="190" width="255" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl5" value="training_age_months — стаж (мес.)"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="234" width="255" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl6" value="exercise_id — тип упражнения"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="278" width="255" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl7" value="bodyweight_kg — масса тела"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="322" width="255" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl8" value="days_since_last — дней с последней сессии"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="366" width="255" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl9" value="target_rpe_profile — целевой RPE"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="410" width="255" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl10" value="lag_1rm_3 — 1ПМ три сессии назад"
+          style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=right;verticalAlign=middle;"
+          vertex="1" parent="1">
+          <mxGeometry x="10" y="454" width="255" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- ─── Полосы (bars) — ширина масштабирована: max=1082 → 600px ─── -->
+        <!-- bar1: 1082 → 600 -->
         <mxCell id="bar1" value="1082"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1565c0;strokeColor=none;
-                 fontColor=#ffffff;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#1565c0;strokeColor=none;
+                 fontColor=#ffffff;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="58" width="570" height="26" as="geometry" />
+          <mxGeometry x="270" y="63" width="600" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 2: top_1rm -->
-        <mxCell id="lbl2" value="top_1rm (лучший 1ПМ за всё время)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="93" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar2: 900 → 499 -->
         <mxCell id="bar2" value="900"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1976d2;strokeColor=none;
-                 fontColor=#ffffff;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#1976d2;strokeColor=none;
+                 fontColor=#ffffff;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="98" width="474" height="26" as="geometry" />
+          <mxGeometry x="270" y="107" width="499" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 3: lag_1rm_1 -->
-        <mxCell id="lbl3" value="lag_1rm_1 (1ПМ предыдущей сессии)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="133" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar3: 348 → 193 -->
         <mxCell id="bar3" value="348"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#42a5f5;strokeColor=none;
-                 fontColor=#333;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#42a5f5;strokeColor=none;
+                 fontColor=#333333;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="138" width="183" height="26" as="geometry" />
+          <mxGeometry x="270" y="151" width="193" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 4: top_weight -->
-        <mxCell id="lbl4" value="top_weight (макс. вес в упражнении)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="173" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar4: 119 → 66 -->
         <mxCell id="bar4" value="119"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#64b5f6;strokeColor=none;
-                 fontColor=#333;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#64b5f6;strokeColor=none;
+                 fontColor=#333333;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="178" width="63" height="26" as="geometry" />
+          <mxGeometry x="270" y="195" width="66" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 5: training_age_months -->
-        <mxCell id="lbl5" value="training_age_months (стаж в месяцах)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="213" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar5: 62 → 34 -->
         <mxCell id="bar5" value="62"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#90caf9;strokeColor=none;
-                 fontColor=#333;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#90caf9;strokeColor=none;
+                 fontColor=#333333;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="218" width="33" height="26" as="geometry" />
+          <mxGeometry x="270" y="239" width="34" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 6: exercise_id -->
-        <mxCell id="lbl6" value="exercise_id (тип упражнения)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="253" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar6: 37 → 21 -->
         <mxCell id="bar6" value="37"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=none;
-                 fontColor=#333;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#bbdefb;strokeColor=#90caf9;
+                 fontColor=#333333;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="258" width="20" height="26" as="geometry" />
+          <mxGeometry x="270" y="283" width="21" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 7: bodyweight_kg -->
-        <mxCell id="lbl7" value="bodyweight_kg (масса тела)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="293" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar7: 24 → 13 -->
         <mxCell id="bar7" value="24"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;
-                 fontColor=#333;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;
+                 fontColor=#333333;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="298" width="13" height="26" as="geometry" />
+          <mxGeometry x="270" y="327" width="13" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 8: days_since_last -->
-        <mxCell id="lbl8" value="days_since_last (дней с последней сессии)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="333" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar8: 20 → 11 -->
         <mxCell id="bar8" value="20"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;
-                 fontColor=#333;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;
+                 fontColor=#333333;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="338" width="11" height="26" as="geometry" />
+          <mxGeometry x="270" y="371" width="11" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 9: target_rpe_profile -->
-        <mxCell id="lbl9" value="target_rpe_profile (целевой RPE)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="373" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar9: 18 → 10 -->
         <mxCell id="bar9" value="18"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;
-                 fontColor=#333;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;
+                 fontColor=#333333;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="378" width="10" height="26" as="geometry" />
+          <mxGeometry x="270" y="415" width="10" height="26" as="geometry" />
         </mxCell>
-
-        <!-- Row 10: lag_1rm_3 -->
-        <mxCell id="lbl10" value="lag_1rm_3 (1ПМ три сессии назад)"
-          style="text;html=1;fontSize=10;align=right;verticalAlign=middle;"
-          vertex="1" parent="1">
-          <mxGeometry x="20" y="413" width="225" height="36" as="geometry" />
-        </mxCell>
+        <!-- bar10: 14 → 8 -->
         <mxCell id="bar10" value="14"
-          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;
-                 fontColor=#333;fontSize=9;align=right;spacingRight=4;"
+          style="rounded=0;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;
+                 fontColor=#333333;fontSize=11;fontFamily=Times New Roman;
+                 align=right;spacingRight=5;verticalAlign=middle;"
           vertex="1" parent="1">
-          <mxGeometry x="250" y="418" width="7" height="26" as="geometry" />
+          <mxGeometry x="270" y="459" width="8" height="26" as="geometry" />
         </mxCell>
 
-        <!-- X-axis tick labels -->
-        <mxCell id="x0" value="0"
-          style="text;html=1;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="243" y="510" width="20" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="x200" value="200"
-          style="text;html=1;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="345" y="510" width="30" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="x400" value="400"
-          style="text;html=1;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="455" y="510" width="30" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="x600" value="600"
-          style="text;html=1;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="561" y="510" width="30" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="x800" value="800"
-          style="text;html=1;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="666" y="510" width="30" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="x1000" value="1000"
-          style="text;html=1;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="768" y="510" width="36" height="16" as="geometry" />
-        </mxCell>
+        <!-- ─── Отметки на оси X ─── -->
+        <mxCell id="x0"   value="0"    style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=center;" vertex="1" parent="1"><mxGeometry x="263"  y="520" width="28" height="18" as="geometry" /></mxCell>
+        <mxCell id="x200" value="200"  style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=center;" vertex="1" parent="1"><mxGeometry x="367"  y="520" width="36" height="18" as="geometry" /></mxCell>
+        <mxCell id="x400" value="400"  style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=center;" vertex="1" parent="1"><mxGeometry x="477"  y="520" width="36" height="18" as="geometry" /></mxCell>
+        <mxCell id="x600" value="600"  style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=center;" vertex="1" parent="1"><mxGeometry x="587"  y="520" width="36" height="18" as="geometry" /></mxCell>
+        <mxCell id="x800" value="800"  style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=center;" vertex="1" parent="1"><mxGeometry x="697"  y="520" width="36" height="18" as="geometry" /></mxCell>
+        <mxCell id="x1000" value="1000" style="text;html=1;fontSize=11;fontFamily=Times New Roman;align=center;" vertex="1" parent="1"><mxGeometry x="797" y="520" width="42" height="18" as="geometry" /></mxCell>
 
-        <!-- Caption -->
+        <!-- Подпись -->
         <mxCell id="caption"
           value="Рисунок 4.1 — Важность признаков модели LightGBM (метрика gain, топ-10)"
-          style="text;html=1;fontSize=11;fontStyle=2;align=center;"
+          style="text;html=1;fontSize=12;fontStyle=2;fontFamily=Times New Roman;align=center;"
           vertex="1" parent="1">
-          <mxGeometry x="20" y="600" width="830" height="24" as="geometry" />
+          <mxGeometry x="10" y="640" width="920" height="26" as="geometry" />
         </mxCell>
 
       </root>
