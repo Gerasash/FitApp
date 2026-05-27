@@ -738,6 +738,82 @@ namespace FitApp.Data
             return await _connection.DeleteAsync(workout);
         }
 
+        // --- Сводки для главного экрана (дашборда) ---
+
+        /// <summary>
+        /// Агрегаты последней (по StartTime) тренировки пользователя:
+        /// имя, дата, число рабочих подходов, объём в кг·повт, количество
+        /// упражнений. Разминки (Kind == 1) и удалённые записи исключены.
+        /// Возвращает null, если у пользователя ещё нет тренировок.
+        /// </summary>
+        public async Task<LastWorkoutSummary?> GetLastWorkoutSummaryAsync(int userId)
+        {
+            await EnsureInitializedAsync();
+            var rows = await _connection.QueryAsync<LastWorkoutSummary>(@"
+                SELECT w.id AS Id,
+                       w.name AS Name,
+                       w.StartTime AS StartTime,
+                       COALESCE(SUM(CASE WHEN s.Id IS NOT NULL THEN 1 ELSE 0 END), 0) AS NumSets,
+                       COALESCE(SUM(s.Weight * s.Reps), 0) AS TotalVolume,
+                       COUNT(DISTINCT we.Id) AS ExerciseCount
+                FROM Workouts w
+                LEFT JOIN WorkoutExercises we
+                       ON we.WorkoutId = w.id AND we.IsDeleted = 0
+                LEFT JOIN ExerciseSets s
+                       ON s.WorkoutExerciseId = we.Id
+                      AND s.IsDeleted = 0
+                      AND s.Kind != 1
+                WHERE w.UserId = ? AND w.IsDeleted = 0
+                GROUP BY w.id, w.name, w.StartTime
+                ORDER BY w.StartTime DESC
+                LIMIT 1;", userId);
+            return rows.Count > 0 ? rows[0] : null;
+        }
+
+        /// <summary>
+        /// Время начала всех тренировок пользователя за последние N дней
+        /// (не удалённых). Возвращаем «сырые» StartTime — серии, недельные
+        /// счётчики и «дней с последней тренировки» считаем в VM, чтобы
+        /// SQL остался простым.
+        /// </summary>
+        public async Task<List<DateTime>> GetRecentWorkoutTimesAsync(int userId, int daysBack)
+        {
+            await EnsureInitializedAsync();
+            var since = DateTime.UtcNow.AddDays(-daysBack);
+            var rows = await _connection.QueryAsync<Workout>(@"
+                SELECT StartTime FROM Workouts
+                WHERE UserId = ? AND IsDeleted = 0 AND StartTime >= ?
+                ORDER BY StartTime DESC;", userId, since);
+            return rows.Select(w => w.StartTime).ToList();
+        }
+
+        /// <summary>
+        /// Самое часто встречающееся упражнение пользователя за последние N дней.
+        /// Используется главным экраном для выбора упражнения, по которому
+        /// планировщик соберёт рекомендацию на следующую тренировку.
+        /// Возвращает null, если за период не было ни одной тренировки.
+        /// </summary>
+        public async Task<TopExerciseRef?> GetMostFrequentExerciseAsync(int userId, int daysBack)
+        {
+            await EnsureInitializedAsync();
+            var since = DateTime.UtcNow.AddDays(-daysBack);
+            var rows = await _connection.QueryAsync<TopExerciseRef>(@"
+                SELECT e.Id AS Id,
+                       e.Name AS Name,
+                       COUNT(DISTINCT w.id) AS UsageCount
+                FROM WorkoutExercises we
+                JOIN Workouts w ON we.WorkoutId = w.id
+                JOIN Exercises e ON we.ExerciseId = e.Id
+                WHERE w.UserId = ?
+                  AND w.IsDeleted = 0
+                  AND we.IsDeleted = 0
+                  AND w.StartTime >= ?
+                GROUP BY e.Id, e.Name
+                ORDER BY UsageCount DESC, MAX(w.StartTime) DESC
+                LIMIT 1;", userId, since);
+            return rows.Count > 0 ? rows[0] : null;
+        }
+
         public async Task<List<Workout>> GetWorkoutsByMuscleGroupAsync(int muscleGroupId)
         {
             await EnsureInitializedAsync();

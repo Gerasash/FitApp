@@ -59,6 +59,7 @@ namespace FitApp
             builder.Services.AddSingleton<SyncService>();
 
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<WorkoutPage>();
             builder.Services.AddTransient<MuscleGroupsListPage>();
             builder.Services.AddTransient<WorkoutListPage>();

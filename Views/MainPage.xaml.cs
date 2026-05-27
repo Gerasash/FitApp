@@ -1,41 +1,26 @@
-﻿//Файл MainPage
-using SQLite;
-using System.Collections.ObjectModel;
-using System.Security.AccessControl;
-using Microsoft.Maui.Controls;
-using System.Reflection;
-using System.Diagnostics;
-using FitApp.Models;
+// Файл MainPage — code-behind.
+// Этап 0: навигация переехала в MainViewModel.
+// Этап 1: подгрузка сводок в OnAppearing — после возврата с других
+// экранов (добавил тренировку → главный экран) карточки обновляются.
+
 using FitApp.ViewModels;
-using FitApp.Data;
-//using HealthKit;
 
 namespace FitApp.Views;
 
 public partial class MainPage : ContentPage
 {
-    public MainPage()
+    private readonly MainViewModel _vm;
+
+    public MainPage(MainViewModel viewModel)
     {
         InitializeComponent();
+        _vm = viewModel;
+        BindingContext = _vm;
     }
 
-    // ✅ ЕДИНЫЙ стиль навигации (Shell)
-    private async void GoToWorkoutList(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        await Shell.Current.GoToAsync("//WorkoutListPage");
-    }
-
-    private async void GoToMuscleGroupsListPage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync(nameof(MuscleGroupsListPage));
-    }
-
-    private async void GoExercisePage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("//ExercisePage");
-    }
-    private async void GoToProgressPage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("//ProgressPage");
+        base.OnAppearing();
+        await _vm.LoadAsync();
     }
 }
