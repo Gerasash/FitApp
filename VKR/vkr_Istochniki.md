@@ -6,7 +6,7 @@
 
 3. Ke G., Meng Q., Finley T., Wang T., Chen W., Ma W., Ye Q., Liu T.Y. LightGBM: A Highly Efficient Gradient Boosting Decision Tree // Advances in Neural Information Processing Systems. — 2017. — Vol. 30. — P. 3146–3154.
 
-4. Westcott W. L. Resistance training is medicine: effects of strength training on health // Current Sports Medicine Reports. — 2012. — Vol. 11, No. 4. — P. 209–216.
+4. Евсеев Ю. И. Физическая культура : учебное пособие. — 9-е изд. — Ростов н/Д : Феникс, 2014. — 444 с.
 
 5. Borg G. A. Psychophysical bases of perceived exertion // Medicine and Science in Sports and Exercise. — 1982. — Vol. 14, No. 5. — P. 377–381.
 
