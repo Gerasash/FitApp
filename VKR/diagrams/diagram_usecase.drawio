@@ -1,0 +1,232 @@
+<mxfile host="app.diagrams.net" modified="2026-05-28T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="usecase" name="Use Case Diagram">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Диаграмма вариантов использования — FitApp" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="10" width="800" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- System boundary -->
+        <mxCell id="system" value="Клиентское приложение FitApp" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;verticalAlign=top;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="60" width="1040" height="980" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Actors ===== -->
+        <mxCell id="actorUser" value="Пользователь&#10;(атлет)" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="380" width="40" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actorGuest" value="Гость" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="140" width="40" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actorServer" value="Сервер&#10;синхронизации" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="880" width="40" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actorML" value="ONNX Runtime&#10;(ML-модель)" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="430" width="40" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Group: Аутентификация ===== -->
+        <mxCell id="grpAuth" value="Аутентификация" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=12;fontStyle=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="100" width="280" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ucReg" value="Зарегистрироваться" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="360" y="135" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="ucLogin" value="Войти в аккаунт" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="360" y="195" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="ucLogout" value="Выйти из аккаунта" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="360" y="250" width="180" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Group: Ведение тренировок ===== -->
+        <mxCell id="grpWorkout" value="Ведение тренировок" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=12;fontStyle=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="320" width="280" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="ucList" value="Просмотреть список тренировок" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="355" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="ucCreate" value="Создать тренировку" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="415" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="ucAddEx" value="Добавить упражнение&#10;в тренировку" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="475" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ucAddSet" value="Добавить подход&#10;(вес, повторы, RPE)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="540" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ucEditSet" value="Редактировать /&#10;удалить подход" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="600" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ucFinish" value="Завершить тренировку" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="660" width="180" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Group: Планирование и прогноз ===== -->
+        <mxCell id="grpPlan" value="Планирование и прогноз" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=12;fontStyle=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="320" width="320" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ucPredict" value="Получить прогноз 1ПМ&#10;на 28 дней" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="680" y="360" width="220" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="ucRecommend" value="Получить рекомендацию&#10;следующего подхода" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="680" y="435" width="220" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="ucApplyPlan" value="Применить план&#10;планировщика" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="680" y="510" width="220" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Group: Каталог и шаблоны ===== -->
+        <mxCell id="grpCatalog" value="Каталог и шаблоны" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=12;fontStyle=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="100" width="300" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="ucCatalog" value="Просмотреть каталог&#10;упражнений" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="135" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ucAddCustomEx" value="Добавить собственное&#10;упражнение" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="200" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ucCreateTpl" value="Создать шаблон&#10;тренировки" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="260" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ucEditTpl" value="Редактировать шаблон" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="320" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ucFromTpl" value="Создать тренировку&#10;из шаблона" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="370" width="220" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Group: Статистика ===== -->
+        <mxCell id="grpStats" value="Статистика и прогресс" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=12;fontStyle=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="440" width="300" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="ucTonnage" value="Просмотреть тоннаж&#10;за период" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="475" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ucHeatmap" value="Просмотреть тепловую&#10;карту активности" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="540" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ucPR" value="Просмотреть личные рекорды" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="605" width="220" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="ucChart" value="Просмотреть график&#10;динамики 1ПМ" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="665" width="220" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Group: Профиль / Синхронизация ===== -->
+        <mxCell id="grpProfile" value="Профиль и синхронизация" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=12;fontStyle=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="730" width="640" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ucProfile" value="Настроить профиль&#10;(вес, возраст, пол, RPE)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="770" width="240" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="ucSync" value="Синхронизировать&#10;данные с сервером" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="660" y="770" width="240" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Actor associations (Guest) ===== -->
+        <mxCell id="eGuestReg" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorGuest" target="ucReg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eGuestLogin" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorGuest" target="ucLogin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Actor associations (User) ===== -->
+        <mxCell id="eUserList" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucList">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserCreate" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucCreate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserAddEx" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucAddEx">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserAddSet" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucAddSet">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserEditSet" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucEditSet">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserFinish" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucFinish">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserApply" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucApplyPlan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserCatalog" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucCatalog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserAddCustom" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucAddCustomEx">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserCreateTpl" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucCreateTpl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserEditTpl" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucEditTpl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserFromTpl" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucFromTpl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserTonnage" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucTonnage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserHeatmap" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucHeatmap">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserPR" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucPR">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserChart" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucChart">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserProfile" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucProfile">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserSync" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucSync">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eUserLogout" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="actorUser" target="ucLogout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Secondary actors ===== -->
+        <mxCell id="eMLPredict" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="ucPredict" target="actorML">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eMLRecommend" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="ucRecommend" target="actorML">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eServerSync" style="endArrow=none;html=1;strokeColor=#000000;" edge="1" parent="1" source="ucSync" target="actorServer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== include / extend ===== -->
+        <mxCell id="eIncAddExPredict" value="«include»" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=10;fontStyle=2;strokeColor=#0066CC;" edge="1" parent="1" source="ucAddEx" target="ucPredict">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eIncAddExRec" value="«include»" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=10;fontStyle=2;strokeColor=#0066CC;" edge="1" parent="1" source="ucAddEx" target="ucRecommend">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eIncApplyRec" value="«include»" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=10;fontStyle=2;strokeColor=#0066CC;" edge="1" parent="1" source="ucApplyPlan" target="ucRecommend">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eIncFromTplCreate" value="«include»" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=10;fontStyle=2;strokeColor=#0066CC;" edge="1" parent="1" source="ucFromTpl" target="ucCreate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eIncSyncLogin" value="«include»" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=10;fontStyle=2;strokeColor=#0066CC;" edge="1" parent="1" source="ucSync" target="ucLogin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

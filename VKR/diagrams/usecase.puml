@@ -1,0 +1,102 @@
+@startuml FitApp_UseCase
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+title Диаграмма вариантов использования — FitApp
+
+actor "Пользователь\n(атлет)" as User
+actor "Гость" as Guest
+actor "Сервер\nсинхронизации" as Server <<system>>
+actor "ONNX Runtime\n(локальная ML-модель)" as ML <<system>>
+
+rectangle "Клиентское приложение FitApp" {
+
+  package "Аутентификация" {
+    usecase "Зарегистрироваться" as UC_Reg
+    usecase "Войти в аккаунт" as UC_Login
+    usecase "Выйти из аккаунта" as UC_Logout
+  }
+
+  package "Ведение тренировок" {
+    usecase "Просмотреть список\nтренировок" as UC_List
+    usecase "Создать тренировку" as UC_Create
+    usecase "Добавить упражнение\nв тренировку" as UC_AddEx
+    usecase "Добавить подход\n(вес, повторы, RPE)" as UC_AddSet
+    usecase "Редактировать /\nудалить подход" as UC_EditSet
+    usecase "Завершить тренировку" as UC_Finish
+  }
+
+  package "Планирование и прогноз" {
+    usecase "Получить прогноз 1ПМ\nна 28 дней" as UC_Predict
+    usecase "Получить рекомендацию\nследующего подхода" as UC_Recommend
+    usecase "Применить план\nпланировщика" as UC_ApplyPlan
+  }
+
+  package "Каталог и шаблоны" {
+    usecase "Просмотреть каталог\nупражнений" as UC_Catalog
+    usecase "Добавить собственное\nупражнение" as UC_AddCustomEx
+    usecase "Создать шаблон\nтренировки" as UC_CreateTpl
+    usecase "Редактировать шаблон" as UC_EditTpl
+    usecase "Создать тренировку\nиз шаблона" as UC_FromTpl
+  }
+
+  package "Статистика и прогресс" {
+    usecase "Просмотреть тоннаж\nза период" as UC_Tonnage
+    usecase "Просмотреть тепловую\nкарту активности" as UC_Heatmap
+    usecase "Просмотреть личные\nрекорды" as UC_PR
+    usecase "Просмотреть график\nдинамики 1ПМ" as UC_Chart
+  }
+
+  package "Профиль и синхронизация" {
+    usecase "Настроить профиль\n(вес, возраст, пол, RPE)" as UC_Profile
+    usecase "Синхронизировать\nданные с сервером" as UC_Sync
+  }
+}
+
+' --- Гость ---
+Guest --> UC_Reg
+Guest --> UC_Login
+
+' --- Пользователь: тренировки ---
+User --> UC_List
+User --> UC_Create
+User --> UC_AddEx
+User --> UC_AddSet
+User --> UC_EditSet
+User --> UC_Finish
+
+' --- Пользователь: каталог/шаблоны ---
+User --> UC_Catalog
+User --> UC_AddCustomEx
+User --> UC_CreateTpl
+User --> UC_EditTpl
+User --> UC_FromTpl
+
+' --- Пользователь: статистика ---
+User --> UC_Tonnage
+User --> UC_Heatmap
+User --> UC_PR
+User --> UC_Chart
+
+' --- Пользователь: профиль/синхронизация ---
+User --> UC_Profile
+User --> UC_Sync
+User --> UC_Logout
+User --> UC_ApplyPlan
+
+' --- include / extend ---
+UC_AddEx ..> UC_Predict : <<include>>
+UC_AddEx ..> UC_Recommend : <<include>>
+UC_ApplyPlan ..> UC_Recommend : <<include>>
+UC_FromTpl ..> UC_Create : <<include>>
+UC_Sync ..> UC_Login : <<include>>
+
+UC_Predict ..> ML
+UC_Recommend ..> ML
+UC_Sync ..> Server
+
+@enduml
