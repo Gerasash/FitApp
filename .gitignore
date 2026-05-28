@@ -74,3 +74,4 @@ ml/data/*.feather
 # DrawIO temporary and backup files
 .$*.bkp
 *.dtmp
+*.tmp
