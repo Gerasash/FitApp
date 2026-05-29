@@ -183,6 +183,16 @@ public class OnnxPredictionService : IDisposable
         double? slope_5 = LinregSlope(last5_1rm);
         double? slope_3 = LinregSlope(last3_1rm);
 
+        // Исторический пик 1ПМ (по всем тренировкам до текущей) и просадка
+        // последнего результата от него. Дают модели сигнал восстановления
+        // после травмы/паузы. Порядок и формулы — как в 02_lightgbm.py.
+        double? max_1rm_hist = prior.Count >= 1
+            ? prior.Max(r => r.TopEpley1Rm)
+            : (double?)null;
+        double? drop_from_peak = (max_1rm_hist.HasValue && lag1.HasValue)
+            ? max_1rm_hist - lag1
+            : null;
+
         int n_history = prior.Count;
         double days_since_first = history.Count > 1
             ? (current.Date - history[0].Date).TotalDays
@@ -221,6 +231,7 @@ public class OnnxPredictionService : IDisposable
             Nan(diff1),
             Nan(mean_1rm_5), Nan(mean_rpe_5),
             Nan(slope_3), Nan(slope_5),
+            Nan(max_1rm_hist), Nan(drop_from_peak),
             (float)n_history,
             (float)days_since_first,
             Nan(days_since_last),

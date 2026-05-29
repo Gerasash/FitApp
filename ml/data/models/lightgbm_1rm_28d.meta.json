@@ -10,6 +10,8 @@
     "mean_rpe_5",
     "slope_3",
     "slope_5",
+    "max_1rm_hist",
+    "drop_from_peak",
     "n_history",
     "days_since_first",
     "days_since_last",
@@ -46,12 +48,12 @@
     "Спина",
     "Трицепс"
   ],
-  "best_iteration": 326,
+  "best_iteration": 417,
   "test_metrics": {
-    "mae": 1.436504633474689,
-    "rmse": 2.295263564598361,
-    "mape": 2.082672410903034
+    "mae": 1.8157723107705885,
+    "rmse": 4.864182802834521,
+    "mape": 2.522821144178686
   },
-  "training_examples": 79047,
-  "test_examples": 22967
+  "training_examples": 78384,
+  "test_examples": 23398
 }

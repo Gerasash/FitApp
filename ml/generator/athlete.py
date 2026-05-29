@@ -69,6 +69,7 @@ class AthleteProfile:
     consistency: float         # 0.6–1.0: 1 - вероятность пропуска тренировки
     noise_rpe: float           # 0.3–0.9: стандартное отклонение шума RPE
     target_rpe: float          # 7.0–9.0: к чему стремится в рабочих сетах
+    injury_proneness: float    # 0.0–1.0: индивидуальная склонность к травмам
 
 
 @dataclass
@@ -76,6 +77,8 @@ class ExerciseState:
     current_1rm: float
     ceiling_1rm: float
     starting_1rm: float        # для статистики/отладки
+    peak_1rm: float = 0.0      # макс. достигнутый 1ПМ (для "мышечной памяти")
+    last_date: date | None = None  # дата последней тренировки этого упражнения
 
 
 # ---------- Генерация анкеты ----------
@@ -105,6 +108,9 @@ def _sample_profile(rng: random.Random, athlete_id: int) -> AthleteProfile:
         consistency=rng.uniform(0.65, 0.98),
         noise_rpe=rng.uniform(0.3, 0.9),
         target_rpe=rng.uniform(7.0, 9.0),
+        # Склонность к травмам смещена к нулю: у большинства атлетов травм
+        # не будет, но у части за период симуляции случится 1+ эпизод.
+        injury_proneness=rng.random() ** 1.5,
     )
 
 
@@ -136,6 +142,21 @@ def _experience_progress(months: int) -> float:
 
 # ---------- Виртуальный атлет ----------
 
+# Относительная частота травм по мышечным группам. Базовые многосуставные
+# движения и крупные группы травмируются чаще, чем изоляция мелких мышц.
+_MUSCLE_INJURY_WEIGHTS: dict[str, float] = {
+    "Спина": 3.0,
+    "Ноги": 3.0,
+    "Грудь": 2.0,
+    "Плечи": 2.0,
+    "Бицепс": 1.0,
+    "Трицепс": 1.0,
+}
+
+# Базовая вероятность травмы за одну неделю при injury_proneness = 1.0.
+_WEEKLY_INJURY_BASE = 0.02
+
+
 class VirtualAthlete:
     def __init__(self, profile: AthleteProfile, rng: random.Random):
         self.profile = profile
@@ -157,9 +178,17 @@ class VirtualAthlete:
                 current_1rm=start,
                 ceiling_1rm=ceiling,
                 starting_1rm=start,
+                peak_1rm=start,
             )
         # Усталость по мышечным группам (0 = свежий, растёт от тренировок)
         self.fatigue: dict[str, float] = {}
+        # Травмы: мышечная группа -> дата, до которой группа не тренируется.
+        self.injured_until: dict[str, date] = {}
+        # Какие мышечные группы вообще тренирует этот атлет (по своему сплиту).
+        self.trained_muscles: set[str] = set()
+        for day_exercises in SPLITS[profile.split_name]:
+            for eid in day_exercises:
+                self.trained_muscles.add(EXERCISE_BY_ID[eid].primary_muscle)
 
     # ---- Внутренние ----
 
@@ -212,7 +241,70 @@ class VirtualAthlete:
             * signal
             * self.rng.uniform(0.6, 1.4)
         )
-        st.current_1rm = round(max(st.starting_1rm * 0.9, st.current_1rm * (1 + growth)), 1)
+        # "Мышечная память": если атлет сейчас ниже ранее достигнутого пика
+        # (например, после травмы или паузы), утраченную силу он возвращает
+        # значительно быстрее, чем набирал впервые. Чем глубже просадка от
+        # пика, тем сильнее ускорение восстановления.
+        if st.current_1rm < st.peak_1rm:
+            deficit = (st.peak_1rm - st.current_1rm) / st.peak_1rm
+            growth *= 1.0 + 4.0 * deficit
+        st.current_1rm = round(st.current_1rm * (1 + growth), 1)
+        st.peak_1rm = max(st.peak_1rm, st.current_1rm)
+
+    def _apply_detraining(self, ex: ExerciseDef, workout_date: date):
+        """Потеря силы из-за длительной паузы в тренировках упражнения
+        (детренинг/атрофия). До ~10 дней простоя — без потерь, дальше 1ПМ
+        снижается примерно на 1.2% за каждую неделю простоя сверх этого
+        порога. Скорость потери смягчается восстанавливаемостью атлета."""
+        st = self.exercise_state[ex.id]
+        if st.last_date is None:
+            return
+        gap_days = (workout_date - st.last_date).days
+        if gap_days <= 10:
+            return
+        weeks_off = (gap_days - 10) / 7.0
+        rate = 0.012 / max(0.4, self.profile.recovery_factor)
+        decay = min(0.30, rate * weeks_off)
+        # Не опускаемся ниже разумного дна (30% от потолка) — даже после
+        # долгого перерыва базовая сила частично сохраняется.
+        floor = st.ceiling_1rm * 0.3
+        st.current_1rm = round(max(floor, st.current_1rm * (1 - decay)), 1)
+
+    def maybe_injure(self, week_start: date):
+        """Розыгрыш травмы на ближайшую неделю. При срабатывании наносит
+        резкий спад 1ПМ всем упражнениям поражённой мышечной группы и
+        выводит эту группу из тренировок на 1–3 недели."""
+        p = _WEEKLY_INJURY_BASE * self.profile.injury_proneness
+        if self.rng.random() >= p:
+            return
+        muscles = list(self.trained_muscles)
+        if not muscles:
+            return
+        weights = [_MUSCLE_INJURY_WEIGHTS.get(m, 1.0) for m in muscles]
+        muscle = self.rng.choices(muscles, weights=weights)[0]
+        # Тяжесть: ~60% лёгкие (малый спад, неделя отдыха),
+        # ~40% средние (заметный спад, 2–3 недели).
+        if self.rng.random() < 0.6:
+            drop = self.rng.uniform(0.08, 0.18)
+            rest_weeks = 1
+        else:
+            drop = self.rng.uniform(0.18, 0.35)
+            rest_weeks = self.rng.randint(2, 3)
+        for ex in EXERCISES:
+            if ex.primary_muscle != muscle:
+                continue
+            st = self.exercise_state.get(ex.id)
+            if st is None:
+                continue
+            floor = st.ceiling_1rm * 0.3
+            st.current_1rm = round(max(floor, st.current_1rm * (1 - drop)), 1)
+        self.injured_until[muscle] = week_start + timedelta(weeks=rest_weeks)
+
+    def is_muscle_blocked(self, muscle: str, day: date) -> bool:
+        """True, если мышечная группа сейчас на восстановлении после травмы
+        и тренировать её нельзя."""
+        end = self.injured_until.get(muscle)
+        return end is not None and day < end
 
     # ---- Публичный API: одна тренировка ----
 
@@ -223,6 +315,10 @@ class VirtualAthlete:
         rows: list[dict] = []
         for order_idx, ex_id in enumerate(exercise_ids, start=1):
             ex = EXERCISE_BY_ID[ex_id]
+            # Перед расчётом весов учитываем простой по этому упражнению
+            # (детренинг), затем фиксируем дату текущей тренировки.
+            self._apply_detraining(ex, workout_date)
+            self.exercise_state[ex.id].last_date = workout_date
             fatigue_here = self.fatigue.get(ex.primary_muscle, 0.0)
             target_rpe = self.profile.target_rpe
             # Целевые повторы — случайные из диапазона упражнения
@@ -350,12 +446,23 @@ def simulate_athlete(
     day_in_week_idx = 0
     while day < end_date:
         weekday = day.weekday()
+        # В начале недели (понедельник) разыгрываем возможную травму.
+        if weekday == 0:
+            athlete.maybe_injure(day)
         if weekday in weekday_slots:
             # пропуск из-за лени/жизни
             if rng.random() < profile.consistency:
                 slot = weekday_slots.index(weekday)
                 ex_ids = days_pattern[slot % len(days_pattern)]
-                rows.extend(athlete.simulate_workout(day, ex_ids))
+                # Исключаем упражнения на травмированные группы — они
+                # выпадают из тренировки на время восстановления.
+                ex_ids = [
+                    eid for eid in ex_ids
+                    if not athlete.is_muscle_blocked(
+                        EXERCISE_BY_ID[eid].primary_muscle, day)
+                ]
+                if ex_ids:
+                    rows.extend(athlete.simulate_workout(day, ex_ids))
         athlete.end_of_day()
         day += timedelta(days=1)
         # Считаем неделю прожитой при достижении воскресенья

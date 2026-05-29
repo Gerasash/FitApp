@@ -141,6 +141,14 @@ def verify(n_samples: int = 1000, seed: int = 7) -> None:
             return res
         f["slope_3"] = _rslope(y, 3)
         f["slope_5"] = _rslope(y, 5)
+        peak = np.full(n, np.nan)
+        running = -np.inf
+        for i in range(n):
+            if i > 0:
+                running = max(running, y[i - 1])
+                peak[i] = running
+        f["max_1rm_hist"] = peak
+        f["drop_from_peak"] = peak - f["lag_1rm_1"]
         f["n_history"] = np.arange(n, dtype=float)
         f["days_since_first"] = (dates - dates[0]).astype("timedelta64[D]").astype(float)
         dsl = np.full(n, np.nan)

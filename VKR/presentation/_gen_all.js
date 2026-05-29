@@ -168,40 +168,58 @@ slide(6, (s) => {
 // ---------- Slide 7 — ML датасет и признаки ----------
 slide(7, (s) => {
   title(s, "ML-модуль: набор данных и признаки");
-  const stats = [["763 322", "тренировочных подхода"], ["500", "спортсменов"], ["118 350", "обучающих пар (X → y)"]];
+  const stats = [["762 318", "тренировочных подхода"], ["500", "спортсменов"], ["113 434", "обучающих пар (X → y)"]];
   stats.forEach((st, i) => {
     const x = 0.6 + i * 4.05;
     s.addShape(ST.roundRect, { x, y: 1.5, w: 3.8, h: 1.7, fill: { color: NAVY }, rectRadius: 0.1 });
     s.addText(st[0], { x, y: 1.6, w: 3.8, h: 0.9, fontFace: HEAD, fontSize: 32, bold: true, color: "FFFFFF", align: "center" });
     s.addText(st[1], { x, y: 2.5, w: 3.8, h: 0.6, fontFace: BODY, fontSize: 13, color: ICE, align: "center" });
   });
-  s.addText("29 ПРИЗНАКОВ · 4 ГРУППЫ", { x: 0.6, y: 3.55, w: 12.1, h: 0.5, fontFace: HEAD, fontSize: 18, bold: true, color: NAVY });
-  const grp = [["13", "История", "лаги 1ПМ, средние, тренд"], ["7", "Текущая тренировка", "топ-вес, повторы, RPE"], ["5", "Профиль", "вес, возраст, пол, стаж"], ["4", "Упражнение", "тип, оборудование"]];
+  s.addText("30 ПРИЗНАКОВ · 4 ГРУППЫ", { x: 0.6, y: 3.5, w: 12.1, h: 0.5, fontFace: HEAD, fontSize: 18, bold: true, color: NAVY });
+  const grp = [["14", "История", "лаги 1ПМ, тренд, пик и просадка"], ["7", "Текущая тренировка", "топ-вес, повторы, RPE"], ["5", "Профиль", "вес, возраст, пол, стаж"], ["4", "Упражнение", "тип, оборудование"]];
   grp.forEach((g, i) => {
     const x = 0.6 + i * 3.05;
-    s.addShape(ST.roundRect, { x, y: 4.2, w: 2.85, h: 2.1, fill: { color: "EAF0FF" }, rectRadius: 0.1 });
-    s.addText(g[0], { x, y: 4.3, w: 2.85, h: 0.6, fontFace: HEAD, fontSize: 26, bold: true, color: ACC, align: "center" });
-    s.addText(g[1], { x: x + 0.15, y: 4.95, w: 2.55, h: 0.5, fontFace: BODY, fontSize: 14, bold: true, color: NAVY, align: "center" });
-    s.addText(g[2], { x: x + 0.15, y: 5.45, w: 2.55, h: 0.8, fontFace: BODY, fontSize: 12, color: GRAY, align: "center" });
+    s.addShape(ST.roundRect, { x, y: 4.1, w: 2.85, h: 1.95, fill: { color: "EAF0FF" }, rectRadius: 0.1 });
+    s.addText(g[0], { x, y: 4.18, w: 2.85, h: 0.55, fontFace: HEAD, fontSize: 26, bold: true, color: ACC, align: "center" });
+    s.addText(g[1], { x: x + 0.15, y: 4.75, w: 2.55, h: 0.45, fontFace: BODY, fontSize: 14, bold: true, color: NAVY, align: "center" });
+    s.addText(g[2], { x: x + 0.15, y: 5.2, w: 2.55, h: 0.8, fontFace: BODY, fontSize: 12, color: GRAY, align: "center" });
   });
+  s.addText("Данные моделируют не только рост, но и травмы, паузы и восстановление — модель учится прогнозировать возврат к прежнему уровню, а не застой.",
+    { x: 0.6, y: 6.25, w: 12.1, h: 0.6, fontFace: BODY, fontSize: 13, italic: true, color: NAVY, valign: "top", lineSpacingMultiple: 1.0 });
 },
-"Для обучения модели я сгенерировал реалистичный набор данных: более 760 тысяч подходов по 500 виртуальным спортсменам, из которых сформировано 118 тысяч обучающих пар «вход — целевое значение». Целевое значение — одноповторный максимум через 28 дней. Модель использует 29 признаков, разбитых на четыре группы: история (лаги одноповторного максимума, скользящие средние, тренд) — самая важная группа из 13 признаков; параметры текущей тренировки; профиль спортсмена; и характеристики упражнения.");
+"Для обучения модели я сгенерировал реалистичный набор данных: более 760 тысяч подходов по 500 виртуальным спортсменам, из которых сформировано около 113 тысяч обучающих пар «вход — целевое значение». Целевое значение — одноповторный максимум через 28 дней. Модель использует 30 признаков в четырёх группах: история (лаги одноповторного максимума, тренд, исторический пик и просадка от него) — самая важная группа из 14 признаков; параметры текущей тренировки; профиль спортсмена; и характеристики упражнения. Важная особенность: данные моделируют не только рост силы, но и спады — травмы и длительные паузы с последующим восстановлением, поэтому модель учится прогнозировать возврат к прежнему уровню.");
 
 // ---------- Slide 8 — ML результаты ----------
 slide(8, (s) => {
-  title(s, "ML-модуль: результаты обучения");
-  s.addShape(ST.roundRect, { x: 0.6, y: 1.7, w: 5.8, h: 3.6, fill: { color: NAVY }, rectRadius: 0.1 });
-  s.addText("−39 %", { x: 0.6, y: 2.2, w: 5.8, h: 1.4, fontFace: HEAD, fontSize: 64, bold: true, color: "FFFFFF", align: "center" });
-  s.addText("снижение MAE\nLightGBM против наивного предиктора", { x: 0.8, y: 3.7, w: 5.4, h: 1.0, fontFace: BODY, fontSize: 16, color: ICE, align: "center" });
-  s.addShape(ST.roundRect, { x: 6.8, y: 1.7, w: 5.9, h: 3.6, fill: { color: "EAF0FF" }, rectRadius: 0.1 });
-  s.addText("СООТВЕТСТВИЕ КОНВЕЙЕРОВ ПРИЗНАКОВ", { x: 7.0, y: 1.95, w: 5.5, h: 0.5, fontFace: HEAD, fontSize: 15, bold: true, color: NAVY, align: "center" });
+  title(s, "ML-модуль: результаты");
+  // --- Левая панель: сравнение MAE трёх моделей (ручные бары) ---
+  s.addShape(ST.roundRect, { x: 0.6, y: 1.5, w: 6.0, h: 3.9, fill: { color: "EAF0FF" }, rectRadius: 0.1 });
+  s.addText("Средняя ошибка прогноза 1ПМ (MAE), кг", { x: 0.85, y: 1.62, w: 5.5, h: 0.45, fontFace: HEAD, fontSize: 14.5, bold: true, color: NAVY });
+  const bars = [["Наивный (последнее значение)", 2.54, MUTE], ["Лин. регрессия (5 точек)", 2.43, "7E9AD6"], ["LightGBM", 1.82, ACC]];
+  const bx = 0.95, bmaxw = 4.4, bden = 2.6;
+  bars.forEach((b, i) => {
+    const by = 2.45 + i * 0.92;
+    s.addText(b[0], { x: bx, y: by - 0.34, w: 5.4, h: 0.3, fontFace: BODY, fontSize: 12, color: GRAY });
+    const w = bmaxw * (b[1] / bden);
+    s.addShape(ST.roundRect, { x: bx, y: by, w, h: 0.38, fill: { color: b[2] }, rectRadius: 0.04 });
+    s.addText(b[1].toFixed(2).replace(".", ","), { x: bx + w + 0.08, y: by - 0.05, w: 1.0, h: 0.48, fontFace: HEAD, fontSize: 15, bold: true, color: NAVY, valign: "middle" });
+  });
+  s.addText("LightGBM — на 29 % точнее наивного предиктора", { x: 0.85, y: 5.0, w: 5.5, h: 0.35, fontFace: BODY, fontSize: 13, italic: true, color: NAVY });
+  // --- Правая панель: устойчивость к просадкам ---
+  s.addShape(ST.roundRect, { x: 6.8, y: 1.5, w: 5.9, h: 3.9, fill: { color: NAVY }, rectRadius: 0.1 });
+  s.addText("УСТОЙЧИВОСТЬ К ПРОСАДКАМ\n(травмы, длительные паузы)", { x: 7.0, y: 1.68, w: 5.5, h: 0.8, fontFace: HEAD, fontSize: 15, bold: true, color: "FFFFFF", align: "center" });
+  s.addText("−43 %", { x: 6.8, y: 2.5, w: 5.9, h: 1.15, fontFace: HEAD, fontSize: 58, bold: true, color: "FFFFFF", align: "center" });
+  s.addText("ошибки на сессиях со спадом 1ПМ:\n2,23 → 1,26 кг против наивного", { x: 7.0, y: 3.7, w: 5.5, h: 0.7, fontFace: BODY, fontSize: 14, color: ICE, align: "center" });
+  s.addText("Модель прогнозирует восстановление, а не застой на просевшем уровне.", { x: 7.1, y: 4.5, w: 5.3, h: 0.8, fontFace: BODY, fontSize: 13, italic: true, color: ICE, align: "center" });
+  // --- Нижняя полоса: корректность переноса в ONNX ---
+  s.addShape(ST.roundRect, { x: 0.6, y: 5.65, w: 12.1, h: 0.9, fill: { color: ICE }, rectRadius: 0.1 });
   s.addText([
-    { text: "Python (LightGBM)  ↔  C# (ONNX Runtime)\n\n", options: { fontSize: 15, color: GRAY } },
-    { text: "медиана расхождения:  1,6 × 10⁻⁵ кг\n", options: { fontSize: 17, bold: true, color: NAVY } },
-    { text: "99-й процентиль:  0,082 кг", options: { fontSize: 17, bold: true, color: NAVY } },
-  ], { x: 7.0, y: 2.7, w: 5.5, h: 2.3, fontFace: BODY, align: "center", valign: "top" });
+    { text: "Перенос Python (LightGBM) → C# (ONNX Runtime) без потери точности: ", options: { color: GRAY } },
+    { text: "медиана расхождения 1,6 × 10⁻⁵ кг", options: { bold: true, color: NAVY } },
+    { text: ", исполнение прямо на устройстве за 4–8 мс.", options: { color: GRAY } },
+  ], { x: 0.9, y: 5.65, w: 11.5, h: 0.9, fontFace: BODY, fontSize: 13.5, valign: "middle" });
 },
-"По качеству: лучшей оказалась модель LightGBM — она снижает среднюю абсолютную ошибку на 39 процентов относительно наивного предиктора, который просто переносит текущее значение. Отдельно я проверил корректность переноса модели из Python в приложение: прогнозы исходной модели на Python и модели в формате ONNX на C# совпали с медианным расхождением в стотысячные доли килограмма, а в 99 процентах случаев расхождение меньше десятой доли килограмма. То есть конвертация в ONNX точность не теряет.");
+"По качеству я сравнил три модели. Наивный предиктор просто переносит текущее значение — его ошибка 2,5 килограмма. Линейная регрессия по последним точкам — чуть лучше. Градиентный бустинг LightGBM даёт ошибку 1,8 килограмма, это на 29 процентов точнее наивного. Но самое важное — справа: на сессиях, где силовые показатели резко просели из-за травмы или паузы, модель снижает ошибку уже на 43 процента и, главное, прогнозирует именно восстановление, а не застой на низком уровне — раньше такие случаи были для модели неизвестной территорией. Отдельно я убедился, что перенос модели из Python в приложение через формат ONNX не теряет точности: расхождение исчезающе мало, а сам прогноз считается на устройстве за единицы миллисекунд, без сети.");
 
 // ---------- Slide 9 — Синхронизация ----------
 slide(9, (s) => {

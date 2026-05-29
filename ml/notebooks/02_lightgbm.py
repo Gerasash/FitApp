@@ -176,6 +176,20 @@ def _build_features_per_group(g: pd.DataFrame) -> pd.DataFrame:
     out["slope_3"] = _rolling_slope(y, 3)
     out["slope_5"] = _rolling_slope(y, 5)
 
+    # Исторический пик 1ПМ и просадка от него.
+    # max_1rm_hist[i] = максимум top_1rm по всем тренировкам ДО текущей.
+    # drop_from_peak[i] = насколько последний результат ниже этого пика (кг).
+    # Эти фичи дают модели сигнал восстановления: если атлет просел после
+    # травмы/паузы, он, как правило, возвращается к ранее достигнутому пику.
+    peak = np.full(n, np.nan)
+    running = -np.inf
+    for i in range(n):
+        if i > 0:
+            running = max(running, y[i - 1])
+            peak[i] = running
+    out["max_1rm_hist"] = peak
+    out["drop_from_peak"] = peak - out["lag_1rm_1"]
+
     # Счётчики и временные интервалы
     out["n_history"] = np.arange(n, dtype=float)
     out["days_since_first"] = (dates - dates[0]).astype("timedelta64[D]").astype(float)
@@ -222,6 +236,7 @@ FEATURE_COLS = [
     "diff_1",
     "mean_1rm_5", "mean_rpe_5",
     "slope_3", "slope_5",
+    "max_1rm_hist", "drop_from_peak",
     "n_history",
     "days_since_first", "days_since_last",
     # Текущая тренировка
