@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
   <diagram id="er_fitapp" name="Рисунок 2.2 — ER-диаграмма БД FitApp">
-    <mxGraphModel dx="1821" dy="1062" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="870" math="0" shadow="0">
+    <mxGraphModel dx="1548" dy="903" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="870" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -51,17 +51,17 @@
         <mxCell id="t_sets_body" value="[PK]  Id : INTEGER&lt;br/&gt;[GUID]  SyncId : TEXT UNIQUE&lt;br/&gt;[FK]  WorkoutExerciseId : INT&lt;br/&gt;WorkoutExerciseSyncId : TEXT&lt;br/&gt;SetNumber : INTEGER&lt;br/&gt;Weight : REAL&lt;br/&gt;Reps : INTEGER&lt;br/&gt;RPE : REAL&lt;br/&gt;IsAssisted : INTEGER&lt;br/&gt;Kind : INTEGER (SetType)&lt;br/&gt;UpdatedAt : TEXT (UTC)&lt;br/&gt;IsDeleted : INTEGER" style="text;html=1;align=left;verticalAlign=top;                  fontSize=10;fontFamily=Times New Roman;                  spacingLeft=8;spacingTop=4;strokeColor=none;fillColor=none;" parent="t_sets" vertex="1">
           <mxGeometry y="28" width="225" height="227" as="geometry" />
         </mxCell>
-        <mxCell id="rel_user_workout" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERmany;startArrow=ERone;                  exitX=1;exitY=0.5;entryX=0;entryY=0.5;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;" parent="1" source="t_user" target="t_workout" edge="1">
+        <mxCell id="rel_user_workout" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERmany;startArrow=ERone;                  exitX=1;exitY=0.5;entryX=0;entryY=0.5;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;dashed=1;" parent="1" source="t_user" target="t_workout" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint y="-12" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="rel_workout_wmg" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERmany;startArrow=ERone;                  exitX=1;exitY=0.3;entryX=0;entryY=0.5;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;" parent="1" source="t_workout" target="t_wmg" edge="1">
+        <mxCell id="rel_workout_wmg" value="1 : M" style="html=1;                  endArrow=ERmany;startArrow=ERone;                  exitX=1;exitY=0.3;entryX=0;entryY=0.5;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;dashed=1;edgeStyle=elbowEdgeStyle;" parent="1" source="t_workout" target="t_wmg" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint y="-12" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="rel_wmg_muscle" value="M : 1" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERone;startArrow=ERmany;                  exitX=1;exitY=0.5;entryX=0;entryY=0.5;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;" parent="1" source="t_wmg" target="t_muscle" edge="1">
+        <mxCell id="rel_wmg_muscle" value="M : 1" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERone;startArrow=ERmany;                  exitX=1;exitY=0.5;entryX=0;entryY=0.5;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;dashed=1;" parent="1" source="t_wmg" target="t_muscle" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint y="-12" as="offset" />
           </mxGeometry>
@@ -71,12 +71,12 @@
             <mxPoint x="12" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="rel_exercise_we" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERmany;startArrow=ERone;                  exitX=0;exitY=0.5;entryX=1;entryY=0.5;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;" parent="1" source="t_exercise" target="t_we" edge="1">
+        <mxCell id="rel_exercise_we" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERmany;startArrow=ERone;                  exitX=0;exitY=0.5;entryX=1;entryY=0.5;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;dashed=1;" parent="1" source="t_exercise" target="t_we" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint y="-12" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="rel_exercise_muscle" value="M : 1" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERone;startArrow=ERmany;                  exitX=1;exitY=0;entryX=0;entryY=1;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;" parent="1" source="t_exercise" target="t_muscle" edge="1">
+        <mxCell id="rel_exercise_muscle" value="M : 1" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERone;startArrow=ERmany;                  exitX=1;exitY=0;entryX=0;entryY=1;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;dashed=1;" parent="1" source="t_exercise" target="t_muscle" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="790" y="295" />
@@ -84,7 +84,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="rel_we_sets" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERmany;startArrow=ERone;                  exitX=0.5;exitY=1;entryX=0.5;entryY=0;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;" parent="1" source="t_we" target="t_sets" edge="1">
+        <mxCell id="rel_we_sets" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;html=1;                  endArrow=ERmany;startArrow=ERone;                  exitX=0.5;exitY=1;entryX=0.5;entryY=0;                  fontSize=10;fontFamily=Times New Roman;fontStyle=2;                  align=center;dashed=1;" parent="1" source="t_we" target="t_sets" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="12" as="offset" />
           </mxGeometry>

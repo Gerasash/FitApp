@@ -1,0 +1,334 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="1040" viewBox="0 0 1420 1040" font-family="Tahoma, Verdana, Geneva, sans-serif">
+<rect width="1420" height="1040" fill="#FFFFFF"/>
+<text x="20" y="28" font-size="16" font-weight="bold" fill="#1B2A3A">ER-диаграмма базы данных FitApp</text>
+<path d="M1110.0,128.2 L1088.0,128.2 L862.0,128.2 L862.0,106.6 L840.0,106.6" fill="none" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="1098.0" y1="122.2" x2="1098.0" y2="134.2" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="853.0" y1="106.6" x2="840.0" y2="113.1" stroke="#5A6B7B" stroke-width="1.4"/><line x1="853.0" y1="106.6" x2="840.0" y2="106.6" stroke="#5A6B7B" stroke-width="1.4"/><line x1="853.0" y1="106.6" x2="840.0" y2="100.1" stroke="#5A6B7B" stroke-width="1.4"/>
+<path d="M690.0,262.0 L690.0,284.0 L690.0,296.0 L236.0,296.0 L226.0,308.0 L226.0,330.0" fill="none" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="684.0" y1="274.0" x2="696.0" y2="274.0" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="226.0" y1="317.0" x2="232.5" y2="330.0" stroke="#5A6B7B" stroke-width="1.4"/><line x1="226.0" y1="317.0" x2="226.0" y2="330.0" stroke="#5A6B7B" stroke-width="1.4"/><line x1="226.0" y1="317.0" x2="219.5" y2="330.0" stroke="#5A6B7B" stroke-width="1.4"/>
+<path d="M590.0,445.4 L568.0,445.4 L352.0,445.4 L352.0,396.6 L330.0,396.6" fill="none" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="578.0" y1="439.4" x2="578.0" y2="451.4" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="343.0" y1="396.6" x2="330.0" y2="403.1" stroke="#5A6B7B" stroke-width="1.4"/><line x1="343.0" y1="396.6" x2="330.0" y2="396.6" stroke="#5A6B7B" stroke-width="1.4"/><line x1="343.0" y1="396.6" x2="330.0" y2="390.1" stroke="#5A6B7B" stroke-width="1.4"/>
+<path d="M200.0,552.0 L200.0,574.0 L200.0,678.0 L200.0,700.0" fill="none" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="194.0" y1="564.0" x2="206.0" y2="564.0" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="200.0" y1="687.0" x2="206.5" y2="700.0" stroke="#5A6B7B" stroke-width="1.4"/><line x1="200.0" y1="687.0" x2="200.0" y2="700.0" stroke="#5A6B7B" stroke-width="1.4"/><line x1="200.0" y1="687.0" x2="193.5" y2="700.0" stroke="#5A6B7B" stroke-width="1.4"/>
+<path d="M745.0,262.0 L745.0,284.0 L745.0,300.0 L905.0,300.0 L905.0,685.0 L695.0,685.0 L695.0,678.0 L695.0,700.0" fill="none" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="739.0" y1="274.0" x2="751.0" y2="274.0" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="695.0" y1="687.0" x2="701.5" y2="700.0" stroke="#5A6B7B" stroke-width="1.4"/><line x1="695.0" y1="687.0" x2="695.0" y2="700.0" stroke="#5A6B7B" stroke-width="1.4"/><line x1="695.0" y1="687.0" x2="688.5" y2="700.0" stroke="#5A6B7B" stroke-width="1.4"/>
+<path d="M1220.0,478.0 L1220.0,500.0 L1220.0,775.0 L862.0,775.0 L840.0,775.0" fill="none" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="1214.0" y1="490.0" x2="1226.0" y2="490.0" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="853.0" y1="775.0" x2="840.0" y2="781.5" stroke="#5A6B7B" stroke-width="1.4"/><line x1="853.0" y1="775.0" x2="840.0" y2="775.0" stroke="#5A6B7B" stroke-width="1.4"/><line x1="853.0" y1="775.0" x2="840.0" y2="768.5" stroke="#5A6B7B" stroke-width="1.4"/>
+<path d="M1110.0,439.0 L1088.0,439.0 L862.0,439.0 L862.0,445.4 L840.0,445.4" fill="none" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="1098.0" y1="433.0" x2="1098.0" y2="445.0" stroke="#5A6B7B" stroke-width="1.4"/>
+<line x1="853.0" y1="445.4" x2="840.0" y2="451.9" stroke="#5A6B7B" stroke-width="1.4"/><line x1="853.0" y1="445.4" x2="840.0" y2="445.4" stroke="#5A6B7B" stroke-width="1.4"/><line x1="853.0" y1="445.4" x2="840.0" y2="438.9" stroke="#5A6B7B" stroke-width="1.4"/>
+<g>
+<rect x="1113" y="43" width="250" height="294" rx="4" fill="#000" opacity="0.08"/>
+<rect x="1110" y="40" width="250" height="294" rx="4" fill="#FFFFFF" stroke="#8FA9C7" stroke-width="1"/>
+<path d="M1110,70 L1110,40 Q1110,40 1114,40 L1356,40 Q1360,40 1360,40 L1360,70 Z" fill="#C7D8EC" stroke="#8FA9C7" stroke-width="1"/>
+<rect x="1118" y="50.5" width="12" height="9" rx="1.5" fill="#5B7DA8" stroke="#3F5E86" stroke-width="0.6"/>
+<text x="1136" y="59.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="13" font-weight="bold" fill="#1B2A3A">users</text>
+<circle cx="1123" cy="82.0" r="4" fill="none" stroke="#E0A800" stroke-width="2"/><line x1="1127" y1="82.0" x2="1133" y2="82.0" stroke="#E0A800" stroke-width="2"/><line x1="1133" y1="82.0" x2="1133" y2="86.0" stroke="#E0A800" stroke-width="2"/><line x1="1130" y1="82.0" x2="1130" y2="85.0" stroke="#E0A800" stroke-width="2"/>
+<text x="1140" y="86.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A" font-weight="bold" text-decoration="underline">id</text>
+<text x="1352" y="86.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="1111" y1="94" x2="1359" y2="94" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="1111" y="94" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="1126,101.0 1131,106.0 1126,111.0 1121,106.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="110.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">email</text>
+<text x="1352" y="110.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(60)</text>
+<line x1="1111" y1="118" x2="1359" y2="118" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="1126,125.0 1131,130.0 1126,135.0 1121,130.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="134.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">display_name</text>
+<text x="1352" y="134.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(60)</text>
+<line x1="1111" y1="142" x2="1359" y2="142" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="1111" y="142" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="1126,149.0 1131,154.0 1126,159.0 1121,154.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="158.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">bodyweight</text>
+<text x="1352" y="158.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DOUBLE</text>
+<line x1="1111" y1="166" x2="1359" y2="166" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="1126,173.0 1131,178.0 1126,183.0 1121,178.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="182.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">age</text>
+<text x="1352" y="182.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="1111" y1="190" x2="1359" y2="190" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="1111" y="190" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="1126,197.0 1131,202.0 1126,207.0 1121,202.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="206.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">sex</text>
+<text x="1352" y="206.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="1111" y1="214" x2="1359" y2="214" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="1126,221.0 1131,226.0 1126,231.0 1121,226.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="230.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">experience_start</text>
+<text x="1352" y="230.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="1111" y1="238" x2="1359" y2="238" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="1111" y="238" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="1126,245.0 1131,250.0 1126,255.0 1121,250.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="254.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">target_rpe</text>
+<text x="1352" y="254.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DOUBLE</text>
+<line x1="1111" y1="262" x2="1359" y2="262" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="1126,269.0 1131,274.0 1126,279.0 1121,274.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="278.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">created_at</text>
+<text x="1352" y="278.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="1111" y1="286" x2="1359" y2="286" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="1111" y="286" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="1126,293.0 1131,298.0 1126,303.0 1121,298.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="302.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">updated_at</text>
+<text x="1352" y="302.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="1111" y1="310" x2="1359" y2="310" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="1126,317.0 1131,322.0 1126,327.0 1121,322.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="326.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">is_deleted</text>
+<text x="1352" y="326.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="1111" y1="334" x2="1359" y2="334" stroke="#E3EAF1" stroke-width="0.7"/>
+</g>
+<g>
+<rect x="593" y="43" width="250" height="222" rx="4" fill="#000" opacity="0.08"/>
+<rect x="590" y="40" width="250" height="222" rx="4" fill="#FFFFFF" stroke="#8FA9C7" stroke-width="1"/>
+<path d="M590,70 L590,40 Q590,40 594,40 L836,40 Q840,40 840,40 L840,70 Z" fill="#C7D8EC" stroke="#8FA9C7" stroke-width="1"/>
+<rect x="598" y="50.5" width="12" height="9" rx="1.5" fill="#5B7DA8" stroke="#3F5E86" stroke-width="0.6"/>
+<text x="616" y="59.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="13" font-weight="bold" fill="#1B2A3A">Workouts</text>
+<circle cx="603" cy="82.0" r="4" fill="none" stroke="#E0A800" stroke-width="2"/><line x1="607" y1="82.0" x2="613" y2="82.0" stroke="#E0A800" stroke-width="2"/><line x1="613" y1="82.0" x2="613" y2="86.0" stroke="#E0A800" stroke-width="2"/><line x1="610" y1="82.0" x2="610" y2="85.0" stroke="#E0A800" stroke-width="2"/>
+<text x="620" y="86.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A" font-weight="bold" text-decoration="underline">id</text>
+<text x="832" y="86.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="94" x2="839" y2="94" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="94" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,101.0 611,106.0 606,111.0 601,106.0" fill="#4F81BD" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="110.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">SyncId</text>
+<text x="832" y="110.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(36)</text>
+<line x1="591" y1="118" x2="839" y2="118" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,125.0 611,130.0 606,135.0 601,130.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="134.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">name</text>
+<text x="832" y="134.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(255)</text>
+<line x1="591" y1="142" x2="839" y2="142" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="142" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,149.0 611,154.0 606,159.0 601,154.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="158.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">Description</text>
+<text x="832" y="158.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TEXT</text>
+<line x1="591" y1="166" x2="839" y2="166" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,173.0 611,178.0 606,183.0 601,178.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="182.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">StartTime</text>
+<text x="832" y="182.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="591" y1="190" x2="839" y2="190" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="190" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,197.0 611,202.0 606,207.0 601,202.0" fill="#C0504D" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="206.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">UserId</text>
+<text x="832" y="206.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="214" x2="839" y2="214" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,221.0 611,226.0 606,231.0 601,226.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="230.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">UpdatedAt</text>
+<text x="832" y="230.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="591" y1="238" x2="839" y2="238" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="238" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,245.0 611,250.0 606,255.0 601,250.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="254.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">IsDeleted</text>
+<text x="832" y="254.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="591" y1="262" x2="839" y2="262" stroke="#E3EAF1" stroke-width="0.7"/>
+</g>
+<g>
+<rect x="73" y="333" width="260" height="222" rx="4" fill="#000" opacity="0.08"/>
+<rect x="70" y="330" width="260" height="222" rx="4" fill="#FFFFFF" stroke="#8FA9C7" stroke-width="1"/>
+<path d="M70,360 L70,330 Q70,330 74,330 L326,330 Q330,330 330,330 L330,360 Z" fill="#C7D8EC" stroke="#8FA9C7" stroke-width="1"/>
+<rect x="78" y="340.5" width="12" height="9" rx="1.5" fill="#5B7DA8" stroke="#3F5E86" stroke-width="0.6"/>
+<text x="96" y="349.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="13" font-weight="bold" fill="#1B2A3A">WorkoutExercises</text>
+<circle cx="83" cy="372.0" r="4" fill="none" stroke="#E0A800" stroke-width="2"/><line x1="87" y1="372.0" x2="93" y2="372.0" stroke="#E0A800" stroke-width="2"/><line x1="93" y1="372.0" x2="93" y2="376.0" stroke="#E0A800" stroke-width="2"/><line x1="90" y1="372.0" x2="90" y2="375.0" stroke="#E0A800" stroke-width="2"/>
+<text x="100" y="376.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A" font-weight="bold" text-decoration="underline">id</text>
+<text x="322" y="376.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="384" x2="329" y2="384" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="384" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,391.0 91,396.0 86,401.0 81,396.0" fill="#4F81BD" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="400.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">SyncId</text>
+<text x="322" y="400.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(36)</text>
+<line x1="71" y1="408" x2="329" y2="408" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="86,415.0 91,420.0 86,425.0 81,420.0" fill="#C0504D" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="424.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">WorkoutId</text>
+<text x="322" y="424.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="432" x2="329" y2="432" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="432" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,439.0 91,444.0 86,449.0 81,444.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="448.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">WorkoutSyncId</text>
+<text x="322" y="448.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(36)</text>
+<line x1="71" y1="456" x2="329" y2="456" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="86,463.0 91,468.0 86,473.0 81,468.0" fill="#C0504D" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="472.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">ExerciseId</text>
+<text x="322" y="472.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="480" x2="329" y2="480" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="480" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,487.0 91,492.0 86,497.0 81,492.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="496.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">OrderIndex</text>
+<text x="322" y="496.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="504" x2="329" y2="504" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="86,511.0 91,516.0 86,521.0 81,516.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="520.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">UpdatedAt</text>
+<text x="322" y="520.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="71" y1="528" x2="329" y2="528" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="528" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,535.0 91,540.0 86,545.0 81,540.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="544.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">IsDeleted</text>
+<text x="322" y="544.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="71" y1="552" x2="329" y2="552" stroke="#E3EAF1" stroke-width="0.7"/>
+</g>
+<g>
+<rect x="593" y="353" width="250" height="318" rx="4" fill="#000" opacity="0.08"/>
+<rect x="590" y="350" width="250" height="318" rx="4" fill="#FFFFFF" stroke="#8FA9C7" stroke-width="1"/>
+<path d="M590,380 L590,350 Q590,350 594,350 L836,350 Q840,350 840,350 L840,380 Z" fill="#C7D8EC" stroke="#8FA9C7" stroke-width="1"/>
+<rect x="598" y="360.5" width="12" height="9" rx="1.5" fill="#5B7DA8" stroke="#3F5E86" stroke-width="0.6"/>
+<text x="616" y="369.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="13" font-weight="bold" fill="#1B2A3A">Exercises</text>
+<circle cx="603" cy="392.0" r="4" fill="none" stroke="#E0A800" stroke-width="2"/><line x1="607" y1="392.0" x2="613" y2="392.0" stroke="#E0A800" stroke-width="2"/><line x1="613" y1="392.0" x2="613" y2="396.0" stroke="#E0A800" stroke-width="2"/><line x1="610" y1="392.0" x2="610" y2="395.0" stroke="#E0A800" stroke-width="2"/>
+<text x="620" y="396.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A" font-weight="bold" text-decoration="underline">id</text>
+<text x="832" y="396.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="404" x2="839" y2="404" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="404" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,411.0 611,416.0 606,421.0 601,416.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="420.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">Name</text>
+<text x="832" y="420.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(255)</text>
+<line x1="591" y1="428" x2="839" y2="428" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,435.0 611,440.0 606,445.0 601,440.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="444.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">NameEn</text>
+<text x="832" y="444.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(255)</text>
+<line x1="591" y1="452" x2="839" y2="452" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="452" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,459.0 611,464.0 606,469.0 601,464.0" fill="#C0504D" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="468.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">PrimaryMuscleGroupId</text>
+<text x="832" y="468.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="476" x2="839" y2="476" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,483.0 611,488.0 606,493.0 601,488.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="492.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">EquipmentType</text>
+<text x="832" y="492.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="500" x2="839" y2="500" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="500" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,507.0 611,512.0 606,517.0 601,512.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="516.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">Category</text>
+<text x="832" y="516.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="524" x2="839" y2="524" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,531.0 611,536.0 606,541.0 601,536.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="540.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">Mechanic</text>
+<text x="832" y="540.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="548" x2="839" y2="548" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="548" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,555.0 611,560.0 606,565.0 601,560.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="564.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">Instructions</text>
+<text x="832" y="564.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TEXT</text>
+<line x1="591" y1="572" x2="839" y2="572" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,579.0 611,584.0 606,589.0 601,584.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="588.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">IsCustom</text>
+<text x="832" y="588.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="591" y1="596" x2="839" y2="596" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="596" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,603.0 611,608.0 606,613.0 601,608.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="612.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">IsArchived</text>
+<text x="832" y="612.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="591" y1="620" x2="839" y2="620" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,627.0 611,632.0 606,637.0 601,632.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="636.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">IsFavorite</text>
+<text x="832" y="636.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="591" y1="644" x2="839" y2="644" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="644" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,651.0 611,656.0 606,661.0 601,656.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="660.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">CreatedAt</text>
+<text x="832" y="660.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="591" y1="668" x2="839" y2="668" stroke="#E3EAF1" stroke-width="0.7"/>
+</g>
+<g>
+<rect x="1113" y="403" width="220" height="78" rx="4" fill="#000" opacity="0.08"/>
+<rect x="1110" y="400" width="220" height="78" rx="4" fill="#FFFFFF" stroke="#8FA9C7" stroke-width="1"/>
+<path d="M1110,430 L1110,400 Q1110,400 1114,400 L1326,400 Q1330,400 1330,400 L1330,430 Z" fill="#C7D8EC" stroke="#8FA9C7" stroke-width="1"/>
+<rect x="1118" y="410.5" width="12" height="9" rx="1.5" fill="#5B7DA8" stroke="#3F5E86" stroke-width="0.6"/>
+<text x="1136" y="419.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="13" font-weight="bold" fill="#1B2A3A">MuscleGroups</text>
+<circle cx="1123" cy="442.0" r="4" fill="none" stroke="#E0A800" stroke-width="2"/><line x1="1127" y1="442.0" x2="1133" y2="442.0" stroke="#E0A800" stroke-width="2"/><line x1="1133" y1="442.0" x2="1133" y2="446.0" stroke="#E0A800" stroke-width="2"/><line x1="1130" y1="442.0" x2="1130" y2="445.0" stroke="#E0A800" stroke-width="2"/>
+<text x="1140" y="446.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A" font-weight="bold" text-decoration="underline">id</text>
+<text x="1322" y="446.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="1111" y1="454" x2="1329" y2="454" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="1111" y="454" width="218" height="24" fill="#F4F8FC"/>
+<polygon points="1126,461.0 1131,466.0 1126,471.0 1121,466.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="1140" y="470.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">name</text>
+<text x="1322" y="470.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(255)</text>
+<line x1="1111" y1="478" x2="1329" y2="478" stroke="#E3EAF1" stroke-width="0.7"/>
+</g>
+<g>
+<rect x="73" y="703" width="260" height="318" rx="4" fill="#000" opacity="0.08"/>
+<rect x="70" y="700" width="260" height="318" rx="4" fill="#FFFFFF" stroke="#8FA9C7" stroke-width="1"/>
+<path d="M70,730 L70,700 Q70,700 74,700 L326,700 Q330,700 330,700 L330,730 Z" fill="#C7D8EC" stroke="#8FA9C7" stroke-width="1"/>
+<rect x="78" y="710.5" width="12" height="9" rx="1.5" fill="#5B7DA8" stroke="#3F5E86" stroke-width="0.6"/>
+<text x="96" y="719.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="13" font-weight="bold" fill="#1B2A3A">ExerciseSets</text>
+<circle cx="83" cy="742.0" r="4" fill="none" stroke="#E0A800" stroke-width="2"/><line x1="87" y1="742.0" x2="93" y2="742.0" stroke="#E0A800" stroke-width="2"/><line x1="93" y1="742.0" x2="93" y2="746.0" stroke="#E0A800" stroke-width="2"/><line x1="90" y1="742.0" x2="90" y2="745.0" stroke="#E0A800" stroke-width="2"/>
+<text x="100" y="746.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A" font-weight="bold" text-decoration="underline">id</text>
+<text x="322" y="746.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="754" x2="329" y2="754" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="754" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,761.0 91,766.0 86,771.0 81,766.0" fill="#4F81BD" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="770.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">SyncId</text>
+<text x="322" y="770.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(36)</text>
+<line x1="71" y1="778" x2="329" y2="778" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="86,785.0 91,790.0 86,795.0 81,790.0" fill="#C0504D" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="794.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">WorkoutExerciseId</text>
+<text x="322" y="794.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="802" x2="329" y2="802" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="802" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,809.0 91,814.0 86,819.0 81,814.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="818.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">WorkoutExerciseSyncId</text>
+<text x="322" y="818.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">VARCHAR(36)</text>
+<line x1="71" y1="826" x2="329" y2="826" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="86,833.0 91,838.0 86,843.0 81,838.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="842.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">SetNumber</text>
+<text x="322" y="842.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="850" x2="329" y2="850" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="850" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,857.0 91,862.0 86,867.0 81,862.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="866.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">Weight</text>
+<text x="322" y="866.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DOUBLE</text>
+<line x1="71" y1="874" x2="329" y2="874" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="86,881.0 91,886.0 86,891.0 81,886.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="890.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">Reps</text>
+<text x="322" y="890.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="898" x2="329" y2="898" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="898" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,905.0 91,910.0 86,915.0 81,910.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="914.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">RPE</text>
+<text x="322" y="914.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DOUBLE</text>
+<line x1="71" y1="922" x2="329" y2="922" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="86,929.0 91,934.0 86,939.0 81,934.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="938.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">IsAssisted</text>
+<text x="322" y="938.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="71" y1="946" x2="329" y2="946" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="946" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,953.0 91,958.0 86,963.0 81,958.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="962.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">Kind</text>
+<text x="322" y="962.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="71" y1="970" x2="329" y2="970" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="86,977.0 91,982.0 86,987.0 81,982.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="986.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">UpdatedAt</text>
+<text x="322" y="986.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="71" y1="994" x2="329" y2="994" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="71" y="994" width="258" height="24" fill="#F4F8FC"/>
+<polygon points="86,1001.0 91,1006.0 86,1011.0 81,1006.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="100" y="1010.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">IsDeleted</text>
+<text x="322" y="1010.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="71" y1="1018" x2="329" y2="1018" stroke="#E3EAF1" stroke-width="0.7"/>
+</g>
+<g>
+<rect x="593" y="703" width="250" height="150" rx="4" fill="#000" opacity="0.08"/>
+<rect x="590" y="700" width="250" height="150" rx="4" fill="#FFFFFF" stroke="#8FA9C7" stroke-width="1"/>
+<path d="M590,730 L590,700 Q590,700 594,700 L836,700 Q840,700 840,700 L840,730 Z" fill="#C7D8EC" stroke="#8FA9C7" stroke-width="1"/>
+<rect x="598" y="710.5" width="12" height="9" rx="1.5" fill="#5B7DA8" stroke="#3F5E86" stroke-width="0.6"/>
+<text x="616" y="719.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="13" font-weight="bold" fill="#1B2A3A">WorkoutMuscleGroups</text>
+<circle cx="603" cy="742.0" r="4" fill="none" stroke="#E0A800" stroke-width="2"/><line x1="607" y1="742.0" x2="613" y2="742.0" stroke="#E0A800" stroke-width="2"/><line x1="613" y1="742.0" x2="613" y2="746.0" stroke="#E0A800" stroke-width="2"/><line x1="610" y1="742.0" x2="610" y2="745.0" stroke="#E0A800" stroke-width="2"/>
+<text x="620" y="746.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A" font-weight="bold" text-decoration="underline">id</text>
+<text x="832" y="746.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="754" x2="839" y2="754" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="754" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,761.0 611,766.0 606,771.0 601,766.0" fill="#C0504D" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="770.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">workout_id</text>
+<text x="832" y="770.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="778" x2="839" y2="778" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,785.0 611,790.0 606,795.0 601,790.0" fill="#C0504D" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="794.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">muscle_group_id</text>
+<text x="832" y="794.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">INT</text>
+<line x1="591" y1="802" x2="839" y2="802" stroke="#E3EAF1" stroke-width="0.7"/>
+<rect x="591" y="802" width="248" height="24" fill="#F4F8FC"/>
+<polygon points="606,809.0 611,814.0 606,819.0 601,814.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="818.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">UpdatedAt</text>
+<text x="832" y="818.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">DATETIME</text>
+<line x1="591" y1="826" x2="839" y2="826" stroke="#E3EAF1" stroke-width="0.7"/>
+<polygon points="606,833.0 611,838.0 606,843.0 601,838.0" fill="#9DB0C2" stroke="#5A5A5A" stroke-width="0.6"/>
+<text x="620" y="842.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="11.5" fill="#1B2A3A">IsDeleted</text>
+<text x="832" y="842.0" font-family="Tahoma, Verdana, Geneva, sans-serif" font-size="10.5" fill="#6B7B8C" text-anchor="end">TINYINT</text>
+<line x1="591" y1="850" x2="839" y2="850" stroke="#E3EAF1" stroke-width="0.7"/>
+</g>
+</svg>
