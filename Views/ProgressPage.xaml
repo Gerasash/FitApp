@@ -268,19 +268,38 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="14"/>
                     </Border.StrokeShape>
-                    <Grid ColumnDefinitions="Auto,*">
-                        <Label Grid.Column="0" Text="🤖" FontSize="36" VerticalOptions="Center"/>
-                        <VerticalStackLayout Grid.Column="1" Margin="12,0,0,0">
-                            <Label Text="Прогноз ИИ" FontSize="13" TextColor="#6A1B9A"/>
-                            <Label Text="{Binding ForecastLabel}"
-                                   FontSize="18" FontAttributes="Bold" TextColor="#4A148C"/>
-                            <Label Text="{Binding TrendLabel}"
-                                   FontSize="14" TextColor="#7B1FA2"/>
-                        </VerticalStackLayout>
-                    </Grid>
+                    <VerticalStackLayout Spacing="10">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <Label Grid.Column="0" Text="🤖" FontSize="36" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Margin="12,0,0,0">
+                                <Label Text="Прогноз ИИ — какой 1ПМ атлет сможет совершить"
+                                       FontSize="13" TextColor="#6A1B9A"/>
+                                <Label Text="{Binding ForecastLabel}"
+                                       FontSize="18" FontAttributes="Bold" TextColor="#4A148C"/>
+                                <Label Text="{Binding TrendLabel}"
+                                       FontSize="14" TextColor="#7B1FA2"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Слайдер горизонта прогноза -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10"
+                              VerticalOptions="Center">
+                            <Label Grid.Column="0" Text="Горизонт:" FontSize="13"
+                                   TextColor="#6A1B9A" VerticalOptions="Center"/>
+                            <Slider Grid.Column="1"
+                                    Minimum="1" Maximum="6"
+                                    Value="{Binding ForecastMonths, Mode=TwoWay}"
+                                    MinimumTrackColor="#673AB7"
+                                    ThumbColor="#673AB7"
+                                    VerticalOptions="Center"/>
+                            <Label Grid.Column="2" Text="{Binding ForecastMonthsLabel}"
+                                   FontSize="14" FontAttributes="Bold" TextColor="#4A148C"
+                                   WidthRequest="56" VerticalOptions="Center"/>
+                        </Grid>
+                    </VerticalStackLayout>
                 </Border>
 
-                <!-- График: рабочий вес (сплошная фиолетовая) + расчётный 1ПМ (пунктир оранжевый) -->
+                <!-- График: рабочий вес (фиолетовая) + расчётный 1ПМ (оранжевый пунктир) + прогноз 1ПМ (зелёный пунктир) -->
                 <Border Padding="14" StrokeThickness="0"
                         BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}">
                     <Border.StrokeShape>
@@ -288,7 +307,7 @@
                     </Border.StrokeShape>
                     <VerticalStackLayout Spacing="8">
                         <Label Text="График веса" FontSize="16" FontAttributes="Bold"/>
-                        <Label Text="Фиолетовая линия — рабочий вес. Оранжевый пунктир — расчётный 1ПМ (формула Эпли)."
+                        <Label Text="Фиолетовая — рабочий вес. Оранжевый пунктир — расчётный 1ПМ (Эпли). Зелёный пунктир — прогноз 1ПМ, который атлет сможет совершить."
                                FontSize="11" TextColor="Gray"/>
                         <ContentView x:Name="ChartHost" HeightRequest="240"/>
                     </VerticalStackLayout>

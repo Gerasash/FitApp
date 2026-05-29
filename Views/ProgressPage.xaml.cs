@@ -1,4 +1,5 @@
 using FitApp.Data;
+using FitApp.Services;
 using FitApp.ViewModels;
 using FitApp.Views.Drawables;
 using LiveChartsCore.SkiaSharpView.Maui;
@@ -11,7 +12,7 @@ public partial class ProgressPage : ContentPage
     private readonly ProgressViewModel _viewModel;
     private readonly ActivityCalendarDrawable _calendarDrawable = new();
 
-    public ProgressPage(WorkoutDataBase database)
+    public ProgressPage(WorkoutDataBase database, OnnxPredictionService onnx)
     {
         try
         {
@@ -25,7 +26,7 @@ public partial class ProgressPage : ContentPage
             throw;
         }
 
-        _viewModel = new ProgressViewModel(database);
+        _viewModel = new ProgressViewModel(database, onnx);
         BindingContext = _viewModel;
 
         ActivityCalendar.Drawable = _calendarDrawable;

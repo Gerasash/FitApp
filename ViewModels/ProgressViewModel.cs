@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FitApp.Data;
 using FitApp.Models;
+using FitApp.Services;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
@@ -15,6 +16,7 @@ namespace FitApp.ViewModels;
 public partial class ProgressViewModel : ObservableObject
 {
     private readonly WorkoutDataBase _database;
+    private readonly OnnxPredictionService? _onnx;
 
     // --- Режим (обзор / по упражнению) ---
     [ObservableProperty] private bool isOverviewMode = true;
@@ -59,14 +61,28 @@ public partial class ProgressViewModel : ObservableObject
     [ObservableProperty] private string forecastLabel = "—";
     [ObservableProperty] private string trendLabel = "—";
 
+    // --- Слайдер горизонта прогноза (в месяцах) ---
+    [ObservableProperty] private double forecastMonths = 1;
+    [ObservableProperty] private string forecastMonthsLabel = "1 мес.";
+
+    // Кэш параметров прогноза, чтобы движение слайдера не запускало
+    // inference заново: фиксируем якорь (последняя фактическая точка 1ПМ)
+    // и прирост за первый месяц по прогнозу ONNX.
+    private DateTime _forecastAnchorDate;
+    private double _forecastAnchor1Rm;
+    private double _forecastFirstMonthGain;     // 0, если модель недоступна
+    private bool _hasForecast;
+    private ISeries[] _baseSeries = Array.Empty<ISeries>();
+
     // --- LiveCharts серии для графика ---
     [ObservableProperty] private ISeries[] chartSeries = Array.Empty<ISeries>();
     [ObservableProperty] private Axis[] chartXAxes = Array.Empty<Axis>();
     [ObservableProperty] private Axis[] chartYAxes = Array.Empty<Axis>();
 
-    public ProgressViewModel(WorkoutDataBase database)
+    public ProgressViewModel(WorkoutDataBase database, OnnxPredictionService? onnx = null)
     {
         _database = database;
+        _onnx = onnx;
     }
 
     // ====================== ОБЗОР ======================
@@ -292,6 +308,7 @@ public partial class ProgressViewModel : ObservableObject
         if (points.Count == 0)
         {
             ChartPoints = new ObservableCollection<ProgressPoint>();
+            _baseSeries = Array.Empty<ISeries>();
             ChartSeries = Array.Empty<ISeries>();
             MaxWeight = 0;
             AvgRpe = 0;
@@ -299,6 +316,7 @@ public partial class ProgressViewModel : ObservableObject
             ForecastWeight = 0;
             ForecastLabel = "Нет данных";
             TrendLabel = "—";
+            _hasForecast = false;
             return;
         }
 
@@ -309,7 +327,7 @@ public partial class ProgressViewModel : ObservableObject
         var oneRmValues = points.Select(p => new DateTimePoint(p.Date,
             Math.Round(p.Weight * (1 + p.Reps / 30.0), 1))).ToArray();
 
-        ChartSeries = new ISeries[]
+        _baseSeries = new ISeries[]
         {
             new LineSeries<DateTimePoint>
             {
@@ -366,21 +384,108 @@ public partial class ProgressViewModel : ObservableObject
         AvgRpe = Math.Round(points.Average(p => p.Rpe), 1);
         TotalWorkouts = points.Count;
 
-        // Прогноз — берём последние точки, но прогноз не может быть ниже максимума
-        var last = points.TakeLast(Math.Min(5, points.Count)).ToList();
-        if (last.Count >= 2)
+        // Якорь прогноза — последняя фактическая точка по расчётному 1ПМ.
+        var lastPoint = points[^1];
+        _forecastAnchorDate = lastPoint.Date;
+        _forecastAnchor1Rm = Math.Round(lastPoint.Weight * (1 + lastPoint.Reps / 30.0), 1);
+
+        // Прирост 1ПМ за первый месяц: горизонт ONNX-модели ≈ 28 дней.
+        // Если модель недоступна — откатываемся к линейной регрессии по
+        // последним точкам (но в единицах 1ПМ).
+        double firstMonthGain = 0;
+        var onnx = _onnx != null ? await _onnx.PredictAsync(SelectedExercise.Id) : null;
+        if (onnx != null && onnx.HorizonDays > 0)
         {
-            var rawForecast = LinearForecast(last);
-
-            // Прогноз не может быть ниже исторического максимума
-            ForecastWeight = Math.Round(Math.Max(rawForecast, MaxWeight), 1);
-
-            var trend = ForecastWeight - last.Last().Weight;
-            ForecastLabel = $"{ForecastWeight} кг через 2 недели";
-            TrendLabel = trend >= 0
-                ? $"▲ +{Math.Round(trend, 1)} кг"
-                : $"— удержание максимума {MaxWeight} кг";
+            // Прогноз модели на 28 дн. → прирост за ~1 месяц (нормируем на 30.44 дн.)
+            double gainPerHorizon = onnx.Predicted1RmKg - _forecastAnchor1Rm;
+            firstMonthGain = gainPerHorizon * (30.44 / onnx.HorizonDays);
         }
+        else
+        {
+            var last = points.TakeLast(Math.Min(5, points.Count)).ToList();
+            if (last.Count >= 2)
+            {
+                var oneRm = last.Select(p => new ProgressPoint
+                {
+                    Weight = p.Weight * (1 + p.Reps / 30.0)
+                }).ToList();
+                double next = LinearForecast(oneRm);
+                // регрессия идёт по шагу «тренировка»; грубо ≈ месяц при ~8 тр./мес
+                firstMonthGain = (next - _forecastAnchor1Rm) * 4.0;
+            }
+        }
+
+        // Прогноз 1ПМ не падает: атлет «сможет совершить» — значит не меньше
+        // текущего. Отрицательный/шумный тренд обнуляем.
+        _forecastFirstMonthGain = Math.Max(0, firstMonthGain);
+        _hasForecast = true;
+
+        RebuildForecast();
+    }
+
+    partial void OnForecastMonthsChanged(double value)
+    {
+        ForecastMonthsLabel = $"{(int)Math.Round(value)} мес.";
+        RebuildForecast();
+    }
+
+    // Коэффициент затухания прироста: каждый следующий месяц прибавка меньше
+    // (gains taper). Накопленный прирост за m месяцев — геометрическая сумма.
+    private const double ForecastDecay = 0.6;
+
+    /// <summary>Достраивает к базовому графику линию прогнозного 1ПМ на
+    /// выбранное число месяцев. Не обращается к БД/модели — использует
+    /// закэшированные якорь и прирост за первый месяц.</summary>
+    private void RebuildForecast()
+    {
+        if (!_hasForecast || _baseSeries.Length == 0)
+        {
+            ChartSeries = _baseSeries;
+            return;
+        }
+
+        int months = Math.Clamp((int)Math.Round(ForecastMonths), 1, 6);
+
+        // Прогнозная линия начинается из якоря (стыкуется с историей).
+        var fc = new List<DateTimePoint>
+        {
+            new DateTimePoint(_forecastAnchorDate, _forecastAnchor1Rm)
+        };
+        double cumulativeGain = 0;
+        double monthGain = _forecastFirstMonthGain;
+        for (int m = 1; m <= months; m++)
+        {
+            cumulativeGain += monthGain;
+            monthGain *= ForecastDecay;   // следующий месяц даёт меньше
+            var date = _forecastAnchorDate.AddDays(30.44 * m);
+            fc.Add(new DateTimePoint(date, Math.Round(_forecastAnchor1Rm + cumulativeGain, 1)));
+        }
+
+        double target = Math.Round(_forecastAnchor1Rm + cumulativeGain, 1);
+        ForecastWeight = target;
+        double delta = Math.Round(target - _forecastAnchor1Rm, 1);
+        ForecastLabel = $"≈ {target} кг (1ПМ) через {months} мес.";
+        TrendLabel = delta > 0
+            ? $"▲ +{delta} кг к текущему 1ПМ ({_forecastAnchor1Rm} кг)"
+            : $"— удержание текущего 1ПМ {_forecastAnchor1Rm} кг";
+
+        var forecastSeries = new LineSeries<DateTimePoint>
+        {
+            Name = "Прогноз 1ПМ",
+            Values = fc.ToArray(),
+            Stroke = new SolidColorPaint(SKColor.Parse("2E7D32"))
+            {
+                StrokeThickness = 2,
+                PathEffect = new DashEffect(new float[] { 2, 4 })
+            },
+            Fill = null,
+            GeometrySize = 8,
+            GeometryStroke = new SolidColorPaint(SKColor.Parse("2E7D32")) { StrokeThickness = 2 },
+            GeometryFill = new SolidColorPaint(SKColors.White),
+            LineSmoothness = 0.3
+        };
+
+        ChartSeries = _baseSeries.Concat(new ISeries[] { forecastSeries }).ToArray();
     }
 
     private double LinearForecast(List<ProgressPoint> points)
