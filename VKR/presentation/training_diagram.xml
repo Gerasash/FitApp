@@ -1,0 +1,100 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+
+    <!-- ЗАГОЛОВОК -->
+    <mxCell id="t0" value="Реализация обучения модели прогнозирования 1ПМ" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="100" y="20" width="560" height="40" as="geometry"/>
+    </mxCell>
+
+    <!-- ШАГ 1: Исходные данные -->
+    <mxCell id="s1" value="&lt;b&gt;synth.csv&lt;/b&gt;&#xa;~760 тыс. строк-подходов&#xa;500 атлетов × 26 недель" style="shape=cylinder3;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=0;" vertex="1" parent="1">
+      <mxGeometry x="270" y="80" width="220" height="80" as="geometry"/>
+    </mxCell>
+
+    <!-- ШАГ 2: Агрегация -->
+    <mxCell id="s2" value="&lt;b&gt;Шаг 1 — Агрегация&lt;/b&gt;&#xa;фильтр: только рабочие подходы&#xa;группировка по (атлет, упражнение, дата)&#xa;→ top_1rm, top_weight, n_sets, avg/min/max_rpe, avg_reps" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="215" y="220" width="330" height="80" as="geometry"/>
+    </mxCell>
+    <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s1" target="s2" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- ШАГ 3: Целевая переменная -->
+    <mxCell id="s3" value="&lt;b&gt;Шаг 2 — Целевая переменная&lt;/b&gt;&#xa;для каждой сессии ищется следующая тренировка&#xa;того же упражнения через ≥ 28 дней&#xa;→ target_1rm (таргет модели)&#xa;строки без пары — удаляются" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="215" y="360" width="330" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s2" target="s3" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- ШАГ 4: Feature engineering -->
+    <mxCell id="s4" value="&lt;b&gt;Шаг 3 — Feature engineering&lt;/b&gt;&#xa;по каждой группе (атлет, упражнение)&#xa;вычисляются 30 признаков: лаги, скользящие,&#xa;наклоны тренда, пик, просадка, хронология,&#xa;анкета атлета, описание упражнения&#xa;⚠ только из данных до текущей сессии" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="215" y="510" width="330" height="100" as="geometry"/>
+    </mxCell>
+    <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s3" target="s4" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- ШАГ 5: Разбивка -->
+    <mxCell id="s5" value="&lt;b&gt;Шаг 4 — Разбивка по атлетам&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="215" y="670" width="330" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s4" target="s5" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- Три выборки -->
+    <mxCell id="tr" value="&lt;b&gt;Train&lt;/b&gt;&#xa;70% атлетов" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="100" y="780" width="130" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="va" value="&lt;b&gt;Val&lt;/b&gt;&#xa;10% атлетов" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="315" y="780" width="130" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="te" value="&lt;b&gt;Test&lt;/b&gt;&#xa;20% атлетов" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="530" y="780" width="130" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s5" target="tr" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s5" target="va" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s5" target="te" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- ШАГ 6: Обучение LightGBM -->
+    <mxCell id="s6" value="&lt;b&gt;Шаг 5 — Обучение LightGBM&lt;/b&gt;&#xa;objective: regression_l1 (MAE)&#xa;learning_rate: 0.05 / num_leaves: 63&#xa;feature_fraction = bagging_fraction = 0.85&#xa;до 2000 деревьев, early stopping = 50 раундов&#xa;(остановка если val MAE не улучшается)" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#f0a30a;strokeColor=#BD7000;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="215" y="910" width="330" height="100" as="geometry"/>
+    </mxCell>
+    <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="tr" target="s6" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="va" target="s6" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- ШАГ 7: Оценка -->
+    <mxCell id="s7" value="&lt;b&gt;Шаг 6 — Оценка на тесте&lt;/b&gt;&#xa;Наивный предиктор:   MAE ~2.4 кг&#xa;Линейный тренд:        MAE ~2.4 кг&#xa;LightGBM:                  MAE ~1.8 кг&#xa;После травм/пауз:     MAE ~1.3 кг" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="215" y="1070" width="330" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s6" target="s7" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="te" target="s7" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- ШАГ 8: Сохранение -->
+    <mxCell id="s8" value="&lt;b&gt;Шаг 7 — Сохранение&lt;/b&gt;&#xa;lightgbm_1rm_28d.txt — веса модели&#xa;lightgbm_1rm_28d.meta.json — порядок признаков, метрики" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="215" y="1220" width="330" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="s7" target="s8" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+  </root>
+</mxGraphModel>

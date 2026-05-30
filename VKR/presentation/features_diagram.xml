@@ -1,0 +1,135 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+
+    <!-- ЗАГОЛОВОК -->
+    <mxCell id="t0" value="Построение вектора признаков — 30 фичей" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="150" y="20" width="620" height="40" as="geometry"/>
+    </mxCell>
+
+    <!-- ВХОДЫ -->
+    <mxCell id="i1" value="История тренировок&#xa;(до 30 сессий, SQLite)" style="shape=cylinder3;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="80" y="80" width="180" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="i2" value="Текущая тренировка&#xa;(последняя завершённая)" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="350" y="85" width="200" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="i3" value="Анкета атлета + Упражнение" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="640" y="85" width="200" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- ЛЕВАЯ КОЛОНКА -->
+
+    <mxCell id="g1" value="&lt;b&gt;Лаги 1ПМ (4 признака)&lt;/b&gt;&#xa;lag_1rm_1 — 1ПМ 1 тренировку назад&#xa;lag_1rm_2 — 2 тренировки назад&#xa;lag_1rm_3 — 3 тренировки назад&#xa;lag_1rm_5 — 5 тренировок назад" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="50" y="230" width="280" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="g2" value="&lt;b&gt;Динамика и скользящие (3 признака)&lt;/b&gt;&#xa;diff_1 — прирост 1ПМ от предыдущей тренировки&#xa;mean_1rm_5 — средний 1ПМ за 5 тренировок&#xa;mean_rpe_5 — средний RPE за 5 тренировок" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="50" y="340" width="280" height="80" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="g3" value="&lt;b&gt;Наклон тренда (2 признака)&lt;/b&gt;&#xa;slope_3 — МНК-наклон по последним 3 точкам&#xa;slope_5 — МНК-наклон по последним 5 точкам" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="50" y="440" width="280" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="g4" value="&lt;b&gt;Пик и просадка (2 признака)&lt;/b&gt;&#xa;max_1rm_hist — исторический пик 1ПМ&#xa;drop_from_peak — отставание текущего 1ПМ от пика" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="50" y="530" width="280" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="g5" value="&lt;b&gt;Хронология (3 признака)&lt;/b&gt;&#xa;n_history — кол-во тренировок в истории&#xa;days_since_first — дней с первой тренировки&#xa;days_since_last — дней с последней тренировки" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="50" y="620" width="280" height="80" as="geometry"/>
+    </mxCell>
+
+    <!-- ПРАВАЯ КОЛОНКА -->
+
+    <mxCell id="g6" value="&lt;b&gt;Текущая тренировка (7 признаков)&lt;/b&gt;&#xa;top_1rm — лучший 1ПМ по Эпли в сессии&#xa;top_weight — максимальный рабочий вес&#xa;n_sets — количество рабочих подходов&#xa;avg_rpe — средний RPE&#xa;min_rpe — минимальный RPE&#xa;max_rpe — максимальный RPE&#xa;avg_reps — среднее число повторений" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="580" y="230" width="300" height="130" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="g7" value="&lt;b&gt;Анкета атлета (5 признаков)&lt;/b&gt;&#xa;sex_male — пол (1 = муж, 0 = жен)&#xa;bodyweight — вес тела, кг&#xa;age — возраст, лет&#xa;training_age_months — стаж тренировок, мес.&#xa;target_rpe — целевой RPE пользователя" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="580" y="380" width="300" height="100" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="g8" value="&lt;b&gt;Упражнение (4 признака)&lt;/b&gt;&#xa;exercise_id — идентификатор упражнения&#xa;is_compound — базовое (1) / изоляция (0)&#xa;equipment — тип оборудования (код)&#xa;primary_muscle_code — код мышечной группы" style="rounded=1;whiteSpace=wrap;align=left;spacingLeft=8;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="580" y="500" width="300" height="90" as="geometry"/>
+    </mxCell>
+
+    <!-- ПРОМЕЖУТОЧНЫЙ СБОРОЧНЫЙ УЗЕЛ -->
+    <mxCell id="mid" value="" style="ellipse;whiteSpace=wrap;fillColor=#000000;strokeColor=#000000;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="450" y="700" width="16" height="16" as="geometry"/>
+    </mxCell>
+
+    <!-- ВЫХОД: вектор -->
+    <mxCell id="out1" value="float[30] — вектор признаков&#xa;порядок строго по meta.json (feature_columns)" style="rounded=1;whiteSpace=wrap;fillColor=#f0a30a;strokeColor=#BD7000;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="280" y="760" width="360" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- ВЫХОД: ONNX -->
+    <mxCell id="out2" value="ONNX-модель LightGBM (на устройстве)&#xa;→ Прогноз 1ПМ через 28 дней, кг" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="280" y="870" width="360" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- РЁБРА: входы → группы -->
+    <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="i1" target="g1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="i1" target="g2" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="i1" target="g3" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="i1" target="g4" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="i1" target="g5" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="i2" target="g6" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="i3" target="g7" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="i3" target="g8" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- РЁБРА: группы → вектор -->
+    <mxCell id="e9"  style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g1"  target="out1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g2"  target="out1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g3"  target="out1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g4"  target="out1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g5"  target="out1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g6"  target="out1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g7"  target="out1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g8"  target="out1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- Вектор → ONNX -->
+    <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="out1" target="out2" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+  </root>
+</mxGraphModel>
