@@ -55,3 +55,9 @@
 27. Wiggins A. The Twelve-Factor App [Электронный ресурс]. — URL: https://12factor.net (дата обращения: 25.03.2026).
 
 28. Lamport L. Time, clocks, and the ordering of events in a distributed system // Communications of the ACM. — 1978. — Vol. 21, No. 7. — P. 558–565.
+
+29. Fitbod — Workout & Fitness Tracker [Электронный ресурс]. — URL: https://www.fitbod.me (дата обращения: 10.03.2026).
+
+30. RP Hypertrophy App — Renaissance Periodization [Электронный ресурс]. — URL: https://rpstrength.com (дата обращения: 10.03.2026).
+
+31. Boostcamp — Workout Programs and Tracker [Электронный ресурс]. — URL: https://www.boostcamp.app (дата обращения: 10.03.2026).
